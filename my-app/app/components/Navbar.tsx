@@ -4,6 +4,7 @@ import Link from "next/link"
 import { useState } from 'react'
 
 export default function Navbar(){
+
     const [display, setDisplay] = useState(false);
     return (
         <nav className='w-full bg-[#674F04] text-white py-4 max-h-fit text-slate-700 shadow'>

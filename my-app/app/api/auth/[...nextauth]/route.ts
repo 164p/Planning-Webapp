@@ -15,11 +15,14 @@ const handler = NextAuth({
                     body: JSON.stringify(credentials),
                     headers: { "Content-Type": "application/json" }
                 })
+
                 const user = await res.json()
+
                 if (res.ok && user) {
-                    return user
+                    return user.data
                 }
-                return null
+
+                throw new Error(user.message)
             }
         })
     ],

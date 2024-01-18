@@ -2,7 +2,6 @@ import type { Metadata } from 'next'
 import localFont from 'next/font/local'
 import AuthProvider from './context/AuthProvider'
 import './assets/css/globals.css'
-import Navbar from './components/Navbar'
 
 const myFont = localFont({
   src: './lib/font/Mitr/Mitr-Light.ttf',
