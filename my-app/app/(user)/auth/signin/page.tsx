@@ -72,7 +72,7 @@ export default function page(){
     }
 
     return (
-        <div className="py-12">
+        <div className="pb-12 pt-36">
             <div className="container">
                 <div className="card rounded-md max-w-md p-3 mx-auto">
                     <form onSubmit={onSubmit}>
