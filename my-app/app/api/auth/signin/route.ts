@@ -21,13 +21,20 @@ export async function POST(request: Request) {
             })
         }
 
-        const checkData = await prisma.account.findUnique({
+        const checkData = await prisma.account.findMany({
             where: {
-                username: res.username
+                OR: [
+                    {
+                        username: res.username
+                    },
+                    {
+                        email: res.username
+                    }
+                ]
             }
         })
 
-        if(!checkData){
+        if(checkData.length < 1){
             return new Response( JSON.stringify({
                 statusCode: 400,
                 message: 'ชื่อผู้ใช้หรือรหัสผ่านผิด'
@@ -36,7 +43,7 @@ export async function POST(request: Request) {
             })
         }
 
-        const CheckPassword = await bcrypt.compare(res.password, checkData.password);
+        const CheckPassword = await bcrypt.compare(res.password, checkData[0].password);
 
         if(CheckPassword){
 
