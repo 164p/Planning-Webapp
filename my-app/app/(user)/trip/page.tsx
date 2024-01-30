@@ -20,7 +20,7 @@ export default function Home() {
                 <p className="text-lg me-2 px-3 py-2 rounded-full bg-[#C3BAAA] text-black">tag</p>
             </div>
             <p className='flex text-[#674F04] text-2xl font-medium justify-center items-center pb-3'>Select your interest</p>
-            <div className='flex m-0 justify-between'>
+            <div className='section'>
                 <TypeSelector/>
             </div>
             <div className='flex justify-center items-center'>
