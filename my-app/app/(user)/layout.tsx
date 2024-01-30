@@ -8,10 +8,10 @@ export default async function UserLayout({
 }) {
     return (
         <div className='flex flex-col min-h-screen'>
-            <div className='flex-none'>
+            <div className='flex-none z-50'>
                 <Navbar />
             </div>
-            <div className='main grow bg-first-color text-[#674F04]'>
+            <div className='main grow bg-first-color text-[#674F04] z-20'>
                 {children}
             </div>
             <div className='flex-none'>
