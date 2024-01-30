@@ -9,3 +9,32 @@ datasource db {
   provider = "mongodb"
   url      = env("DATABASE_URL")
 }
+
+model account {
+  id       String @id @default(auto()) @map("_id") @db.ObjectId
+  username String @unique
+  email    String @unique
+  password String
+  role     roles  @default(user)
+}
+
+enum roles {
+  user
+  admin
+  superadmin
+}
+
+model planning {
+  id     String @id @default(auto()) @map("_id") @db.ObjectId
+  name   String
+  budget Int
+  images String
+}
+
+model location {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+}
+
+model subLocation {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+}
