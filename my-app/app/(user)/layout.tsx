@@ -11,7 +11,7 @@ export default async function UserLayout({
             <div className='flex-none'>
                 <Navbar />
             </div>
-            <div className='main grow bg-first-color'>
+            <div className='main grow bg-first-color text-[#674F04]'>
                 {children}
             </div>
             <div className='flex-none'>
