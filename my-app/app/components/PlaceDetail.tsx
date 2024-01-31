@@ -36,7 +36,7 @@ export default function PlaceDetail() {
         
         <div className="share-section m-10">
             <p className="mb-2">Comment by user</p>
-            <div className="share-container m-auto w-[65vw] h-10 flex items-center justify-center bg-[#E3B31F] rounded-3xl">
+            <div className="share-container m-auto w-[32vw] h-10 flex items-center justify-center bg-[#E3B31F] rounded-3xl">
                 <p className="text">share your stories</p>
             </div>
 

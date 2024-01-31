@@ -12,7 +12,7 @@ export default function TripDetail() {
           style={{ width: '80%', height: '100%' }} className='img max-w-sm mx-auto'/>
       </div>
       <Tag/>
-      <div className='user-description max-w-7xl mx-8	flex'>
+      <div className='user-description max-w-7xl mx-auto flex'>
         <div className="profile mr-3 w-12 h-12 aspect-square rounded-full bg-blue-400 "></div>
         <div className='rec bg-[#D5B179] rounded-[18px]'>
           <div className='trip-info-box '>
@@ -28,7 +28,7 @@ export default function TripDetail() {
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Eaque pariatur saepe adipisci minima, ad, ea sed nesciunt reiciendis voluptatem vel labore error quis suscipit quas animi eum eligendi laborum quasi.
       </p>
       <div className='trip-token mx-auto'>
-        <p className='trip-tokens m-auto w-[32vw] h-10 flex items-center justify-center bg-[#E3B31F] rounded-3xl'>Get Trip Token</p>
+        <p className='trip-tokens m-auto w-[32vw] h-10 flex items-center justify-center bg-[#E3B31F] hover:bg-amber-300 rounded-3xl'>Get Trip Token</p>
         <p className='used-count my-1.5 text-xs text-center text-gray-400'>1200 user used this plan</p>
     </div>
     </main>

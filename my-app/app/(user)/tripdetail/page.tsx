@@ -9,7 +9,7 @@ import TripTime from '@/app/components/TripTime'
 
 export default function Tripdetail() {
   return (
-    <main className="pb-12 pt-16">
+    <main className="container pb-12 pt-16">
         
 
       <TripDetail/>
