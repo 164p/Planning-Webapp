@@ -1,4 +1,3 @@
-import { NextApiRequest, NextApiResponse } from 'next';
 import prisma from "@/app/lib/prisma"
 
 type RequestData = {
