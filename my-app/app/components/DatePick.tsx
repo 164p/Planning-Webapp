@@ -18,9 +18,32 @@ const DateRangePicker: React.FC<DateRangePickerProps> = ({ onSubmit }) => {
     setEndDate(date);
   };
 
-  const handleAddDateRecord = () => {
+  const handleAddDateRecord = async () => {
     if (startDate && endDate) {
-      onSubmit(startDate, endDate);
+      try {
+        const response = await fetch('/api/plan/adddate', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ startDate, endDate }),
+        });
+
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+
+        const responseData = await response.json();
+        console.log(responseData)
+        if (responseData.message == 'success') {
+          alert('Date record added to MongoDB!');
+        } else {
+          alert(`Failed to add date record: ${responseData.message}`);
+        }
+      } catch (error) {
+        console.error('Error adding date record:', error);
+        alert(error);
+      }
     } else {
       alert('Please select both start and end dates.');
     }

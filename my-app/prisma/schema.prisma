@@ -38,7 +38,7 @@ model planning {
 model planAll {
   id     String @id @default(auto()) @map("_id") @db.ObjectId
   name   String
-  budget Int
+  tripBudget Int
   images String
   startDate DateTime
   endDate DateTime

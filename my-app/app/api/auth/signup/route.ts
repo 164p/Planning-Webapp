@@ -62,7 +62,7 @@ export async function POST(request: Request){
             })
         }
 
-        const countUser = await prisma.account.count({
+        const countUser = await prisma.user.count({
             where: {
                 OR: [
                     {
@@ -86,7 +86,7 @@ export async function POST(request: Request){
             let saltRounds = 10
             const hashPassword = bcrypt.hashSync(res.password_1, saltRounds)
 
-            const createUser = await prisma.account.create({
+            const createUser = await prisma.user.create({
                 data: {
                     username: res.username,
                     password: hashPassword,

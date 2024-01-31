@@ -1,31 +1,50 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import prisma from "@/app/lib/prisma"
 
+type RequestData = {
+  startDate: Date,
+  endDate: Date,
+}
+
 export const addDateRecord = async (startDate: Date, endDate: Date) => {
-  return prisma.dateRecord.create({
+  return prisma.planAll.create({
     data: {
-      startDate,
-      endDate,
-    },
+      name: 'test',  
+      budget: 10000,
+      images: 'img',
+      startDate: startDate,
+      endDate: endDate,
+      ownerId: '65ba5b34500758d49aa3bb9a',
+        },
   });
 };
 
 export const getAllDateRecords = async () => {
-  return prisma.dateRecord.findMany();
+  return prisma.planAll.findMany();
 };
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-  if (req.method === 'POST') {
-    const { startDate, endDate } = req.body;
+export async function POST(request: Request) {
 
     try {
-      await addDateRecord(new Date(startDate), new Date(endDate));
-      res.status(200).json({ success: true, message: 'Date record added to MongoDB!' });
+      const res: RequestData = await request.json()
+      // console.log(res)
+      await addDateRecord(res.startDate, res.endDate);
+      return new Response( JSON.stringify({
+        statusCode: 200,
+        message: "success"
+    }) , 
+    {
+        status: 200
+    })
     } catch (error) {
       console.error('Error adding date record:', error);
-      res.status(500).json({ success: false, message: 'Failed to add date record to MongoDB' });
+      return new Response( JSON.stringify({
+        statusCode: 200,
+        message: "failed"
+    }) , 
+    {
+        status: 200
+    })
     }
-  } else {
-    res.status(405).json({ success: false, message: 'Method Not Allowed' });
   }
-}
+
