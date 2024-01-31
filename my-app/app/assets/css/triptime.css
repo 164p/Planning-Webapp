@@ -1,0 +1,20 @@
+.time{
+    width: 90%;
+    height: 1.8rem;
+    margin: auto;
+    padding: 0rem 0.75rem;
+    background-color: #856535;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+}
+
+.date{
+    display: flex;
+
+}
+
+.date2{
+    display: flex;
+    align-items: end;
+}
