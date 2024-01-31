@@ -50,6 +50,7 @@ const DateRangePicker: React.FC<DateRangePickerProps> = ({ onSubmit }) => {
   };
 
   return (
+    <div>
     <div className="flex flex-row space-x-4">
       <DatePicker
         selected={startDate}
@@ -70,13 +71,15 @@ const DateRangePicker: React.FC<DateRangePickerProps> = ({ onSubmit }) => {
         placeholderText="End Date"
         className="p-2 border rounded"
       />
-      <button
-        className="p-2 bg-blue-500 text-white rounded"
-        onClick={handleAddDateRecord}
-      >
-        Add Date Record
-      </button>
+    </div >
+      <div className='flex'>
+        <button onClick={handleAddDateRecord} className="mx-auto overflow-hidden max-w-15 font-bold text-lg bg-[#674F04] hover:bg-[#896A08] duration-100 px-8 py-3 rounded-md text-[#E3B31F] mt-5">
+          Start planning
+        </button>
+      </div> 
     </div>
+
+
   );
 };
 

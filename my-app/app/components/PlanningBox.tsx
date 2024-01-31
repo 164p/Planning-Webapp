@@ -3,9 +3,7 @@ import React, { useState } from 'react';
 
 export default function PlanningBox() {
   const projects = [
-    { name: "บางแสนบางใจ", budget: 100000, color: "bg-red-600" },
-    { name: "ภูเก็ตมั้ย", budget: 300000, color: "bg-green-600" },
-    { name: "ภูเก็ตมั้ย", budget: 300000, color: "bg-green-600" }
+    { name: "บางแสนบางใจ", budget: 100000, color: "bg-red-600" }
   ];
 
   const [showIcons, setShowIcons] = useState(false);
@@ -16,7 +14,7 @@ export default function PlanningBox() {
 
   return (
     <div className="pt-20 w-full">
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 gap-6 mx-auto max-w-screen-lg">
+      <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-1 gap-6 mx-auto max-w-screen-lg">
         {projects.map((project, index) => (
           <div
             key={index}
