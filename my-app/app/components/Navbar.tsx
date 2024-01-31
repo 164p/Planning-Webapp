@@ -38,7 +38,7 @@ export default function Navbar() {
                         <Link href='/' className='nl-10 text-xl mx-10 group-hover:text-[#4E3C05]'>Journey</Link>
                     </li>
                     <li className='flex hover:bg-[#F5F0E8] p-2 rounded-full group cursor-pointer hover:shadow-lg m-auto'>
-                        <Link href='/trip' className='nl-10 text-xl mx-10 group-hover:text-[#4E3C05]'>Explore</Link>
+                        <Link href='/explore/location' className='nl-10 text-xl mx-10 group-hover:text-[#4E3C05]'>Explore</Link>
                     </li>
                     </ul>
                     <FaUserCircle className='text-4xl ml-10' />
@@ -66,7 +66,7 @@ export default function Navbar() {
                         <Link href='/' className='nl-10 text-xl group-hover:text-[#4E3C05]'>Journey</Link>
                     </li>
                     <li className='my-3 mx-6 justify-start items-center gap-4 hover:bg-[#F5F0E8] p-2 rounded-md group cursor-pointer hover:shadow-lg m-auto'>
-                        <Link href='/pages/trip' className='nl-10 text-xl group-hover:text-[#4E3C05]'>Explore</Link>
+                        <Link href='/explore/trip' className='nl-10 text-xl group-hover:text-[#4E3C05]'>Explore</Link>
                     </li>
                 </ul>
 
