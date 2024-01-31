@@ -33,7 +33,6 @@ export default function Home() {
                     <TripCard />
                     <TripCard />
                     <TripCard />
-                    <TripCard />
                 </div>
             </div>
         </div>

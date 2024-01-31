@@ -33,7 +33,6 @@ export default function Home() {
                     <LocationCard />
                     <LocationCard />
                     <LocationCard />
-                    <LocationCard />
                 </div>
             </div>
         </div>

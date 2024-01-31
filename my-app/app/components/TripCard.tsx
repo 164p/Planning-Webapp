@@ -3,6 +3,7 @@ import { FaStar, FaStarHalf } from "react-icons/fa"
 import { PiDotsThreeCircleFill } from "react-icons/pi";
 import { FaUserCircle } from "react-icons/fa";
 
+
 export default function TripCard() {
     return(
         <main className="overflow-hidden rounded-lg shadow-lg text-[#674F04] bg-[#F5F5F5]">
