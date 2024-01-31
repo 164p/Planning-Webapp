@@ -10,7 +10,7 @@ export default function page(){
                     style={{ width: '100%', height: 'auto' }} className='mx-auto'/>
             </div>
             <div className="container">
-                <div className="section">
+                <div className="section mb-10">
                     <div className="section-header">
                         <h2 className="text-2xl	font-semibold">GO TO</h2>
                     </div>
@@ -49,13 +49,253 @@ export default function page(){
                             </div>
                         </div>
                     </div>
-                    <div className="section-body mb-5">
-
-                    </div>
                 </div>
-                <div className="section">
-                    <div className="card bg-[#EFE5D5] border border-[#674F04] rounded-md">
-                        <p className="text-center">Ready for new journey?</p>
+                <div className="section mb-10">
+                    <div className="card bg-[#EFE5D5] border-2 border-[#674F04] rounded-md p-5 relative">
+                        <div className="card-text px-10 py-2 absolute left-5 -top-6 text-[#E3B31F] bg-[#674F04] rounded-full shadow">
+                            <p className="text-xl font-bold">PLANNING</p>
+                        </div>
+                        <div className="card-header mb-5">
+                            <Link href={"/"} className="flex justify-end items-center">
+                                SEE ALL <span><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><path fill="currentColor" d="M13.3 17.275q-.3-.3-.288-.725t.313-.725L16.15 13H5q-.425 0-.713-.288T4 12q0-.425.288-.713T5 11h11.15L13.3 8.15q-.3-.3-.3-.713t.3-.712q.3-.3.713-.3t.712.3L19.3 11.3q.15.15.213.325t.062.375q0 .2-.063.375t-.212.325l-4.6 4.6q-.275.275-.687.275t-.713-.3Z"></path></svg></span>
+                            </Link>
+                            <p className="font-semibold text-center mb-2">Ready for new journey?</p>
+                            <button className="bg-[#D5B179] w-full text-white py-1 rounded-md">
+                                ADD PLAN
+                            </button>
+                        </div>
+                        <div className="card-body">
+                            <p className="text-lg font-bold mb-3">YOUR PLAN</p>
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                                <div className="card bg-white rounded-md px-8 py-4 flex items-center">
+                                    <div className="card-section">
+                                        <Image src="/ImageTemplate.png" alt="logo" width={0} height={0} sizes="120vw" priority={true}
+                                            style={{ width: '100%', height: 'auto' }} className='max-w-16 mx-auto rounded-full'/>
+                                    </div>
+                                    <div className="card-section ml-4">
+                                        <p className="font-bold text-lg">บางแสน</p>
+                                        <p className="text-sm text-[#674F04]">10/9/23 - 13/9/23</p>
+                                        <p className="font-bold text-[#674F04]">Cost <span className="text-[#674F04]">80,000฿</span></p>
+                                    </div>
+                                </div>
+                                <div className="card bg-white rounded-md px-8 py-4 flex items-center">
+                                    <div className="card-section">
+                                        <Image src="/ImageTemplate.png" alt="logo" width={0} height={0} sizes="120vw" priority={true}
+                                            style={{ width: '100%', height: 'auto' }} className='max-w-16 mx-auto rounded-full'/>
+                                    </div>
+                                    <div className="card-section ml-4">
+                                        <p className="font-bold text-lg">บางแสน</p>
+                                        <p className="text-sm text-[#674F04]">10/9/23 - 13/9/23</p>
+                                        <p className="font-bold text-[#674F04]">Cost <span className="text-[#674F04]">80,000฿</span></p>
+                                    </div>
+                                </div>
+                                <div className="card bg-white rounded-md px-8 py-4 flex items-center">
+                                    <div className="card-section">
+                                        <Image src="/ImageTemplate.png" alt="logo" width={0} height={0} sizes="120vw" priority={true}
+                                            style={{ width: '100%', height: 'auto' }} className='max-w-16 mx-auto rounded-full'/>
+                                    </div>
+                                    <div className="card-section ml-4">
+                                        <p className="font-bold text-lg">บางแสน</p>
+                                        <p className="text-sm text-[#674F04]">10/9/23 - 13/9/23</p>
+                                        <p className="font-bold text-[#674F04]">Cost <span className="text-[#674F04]">80,000฿</span></p>
+                                    </div>
+                                </div>
+                                <div className="card bg-white rounded-md px-8 py-4 flex items-center">
+                                    <div className="card-section">
+                                        <Image src="/ImageTemplate.png" alt="logo" width={0} height={0} sizes="120vw" priority={true}
+                                            style={{ width: '100%', height: 'auto' }} className='max-w-16 mx-auto rounded-full'/>
+                                    </div>
+                                    <div className="card-section ml-4">
+                                        <p className="font-bold text-lg">บางแสน</p>
+                                        <p className="text-sm text-[#674F04]">10/9/23 - 13/9/23</p>
+                                        <p className="font-bold text-[#674F04]">Cost <span className="text-[#674F04]">80,000฿</span></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div> 
+                    </div> 
+                </div>
+                <div className="section mb-10">
+                    <div className="card bg-[#EFE5D5] border-2 border-[#674F04] rounded-md p-5 relative">
+                        <div className="card-text px-10 py-2 absolute left-5 -top-6 text-[#E3B31F] bg-[#674F04] rounded-full shadow">
+                            <p className="text-xl font-bold">JOURNEY</p>
+                        </div>
+                        <div className="card-header mb-5">
+                            <Link href={"/"} className="flex justify-end items-center">
+                                SEE YOUR JOURNEY <span><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><path fill="currentColor" d="M13.3 17.275q-.3-.3-.288-.725t.313-.725L16.15 13H5q-.425 0-.713-.288T4 12q0-.425.288-.713T5 11h11.15L13.3 8.15q-.3-.3-.3-.713t.3-.712q.3-.3.713-.3t.712.3L19.3 11.3q.15.15.213.325t.062.375q0 .2-.063.375t-.212.325l-4.6 4.6q-.275.275-.687.275t-.713-.3Z"></path></svg></span>
+                            </Link>
+                        </div>
+                        <div className="card-body">
+                            
+                        </div> 
+                    </div> 
+                </div>
+                <div className="section mb-10">
+                    <div className="card bg-[#EFE5D5] border-2 border-[#674F04] rounded-md p-5 relative">
+                        <div className="card-text px-10 py-2 absolute left-5 -top-6 text-[#E3B31F] bg-[#674F04] rounded-full shadow">
+                            <p className="text-xl font-bold">EXPLORE</p>
+                        </div>
+                        <div className="card-header mb-5">
+                            <Link href={"/"} className="flex justify-end items-center">
+                                SEE ALL <span><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><path fill="currentColor" d="M13.3 17.275q-.3-.3-.288-.725t.313-.725L16.15 13H5q-.425 0-.713-.288T4 12q0-.425.288-.713T5 11h11.15L13.3 8.15q-.3-.3-.3-.713t.3-.712q.3-.3.713-.3t.712.3L19.3 11.3q.15.15.213.325t.062.375q0 .2-.063.375t-.212.325l-4.6 4.6q-.275.275-.687.275t-.713-.3Z"></path></svg></span>
+                            </Link>
+                        </div>
+                        <div className="card-body">
+                            <div className="card-section mb-5">
+                                <p className="text-center font-bold text-lg mb-3">Recommend Trip</p>
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                                    <div className="card bg-[#835E4F] p-5 rounded-md text-white">
+                                        <div className="card-header grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                                            <div className="card-section">
+                                                <Image src="/images.png" alt="logo" width={0} height={0} sizes="120vw" priority={true}
+                                                style={{ width: '100%', height: 'auto' }} className='rounded-md mb-3'/>
+                                                <div className="grid grid-cols-3 md:grid-cols-2 gap-2">
+                                                    <span className="text-center bg-slate-300 text-slate-700 py-1 text-sm font-semibold rounded-full">
+                                                        ทะเล
+                                                    </span>
+                                                    <span className="text-center bg-slate-300 text-slate-700 py-1 text-sm font-semibold rounded-full">
+                                                        อาหาร
+                                                    </span>
+                                                    <span className="text-center bg-slate-300 text-slate-700 py-1 text-sm font-semibold rounded-full">
+                                                        ผ่อนคลาย
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <div className="card-section">
+                                                <h5 className="text-lg font-semibold text-center mb-2">เที่ยวบางแสน</h5>
+                                                <p>By : Matt</p>
+                                                <p>Cost : 3500</p>
+                                                <p className="flex items-center">Rating : 
+                                                    <span className="flex ml-1">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><path fill="currentColor" d="m12 17.27l4.15 2.51c.76.46 1.69-.22 1.49-1.08l-1.1-4.72l3.67-3.18c.67-.58.31-1.68-.57-1.75l-4.83-.41l-1.89-4.46c-.34-.81-1.5-.81-1.84 0L9.19 8.63l-4.83.41c-.88.07-1.24 1.17-.57 1.75l3.67 3.18l-1.1 4.72c-.2.86.73 1.54 1.49 1.08z"></path></svg>
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><path fill="currentColor" d="m12 17.27l4.15 2.51c.76.46 1.69-.22 1.49-1.08l-1.1-4.72l3.67-3.18c.67-.58.31-1.68-.57-1.75l-4.83-.41l-1.89-4.46c-.34-.81-1.5-.81-1.84 0L9.19 8.63l-4.83.41c-.88.07-1.24 1.17-.57 1.75l3.67 3.18l-1.1 4.72c-.2.86.73 1.54 1.49 1.08z"></path></svg>
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><path fill="currentColor" d="m12 17.27l4.15 2.51c.76.46 1.69-.22 1.49-1.08l-1.1-4.72l3.67-3.18c.67-.58.31-1.68-.57-1.75l-4.83-.41l-1.89-4.46c-.34-.81-1.5-.81-1.84 0L9.19 8.63l-4.83.41c-.88.07-1.24 1.17-.57 1.75l3.67 3.18l-1.1 4.72c-.2.86.73 1.54 1.49 1.08z"></path></svg>
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><path fill="currentColor" d="m19.65 9.04l-4.84-.42l-1.89-4.45c-.34-.81-1.5-.81-1.84 0L9.19 8.63l-4.83.41c-.88.07-1.24 1.17-.57 1.75l3.67 3.18l-1.1 4.72c-.2.86.73 1.54 1.49 1.08l4.15-2.5l4.15 2.51c.76.46 1.69-.22 1.49-1.08l-1.1-4.73l3.67-3.18c.67-.58.32-1.68-.56-1.75M12 15.4l-3.76 2.27l1-4.28l-3.32-2.88l4.38-.38L12 6.1l1.71 4.04l4.38.38l-3.32 2.88l1 4.28z"></path></svg>
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><path fill="currentColor" d="m19.65 9.04l-4.84-.42l-1.89-4.45c-.34-.81-1.5-.81-1.84 0L9.19 8.63l-4.83.41c-.88.07-1.24 1.17-.57 1.75l3.67 3.18l-1.1 4.72c-.2.86.73 1.54 1.49 1.08l4.15-2.5l4.15 2.51c.76.46 1.69-.22 1.49-1.08l-1.1-4.73l3.67-3.18c.67-.58.32-1.68-.56-1.75M12 15.4l-3.76 2.27l1-4.28l-3.32-2.88l4.38-.38L12 6.1l1.71 4.04l4.38.38l-3.32 2.88l1 4.28z"></path></svg>
+                                                    </span>
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <div className="card-body">
+                                            <p>สวัสดีครับ วันนี้จะพาทุกคนมาเที่ยวบางแสนด้วยงบสบายกระเป๋า รวมถึงแนะนำร้านอาหารน่าไปและกิจกรรมที่น่าสนใจที่คุณสามารถทำได้ที่บางแสน</p>
+                                        </div>
+                                    </div>
+                                    <div className="card bg-[#835E4F] p-5 rounded-md text-white">
+                                        <div className="card-header grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                                            <div className="card-section">
+                                                <Image src="/images.png" alt="logo" width={0} height={0} sizes="120vw" priority={true}
+                                                style={{ width: '100%', height: 'auto' }} className='rounded-md mb-3'/>
+                                                <div className="grid grid-cols-3 md:grid-cols-2 gap-2">
+                                                    <span className="text-center bg-slate-300 text-slate-700 py-1 text-sm font-semibold rounded-full">
+                                                        ทะเล
+                                                    </span>
+                                                    <span className="text-center bg-slate-300 text-slate-700 py-1 text-sm font-semibold rounded-full">
+                                                        อาหาร
+                                                    </span>
+                                                    <span className="text-center bg-slate-300 text-slate-700 py-1 text-sm font-semibold rounded-full">
+                                                        ผ่อนคลาย
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <div className="card-section">
+                                                <h5 className="text-lg font-semibold text-center mb-2">เที่ยวบางแสน</h5>
+                                                <p>By : Matt</p>
+                                                <p>Cost : 3500</p>
+                                                <p className="flex items-center">Rating : 
+                                                    <span className="flex ml-1">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><path fill="currentColor" d="m12 17.27l4.15 2.51c.76.46 1.69-.22 1.49-1.08l-1.1-4.72l3.67-3.18c.67-.58.31-1.68-.57-1.75l-4.83-.41l-1.89-4.46c-.34-.81-1.5-.81-1.84 0L9.19 8.63l-4.83.41c-.88.07-1.24 1.17-.57 1.75l3.67 3.18l-1.1 4.72c-.2.86.73 1.54 1.49 1.08z"></path></svg>
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><path fill="currentColor" d="m12 17.27l4.15 2.51c.76.46 1.69-.22 1.49-1.08l-1.1-4.72l3.67-3.18c.67-.58.31-1.68-.57-1.75l-4.83-.41l-1.89-4.46c-.34-.81-1.5-.81-1.84 0L9.19 8.63l-4.83.41c-.88.07-1.24 1.17-.57 1.75l3.67 3.18l-1.1 4.72c-.2.86.73 1.54 1.49 1.08z"></path></svg>
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><path fill="currentColor" d="m12 17.27l4.15 2.51c.76.46 1.69-.22 1.49-1.08l-1.1-4.72l3.67-3.18c.67-.58.31-1.68-.57-1.75l-4.83-.41l-1.89-4.46c-.34-.81-1.5-.81-1.84 0L9.19 8.63l-4.83.41c-.88.07-1.24 1.17-.57 1.75l3.67 3.18l-1.1 4.72c-.2.86.73 1.54 1.49 1.08z"></path></svg>
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><path fill="currentColor" d="m19.65 9.04l-4.84-.42l-1.89-4.45c-.34-.81-1.5-.81-1.84 0L9.19 8.63l-4.83.41c-.88.07-1.24 1.17-.57 1.75l3.67 3.18l-1.1 4.72c-.2.86.73 1.54 1.49 1.08l4.15-2.5l4.15 2.51c.76.46 1.69-.22 1.49-1.08l-1.1-4.73l3.67-3.18c.67-.58.32-1.68-.56-1.75M12 15.4l-3.76 2.27l1-4.28l-3.32-2.88l4.38-.38L12 6.1l1.71 4.04l4.38.38l-3.32 2.88l1 4.28z"></path></svg>
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><path fill="currentColor" d="m19.65 9.04l-4.84-.42l-1.89-4.45c-.34-.81-1.5-.81-1.84 0L9.19 8.63l-4.83.41c-.88.07-1.24 1.17-.57 1.75l3.67 3.18l-1.1 4.72c-.2.86.73 1.54 1.49 1.08l4.15-2.5l4.15 2.51c.76.46 1.69-.22 1.49-1.08l-1.1-4.73l3.67-3.18c.67-.58.32-1.68-.56-1.75M12 15.4l-3.76 2.27l1-4.28l-3.32-2.88l4.38-.38L12 6.1l1.71 4.04l4.38.38l-3.32 2.88l1 4.28z"></path></svg>
+                                                    </span>
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <div className="card-body">
+                                            <p>สวัสดีครับ วันนี้จะพาทุกคนมาเที่ยวบางแสนด้วยงบสบายกระเป๋า รวมถึงแนะนำร้านอาหารน่าไปและกิจกรรมที่น่าสนใจที่คุณสามารถทำได้ที่บางแสน</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="card-section">
+                                <p className="text-center font-bold text-lg mb-3">Recommend Location</p>
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                                    <div className="card bg-[#835E4F] p-5 rounded-md text-white">
+                                        <div className="card-header grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                                            <div className="card-section">
+                                                <Image src="/images.png" alt="logo" width={0} height={0} sizes="120vw" priority={true}
+                                                style={{ width: '100%', height: 'auto' }} className='rounded-md mb-3'/>
+                                                <div className="grid grid-cols-3 md:grid-cols-2 gap-2">
+                                                    <span className="text-center bg-slate-300 text-slate-700 py-1 text-sm font-semibold rounded-full">
+                                                        ทะเล
+                                                    </span>
+                                                    <span className="text-center bg-slate-300 text-slate-700 py-1 text-sm font-semibold rounded-full">
+                                                        อาหาร
+                                                    </span>
+                                                    <span className="text-center bg-slate-300 text-slate-700 py-1 text-sm font-semibold rounded-full">
+                                                        ผ่อนคลาย
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <div className="card-section">
+                                                <h5 className="text-lg font-semibold text-center mb-2">เที่ยวบางแสน</h5>
+                                                <p>By : Matt</p>
+                                                <p>Cost : 3500</p>
+                                                <p className="flex items-center">Rating : 
+                                                    <span className="flex ml-1">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><path fill="currentColor" d="m12 17.27l4.15 2.51c.76.46 1.69-.22 1.49-1.08l-1.1-4.72l3.67-3.18c.67-.58.31-1.68-.57-1.75l-4.83-.41l-1.89-4.46c-.34-.81-1.5-.81-1.84 0L9.19 8.63l-4.83.41c-.88.07-1.24 1.17-.57 1.75l3.67 3.18l-1.1 4.72c-.2.86.73 1.54 1.49 1.08z"></path></svg>
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><path fill="currentColor" d="m12 17.27l4.15 2.51c.76.46 1.69-.22 1.49-1.08l-1.1-4.72l3.67-3.18c.67-.58.31-1.68-.57-1.75l-4.83-.41l-1.89-4.46c-.34-.81-1.5-.81-1.84 0L9.19 8.63l-4.83.41c-.88.07-1.24 1.17-.57 1.75l3.67 3.18l-1.1 4.72c-.2.86.73 1.54 1.49 1.08z"></path></svg>
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><path fill="currentColor" d="m12 17.27l4.15 2.51c.76.46 1.69-.22 1.49-1.08l-1.1-4.72l3.67-3.18c.67-.58.31-1.68-.57-1.75l-4.83-.41l-1.89-4.46c-.34-.81-1.5-.81-1.84 0L9.19 8.63l-4.83.41c-.88.07-1.24 1.17-.57 1.75l3.67 3.18l-1.1 4.72c-.2.86.73 1.54 1.49 1.08z"></path></svg>
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><path fill="currentColor" d="m19.65 9.04l-4.84-.42l-1.89-4.45c-.34-.81-1.5-.81-1.84 0L9.19 8.63l-4.83.41c-.88.07-1.24 1.17-.57 1.75l3.67 3.18l-1.1 4.72c-.2.86.73 1.54 1.49 1.08l4.15-2.5l4.15 2.51c.76.46 1.69-.22 1.49-1.08l-1.1-4.73l3.67-3.18c.67-.58.32-1.68-.56-1.75M12 15.4l-3.76 2.27l1-4.28l-3.32-2.88l4.38-.38L12 6.1l1.71 4.04l4.38.38l-3.32 2.88l1 4.28z"></path></svg>
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><path fill="currentColor" d="m19.65 9.04l-4.84-.42l-1.89-4.45c-.34-.81-1.5-.81-1.84 0L9.19 8.63l-4.83.41c-.88.07-1.24 1.17-.57 1.75l3.67 3.18l-1.1 4.72c-.2.86.73 1.54 1.49 1.08l4.15-2.5l4.15 2.51c.76.46 1.69-.22 1.49-1.08l-1.1-4.73l3.67-3.18c.67-.58.32-1.68-.56-1.75M12 15.4l-3.76 2.27l1-4.28l-3.32-2.88l4.38-.38L12 6.1l1.71 4.04l4.38.38l-3.32 2.88l1 4.28z"></path></svg>
+                                                    </span>
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <div className="card-body">
+                                            <p>สวัสดีครับ วันนี้จะพาทุกคนมาเที่ยวบางแสนด้วยงบสบายกระเป๋า รวมถึงแนะนำร้านอาหารน่าไปและกิจกรรมที่น่าสนใจที่คุณสามารถทำได้ที่บางแสน</p>
+                                        </div>
+                                    </div>
+                                    <div className="card bg-[#835E4F] p-5 rounded-md text-white">
+                                        <div className="card-header grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                                            <div className="card-section">
+                                                <Image src="/images.png" alt="logo" width={0} height={0} sizes="120vw" priority={true}
+                                                style={{ width: '100%', height: 'auto' }} className='rounded-md mb-3'/>
+                                                <div className="grid grid-cols-3 md:grid-cols-2 gap-2">
+                                                    <span className="text-center bg-slate-300 text-slate-700 py-1 text-sm font-semibold rounded-full">
+                                                        ทะเล
+                                                    </span>
+                                                    <span className="text-center bg-slate-300 text-slate-700 py-1 text-sm font-semibold rounded-full">
+                                                        อาหาร
+                                                    </span>
+                                                    <span className="text-center bg-slate-300 text-slate-700 py-1 text-sm font-semibold rounded-full">
+                                                        ผ่อนคลาย
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <div className="card-section">
+                                                <h5 className="text-lg font-semibold text-center mb-2">เที่ยวบางแสน</h5>
+                                                <p>By : Matt</p>
+                                                <p>Cost : 3500</p>
+                                                <p className="flex items-center">Rating : 
+                                                    <span className="flex ml-1">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><path fill="currentColor" d="m12 17.27l4.15 2.51c.76.46 1.69-.22 1.49-1.08l-1.1-4.72l3.67-3.18c.67-.58.31-1.68-.57-1.75l-4.83-.41l-1.89-4.46c-.34-.81-1.5-.81-1.84 0L9.19 8.63l-4.83.41c-.88.07-1.24 1.17-.57 1.75l3.67 3.18l-1.1 4.72c-.2.86.73 1.54 1.49 1.08z"></path></svg>
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><path fill="currentColor" d="m12 17.27l4.15 2.51c.76.46 1.69-.22 1.49-1.08l-1.1-4.72l3.67-3.18c.67-.58.31-1.68-.57-1.75l-4.83-.41l-1.89-4.46c-.34-.81-1.5-.81-1.84 0L9.19 8.63l-4.83.41c-.88.07-1.24 1.17-.57 1.75l3.67 3.18l-1.1 4.72c-.2.86.73 1.54 1.49 1.08z"></path></svg>
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><path fill="currentColor" d="m12 17.27l4.15 2.51c.76.46 1.69-.22 1.49-1.08l-1.1-4.72l3.67-3.18c.67-.58.31-1.68-.57-1.75l-4.83-.41l-1.89-4.46c-.34-.81-1.5-.81-1.84 0L9.19 8.63l-4.83.41c-.88.07-1.24 1.17-.57 1.75l3.67 3.18l-1.1 4.72c-.2.86.73 1.54 1.49 1.08z"></path></svg>
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><path fill="currentColor" d="m19.65 9.04l-4.84-.42l-1.89-4.45c-.34-.81-1.5-.81-1.84 0L9.19 8.63l-4.83.41c-.88.07-1.24 1.17-.57 1.75l3.67 3.18l-1.1 4.72c-.2.86.73 1.54 1.49 1.08l4.15-2.5l4.15 2.51c.76.46 1.69-.22 1.49-1.08l-1.1-4.73l3.67-3.18c.67-.58.32-1.68-.56-1.75M12 15.4l-3.76 2.27l1-4.28l-3.32-2.88l4.38-.38L12 6.1l1.71 4.04l4.38.38l-3.32 2.88l1 4.28z"></path></svg>
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><path fill="currentColor" d="m19.65 9.04l-4.84-.42l-1.89-4.45c-.34-.81-1.5-.81-1.84 0L9.19 8.63l-4.83.41c-.88.07-1.24 1.17-.57 1.75l3.67 3.18l-1.1 4.72c-.2.86.73 1.54 1.49 1.08l4.15-2.5l4.15 2.51c.76.46 1.69-.22 1.49-1.08l-1.1-4.73l3.67-3.18c.67-.58.32-1.68-.56-1.75M12 15.4l-3.76 2.27l1-4.28l-3.32-2.88l4.38-.38L12 6.1l1.71 4.04l4.38.38l-3.32 2.88l1 4.28z"></path></svg>
+                                                    </span>
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <div className="card-body">
+                                            <p>สวัสดีครับ วันนี้จะพาทุกคนมาเที่ยวบางแสนด้วยงบสบายกระเป๋า รวมถึงแนะนำร้านอาหารน่าไปและกิจกรรมที่น่าสนใจที่คุณสามารถทำได้ที่บางแสน</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div> 
                     </div> 
                 </div>
             </div>

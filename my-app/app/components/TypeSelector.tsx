@@ -16,18 +16,21 @@ export default function TypeSelector() {
     const nonActiveStyle = 'text-[#674F04] font-medium';
 
     return(
-        <div className='w-full max-w-sm rounded m-auto flex flex-col'>
-            <div className="shadow rounded-full h-12 mt-4 flex p-1 items-center grid grid-cols-2 gap-4 bg-white">
-                <div className='w-full flex justify-center'>
-                    <button>
-                    <Link href='/pages/trip' className={currentRoute === '/pages/trip' ? activeStyle : nonActiveStyle} onClick={() => setActiveLink('/pages/trip')}>Trip</Link>
-                    </button>
+        <div className='w-full max-w-sm mx-auto'>
+            <div className="grid grid-cols-2 bg-white rounded-full">
+                <div className="col">
+                    <Link href={"/explore/trip"}>
+                        <button className={"w-full px-5 py-2 rounded-full text-[#674F04] "+(currentRoute === '/explore/trip' ? "bg-[#D3BD9A]" : "")}>
+                            Trip
+                        </button>
+                    </Link>
                 </div>
-
-                <div className='w-full flex justify-center'>
-                    <button>
-                    <Link href="/pages/location" className={currentRoute === '/pages/location' ? activeStyle : nonActiveStyle} onClick={() => setActiveLink('/pages/location')}>Location</Link>
-                    </button>
+                <div className="col">
+                    <Link href={"/explore/location"}>
+                        <button className={"w-full px-5 py-2 rounded-full text-[#674F04] "+(currentRoute === '/explore/location' ? "bg-[#D3BD9A]" : "")}>
+                            Location
+                        </button>
+                    </Link>
                 </div>
             </div>
         </div>

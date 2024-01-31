@@ -44,6 +44,7 @@ model planAll {
   endDate DateTime
   owner   user      @relation(fields: [ownerId], references: [id])
   ownerId String    @db.ObjectId
+
   planByDay planning[]
 }
 

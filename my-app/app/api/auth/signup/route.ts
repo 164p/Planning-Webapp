@@ -97,7 +97,6 @@ export async function POST(request: Request){
             if(createUser){
                 return new Response( JSON.stringify({
                     statusCode: 200,
-                    message: ''
                 }) , {
                     status: 200
                 })

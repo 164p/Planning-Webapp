@@ -1,6 +1,8 @@
 import TripCard from '@/app/components/TripCard'
 import TypeSelector from '@/app/components/TypeSelector'
 import { IoSearchCircle } from 'react-icons/io5'
+import Link from 'next/link'
+
 
 export default function Home() {
     return (
@@ -20,7 +22,7 @@ export default function Home() {
                 <p className="text-lg me-2 px-3 py-2 rounded-full bg-[#C3BAAA] text-black">tag</p>
             </div>
             <p className='flex text-[#674F04] text-2xl font-medium justify-center items-center pb-3'>Select your interest</p>
-            <div className='flex m-0 justify-between'>
+            <div className='section'>
                 <TypeSelector/>
             </div>
             <div className='flex justify-center items-center'>
@@ -30,7 +32,7 @@ export default function Home() {
             </div>
             <div className='bg-[#F5F0E8] py-10'>
                 <div className='grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 sm:px-20 md:px-20 lg:px-0 lg:grid-cols-3 gap-6 mx-auto max-w-screen-lg '>
-                    <TripCard />
+                    <Link href="/explore/tripdetail"><TripCard /></Link>
                     <TripCard />
                     <TripCard />
                     <TripCard />
