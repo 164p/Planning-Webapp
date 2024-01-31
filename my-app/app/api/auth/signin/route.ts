@@ -21,7 +21,7 @@ export async function POST(request: Request) {
             })
         }
 
-        const checkData = await prisma.account.findMany({
+        const checkData = await prisma.user.findMany({
             where: {
                 OR: [
                     {
@@ -47,7 +47,7 @@ export async function POST(request: Request) {
 
         if(CheckPassword){
 
-            const userData = await prisma.account.findUnique({
+            const userData = await prisma.user.findUnique({
                 where: {
                     username: res.username
                 },
