@@ -1,6 +1,8 @@
 'use client'
 import React from 'react';
 import DateRangePicker from '../../components/DatePick';
+import PlanningBox from '@/app/components/PlanningBox';
+
 
 const Home: React.FC = () => {
   
@@ -9,8 +11,10 @@ const Home: React.FC = () => {
       <DateRangePicker onSubmit={function (startDate: Date, endDate: Date): void {
         throw new Error('Function not implemented.');
       } } />
+        <PlanningBox/>
     </div>
   );
+  
 };
 
 export default Home;
