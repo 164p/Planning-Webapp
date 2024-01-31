@@ -4,10 +4,11 @@ import DateRangePicker from '../../components/DatePick';
 import PlanningBox from '@/app/components/PlanningBox';
 
 
-const Home: React.FC = () => {
+export default function Page(){
   
   return (
     <div className='bg-[#F5F0E8]'>
+      <div className='container'>
             <h1 className='text-[#674F04] text-6xl pt-60 p-10 text-center font-medium'>Plan List</h1>
             <div className='flex justify-center items-center'>
             <DateRangePicker onSubmit={function (startDate: Date, endDate: Date): void {
@@ -26,11 +27,12 @@ const Home: React.FC = () => {
                     <PlanningBox />
                 </div>
             </div>
+          </div>
         </div>
   );
 };
 
-export default Home;
+
 
 
 
