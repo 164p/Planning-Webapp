@@ -1,6 +1,5 @@
 import LocationCard from '@/app/components/LocationCard'
 import TypeSelector from '@/app/components/TypeSelector'
-import Link from 'next/link'
 import { IoSearchCircle } from 'react-icons/io5'
 
 export default function Home() {
@@ -31,7 +30,6 @@ export default function Home() {
             </div>
             <div className='bg-[#F5F0E8] py-10'>
                 <div className='grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 sm:px-20 md:px-20 lg:px-0 lg:grid-cols-3 gap-6 mx-auto max-w-screen-lg '>
-                    <Link href="/explore/placedetail"><LocationCard /></Link>
                     <LocationCard />
                     <LocationCard />
                     <LocationCard />

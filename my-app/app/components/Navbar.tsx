@@ -13,7 +13,7 @@ export default function Navbar() {
   }
 
     return (
-        <nav className='fixed bg-[#4E3C05] w-full h-20 shadow-xl shadow-[#4E3C05]-500/40'>
+        <nav className='fixed bg-[#4E3C05] w-full h-20 shadow-xl shadow-[#4E3C05]-500/40 text-[#D3BD9A]'>
             <div className='flex justify-between items-center h-full w-full px-10 2xl:px-16'>
                 <div className='flex'>
                     <div className='flex sm:w-auto sm:flex lg:hidden'>
@@ -32,16 +32,15 @@ export default function Navbar() {
                         <Link href='/' className='nl-10 text-xl mx-10 group-hover:text-[#4E3C05]'>Home</Link>
                     </li>
                     <li className='flex hover:bg-[#F5F0E8] p-2 rounded-full group cursor-pointer hover:shadow-lg m-auto'>
-                        <Link href='/' className='nl-10 text-xl mx-10 group-hover:text-[#4E3C05]'>Planning</Link>
+                        <Link href='/plan' className='nl-10 text-xl mx-10 group-hover:text-[#4E3C05]'>Planning</Link>
                     </li>
                     <li className='flex hover:bg-[#F5F0E8] p-2 rounded-full group cursor-pointer hover:shadow-lg m-auto'>
                         <Link href='/' className='nl-10 text-xl mx-10 group-hover:text-[#4E3C05]'>Journey</Link>
                     </li>
                     <li className='flex hover:bg-[#F5F0E8] p-2 rounded-full group cursor-pointer hover:shadow-lg m-auto'>
-                        <Link href='/explore/location' className='nl-10 text-xl mx-10 group-hover:text-[#4E3C05]'>Explore</Link>
                     </li>
                     </ul>
-                    <FaUserCircle className='text-4xl ml-10' />
+                        <Link href='/profile'><FaUserCircle className='text-4xl ml-10' /></Link>
                 </div>
             </div>
             <div className={
@@ -50,17 +49,17 @@ export default function Navbar() {
                     : 'fixed left-[-100%] top-20 p-6 slide-out duration-700'
                 }>
                 <div className='flex justify-around items-center w-full my-5'>
-                <FaUserCircle className='text-7xl' />
-                <Link href='/' className='text-xl pl-0'>Sign up</Link>
+                <Link href='/profile'><FaUserCircle className='text-6xl ml-3'/></Link>
+                    <Link href='/auth/signup' className='text-xl'>Sign up</Link>
                 </div>
-                <div className='my-4 border-b border-[#E3B31F] pb-4'></div>
+                <div className='my-4 border-b-2 border-[#E3B31F] pb-4'></div>
                 <div className='mt-8 mb-5 mx-2'>Menu</div>
                 <ul>
                     <li className='my-3 mx-6 justify-start items-center gap-4 hover:bg-[#F5F0E8] p-2 rounded-md group cursor-pointer hover:shadow-lg m-auto'>
                         <Link href='/' className='nl-10 text-xl group-hover:text-[#4E3C05]'>Home</Link>
                     </li>
                     <li className='my-3 mx-6 justify-start items-center gap-4 hover:bg-[#F5F0E8] p-2 rounded-md group cursor-pointer hover:shadow-lg m-auto'>
-                        <Link href='/' className='nl-10 text-xl group-hover:text-[#4E3C05]'>Planning</Link>
+                        <Link href='/plan' className='nl-10 text-xl group-hover:text-[#4E3C05]'>Planning</Link>
                     </li>
                     <li className='my-3 mx-6 justify-start items-center gap-4 hover:bg-[#F5F0E8] p-2 rounded-md group cursor-pointer hover:shadow-lg m-auto'> 
                         <Link href='/' className='nl-10 text-xl group-hover:text-[#4E3C05]'>Journey</Link>
@@ -82,7 +81,7 @@ export default function Navbar() {
                         <Link href='/' className='nl-10 text-xl group-hover:text-[#4E3C05]'>Help</Link>
                     </li>
                 </ul>
-                <div className='my-4 border-b border-[#E3B31F] pb-4 flex justify-center'></div>
+                <div className='my-4 border-b-2 border-[#E3B31F] pb-4 flex justify-center'></div>
                 <Link href='/'>Log out</Link>
             </div>
         </nav>

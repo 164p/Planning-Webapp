@@ -33,19 +33,6 @@ export default function TypeSelector() {
                     </Link>
                 </div>
             </div>
-            {/* <div className="shadow rounded-full h-12 mt-4 flex p-1 items-center grid grid-cols-2 gap-4 bg-white">
-                <div className='w-full flex justify-center'>
-                    <button>
-                    <Link href='/pages/trip' className={currentRoute === '/pages/trip' ? activeStyle : nonActiveStyle}>Trip</Link>
-                    </button>
-                </div>
-
-                <div className='w-full flex justify-center'>
-                    <button>
-                    <Link href="/pages/location" className={currentRoute === '/pages/location' ? activeStyle : nonActiveStyle}>Location</Link>
-                    </button>
-                </div>
-            </div> */}
         </div>
     );
 }
