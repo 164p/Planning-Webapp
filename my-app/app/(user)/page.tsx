@@ -6,7 +6,7 @@ export default function page(){
     return (
         <div className="pb-12 pt-16">
             <div className="banner mb-5">
-                <Image src="/banner.png" alt="logo" width={0} height={0} sizes="120vw" priority={true}
+                <Image src="/beach1.jpg" alt="logo" width={0} height={0} sizes="120vw" priority={true}
                     style={{ width: '100%', height: 'auto' }} className='mx-auto'/>
             </div>
             <div className="container">
@@ -56,12 +56,12 @@ export default function page(){
                             <p className="text-xl font-bold">PLANNING</p>
                         </div>
                         <div className="card-header mb-5">
-                            <Link href={"/"} className="flex justify-end items-center">
+                            <Link href={"/plan"} className="flex justify-end items-center">
                                 SEE ALL <span><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><path fill="currentColor" d="M13.3 17.275q-.3-.3-.288-.725t.313-.725L16.15 13H5q-.425 0-.713-.288T4 12q0-.425.288-.713T5 11h11.15L13.3 8.15q-.3-.3-.3-.713t.3-.712q.3-.3.713-.3t.712.3L19.3 11.3q.15.15.213.325t.062.375q0 .2-.063.375t-.212.325l-4.6 4.6q-.275.275-.687.275t-.713-.3Z"></path></svg></span>
                             </Link>
                             <p className="font-semibold text-center mb-2">Ready for new journey?</p>
                             <button className="bg-[#D5B179] w-full text-white py-1 rounded-md">
-                                ADD PLAN
+                              <Link href={"/plan"}>ADD PLAN</Link>  
                             </button>
                         </div>
                         <div className="card-body">
@@ -136,7 +136,7 @@ export default function page(){
                             <p className="text-xl font-bold">EXPLORE</p>
                         </div>
                         <div className="card-header mb-5">
-                            <Link href={"/"} className="flex justify-end items-center">
+                            <Link href={"/explore/trip"} className="flex justify-end items-center">
                                 SEE ALL <span><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><path fill="currentColor" d="M13.3 17.275q-.3-.3-.288-.725t.313-.725L16.15 13H5q-.425 0-.713-.288T4 12q0-.425.288-.713T5 11h11.15L13.3 8.15q-.3-.3-.3-.713t.3-.712q.3-.3.713-.3t.712.3L19.3 11.3q.15.15.213.325t.062.375q0 .2-.063.375t-.212.325l-4.6 4.6q-.275.275-.687.275t-.713-.3Z"></path></svg></span>
                             </Link>
                         </div>
@@ -162,6 +162,7 @@ export default function page(){
                                                 </div>
                                             </div>
                                             <div className="card-section">
+                                            <Link href={"/explore/tripdetail"}>
                                                 <h5 className="text-lg font-semibold text-center mb-2">เที่ยวบางแสน</h5>
                                                 <p>By : Matt</p>
                                                 <p>Cost : 3500</p>
@@ -174,6 +175,7 @@ export default function page(){
                                                         <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><path fill="currentColor" d="m19.65 9.04l-4.84-.42l-1.89-4.45c-.34-.81-1.5-.81-1.84 0L9.19 8.63l-4.83.41c-.88.07-1.24 1.17-.57 1.75l3.67 3.18l-1.1 4.72c-.2.86.73 1.54 1.49 1.08l4.15-2.5l4.15 2.51c.76.46 1.69-.22 1.49-1.08l-1.1-4.73l3.67-3.18c.67-.58.32-1.68-.56-1.75M12 15.4l-3.76 2.27l1-4.28l-3.32-2.88l4.38-.38L12 6.1l1.71 4.04l4.38.38l-3.32 2.88l1 4.28z"></path></svg>
                                                     </span>
                                                 </p>
+                                                </Link>
                                             </div>
                                         </div>
                                         <div className="card-body">
@@ -239,6 +241,7 @@ export default function page(){
                                                 </div>
                                             </div>
                                             <div className="card-section">
+                                                <Link href={"/explore/placedetail"}>
                                                 <h5 className="text-lg font-semibold text-center mb-2">เที่ยวบางแสน</h5>
                                                 <p>By : Matt</p>
                                                 <p>Cost : 3500</p>
@@ -251,6 +254,7 @@ export default function page(){
                                                         <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><path fill="currentColor" d="m19.65 9.04l-4.84-.42l-1.89-4.45c-.34-.81-1.5-.81-1.84 0L9.19 8.63l-4.83.41c-.88.07-1.24 1.17-.57 1.75l3.67 3.18l-1.1 4.72c-.2.86.73 1.54 1.49 1.08l4.15-2.5l4.15 2.51c.76.46 1.69-.22 1.49-1.08l-1.1-4.73l3.67-3.18c.67-.58.32-1.68-.56-1.75M12 15.4l-3.76 2.27l1-4.28l-3.32-2.88l4.38-.38L12 6.1l1.71 4.04l4.38.38l-3.32 2.88l1 4.28z"></path></svg>
                                                     </span>
                                                 </p>
+                                                </Link>
                                             </div>
                                         </div>
                                         <div className="card-body">
