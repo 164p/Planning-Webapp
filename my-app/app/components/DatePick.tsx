@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
+import Swal from 'sweetalert2'
 
 interface DateRangePickerProps {
   onSubmit: (startDate: Date, endDate: Date) => void;
@@ -19,7 +20,14 @@ const DateRangePicker: React.FC<DateRangePickerProps> = ({ onSubmit }) => {
   };
 
   const handleAddDateRecord = async () => {
-    if (startDate && endDate) {
+    if(!startDate || !endDate){
+      Swal.fire({
+        title: 'เพิ่มข้อมูลไม่สำเร็จ',
+        text: 'กรุณากรอกข้อมูลให้ครบถ้วน',
+        icon: 'error',
+        confirmButtonText: 'ปิด'
+      })
+    }else{
       try {
         const response = await fetch('/api/plan/adddate', {
           method: 'POST',
@@ -29,23 +37,33 @@ const DateRangePicker: React.FC<DateRangePickerProps> = ({ onSubmit }) => {
           body: JSON.stringify({ startDate, endDate }),
         });
 
-        if (!response.ok) {
-          throw new Error(`HTTP error! Status: ${response.status}`);
-        }
+        if (response.ok) {
+          Swal.fire({
+            icon: 'success',
+            title: 'เพิ่มข้อมูลสำเร็จ', 
+            confirmButtonText: 'ปิด',
+            timer: 1500,
+            timerProgressBar: true
+          })
+        }else{
+          const responseData = await response.json()
 
-        const responseData = await response.json();
-        console.log(responseData)
-        if (responseData.message == 'success') {
-          alert('Date record added to MongoDB!');
-        } else {
-          alert(`Failed to add date record: ${responseData.message}`);
+          Swal.fire({
+              icon: 'error',
+              title: 'เพิ่มข้อมูลไม่สำเร็จ', 
+              text: responseData.message, 
+              confirmButtonText: 'ปิด',
+          });
         }
       } catch (error) {
-        console.error('Error adding date record:', error);
-        alert(error);
+        Swal.fire({
+          title: 'เพิ่มข้อมูลไม่สำเร็จ',
+          text: 'เกิดข้อผิดพลาด โปรดลองใหม่อีกครั้งในภายหลัง',
+          icon: 'error',
+          confirmButtonText: 'ปิด'
+        })
       }
-    } else {
-      alert('Please select both start and end dates.');
+      
     }
   };
 

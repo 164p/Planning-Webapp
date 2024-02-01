@@ -4,7 +4,7 @@ import { IoSettingsOutline } from "react-icons/io5";
 
 export default function Home() {
     return(
-        <main className="mt-60 my-40">
+        <main className="mt-48 mb-40">
             <div className="container">
                 <div className="card relative mx-auto max-w-2xl bg-white rounded-md px-10 md:px-20 py-28">
                     <span className="icon absolute top-8 right-8">
