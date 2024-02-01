@@ -26,7 +26,7 @@ export default function Navbar() {
                     </div>
                     <Link href='/' className='text-[#D3BD9A] font-bold text-3xl mx-5'>PLANTIEW</Link>
                 </div>
-                <div className='flex lg:flex lg:items-center lg:w-auto sm:hidden'>
+                <div className='flex lg:flex lg:items-center lg:w-auto hidden lg:block'>
                     <ul className='flex'>
                     <li className='flex hover:bg-[#F5F0E8] p-2 rounded-full group cursor-pointer hover:shadow-lg m-auto'>
                         <Link href='/' className='nl-10 text-xl mx-10 group-hover:text-[#4E3C05]'>Home</Link>
@@ -69,7 +69,6 @@ export default function Navbar() {
                         <Link href='/explore/trip' className='nl-10 text-xl group-hover:text-[#4E3C05]'>Explore</Link>
                     </li>
                 </ul>
-
                 <div className='mt-8 mb-5 mx-2'>About PLANTIEW</div>
                 <ul>
                     <li className='my-3 mx-6 justify-start items-center gap-4 hover:bg-[#F5F0E8] p-2 rounded-md group cursor-pointer hover:shadow-lg m-auto'>
