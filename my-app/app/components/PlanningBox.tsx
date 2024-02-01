@@ -13,8 +13,8 @@ export default function PlanningBox() {
   };
 
   return (
-    <div className="pt-20 w-full">
-      <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-1 gap-6 mx-auto max-w-screen-lg">
+    <div className="w-full">
+      <div className="flex">
         {projects.map((project, index) => (
           <div
             key={index}
