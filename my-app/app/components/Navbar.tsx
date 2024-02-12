@@ -46,42 +46,41 @@ export default function Navbar() {
             </div>
             <div className={
                 menuOpen
-                    ? 'fixed left-0 top-20 lg:w-[20%] sm:w-[40%] md:w-[30%] h-screen bg-[#4E3C05] p-6 slide-in duration-700'
-                    : 'fixed left-[-100%] top-20 p-6 slide-out duration-700'
+                    ? 'fixed left-0 top-20 w-full max-w-72 h-screen bg-[#4E3C05] p-6 slide-in duration-700'
+                    : 'fixed -left-full top-20 p-6 slide-out duration-700'
                 }>
-                <div className='flex justify-around items-center w-full my-5'>
-                <Link href='/profile'><FaUserCircle className='text-6xl ml-3'/></Link>
-                    <Link href='/auth/signup' className='text-xl'>Sign up</Link>
+                <div className='flex justify-center items-center w-full'>
+                    <Link href='/profile'><FaUserCircle className='text-5xl'/></Link>
+                    <Link href='/auth/signup' className='text-xl ml-3'>Sign up</Link>
                 </div>
                 <div className='my-4 border-b-2 border-[#E3B31F] pb-4'></div>
                 <div className='mt-8 mb-5 mx-2'>Menu</div>
                 <ul>
-                    <li className='my-3 mx-6 justify-start items-center gap-4 hover:bg-[#F5F0E8] p-2 rounded-md group cursor-pointer hover:shadow-lg m-auto'>
+                    <li className='my-3 hover:bg-[#F5F0E8] px-8 py-2 rounded-md group cursor-pointer hover:shadow-lg m-auto'>
                         <Link href='/' className='nl-10 text-xl group-hover:text-[#4E3C05]'>Home</Link>
                     </li>
-                    <li className='my-3 mx-6 justify-start items-center gap-4 hover:bg-[#F5F0E8] p-2 rounded-md group cursor-pointer hover:shadow-lg m-auto'>
+                    <li className='my-3 hover:bg-[#F5F0E8] px-8 py-2 rounded-md group cursor-pointer hover:shadow-lg m-auto'>
                         <Link href='/plan' className='nl-10 text-xl group-hover:text-[#4E3C05]'>Planning</Link>
                     </li>
-                    <li className='my-3 mx-6 justify-start items-center gap-4 hover:bg-[#F5F0E8] p-2 rounded-md group cursor-pointer hover:shadow-lg m-auto'> 
+                    <li className='my-3 hover:bg-[#F5F0E8] px-8 py-2 rounded-md group cursor-pointer hover:shadow-lg m-auto'> 
                         <Link href='/' className='nl-10 text-xl group-hover:text-[#4E3C05]'>Journey</Link>
                     </li>
-                    <li className='my-3 mx-6 justify-start items-center gap-4 hover:bg-[#F5F0E8] p-2 rounded-md group cursor-pointer hover:shadow-lg m-auto'>
+                    <li className='my-3 hover:bg-[#F5F0E8] px-8 py-2 rounded-md group cursor-pointer hover:shadow-lg m-auto'>
                         <Link href='/explore/trip' className='nl-10 text-xl group-hover:text-[#4E3C05]'>Explore</Link>
                     </li>
                 </ul>
                 <div className='mt-8 mb-5 mx-2'>About PLANTIEW</div>
                 <ul>
-                    <li className='my-3 mx-6 justify-start items-center gap-4 hover:bg-[#F5F0E8] p-2 rounded-md group cursor-pointer hover:shadow-lg m-auto'>
+                    <li className='my-3 hover:bg-[#F5F0E8] px-8 py-2 rounded-md group cursor-pointer hover:shadow-lg m-auto'>
                         <Link href='/' className='nl-10 text-xl group-hover:text-[#4E3C05]'>About us</Link>
                     </li>
-                    <li className='my-3 mx-6 justify-start items-center gap-4 hover:bg-[#F5F0E8] p-2 rounded-md group cursor-pointer hover:shadow-lg m-auto'>
+                    <li className='my-3 hover:bg-[#F5F0E8] px-8 py-2 rounded-md group cursor-pointer hover:shadow-lg m-auto'>
                         <Link href='/' className='nl-10 text-xl group-hover:text-[#4E3C05]'>Contact us</Link>
                     </li>
-                    <li className='my-3 mx-6 justify-start items-center gap-4 hover:bg-[#F5F0E8] p-2 rounded-md group cursor-pointer hover:shadow-lg m-auto'>
+                    <li className='my-3 hover:bg-[#F5F0E8] px-8 py-2 rounded-md group cursor-pointer hover:shadow-lg m-auto'>
                         <Link href='/' className='nl-10 text-xl group-hover:text-[#4E3C05]'>Help</Link>
                     </li>
                 </ul>
-                <div className='my-4 border-b-2 border-[#E3B31F] pb-4 flex justify-center'></div>
                 <Link href='/'>Log out</Link>
             </div>
         </nav>
