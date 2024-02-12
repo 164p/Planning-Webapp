@@ -1,4 +1,5 @@
 import React from 'react'
+import Image from 'next/image'
 
 export default function RedPlanCard() {
   return (
@@ -11,8 +12,10 @@ export default function RedPlanCard() {
             <p className='text-xs text-left font-semibold'>Cost : </p>
             <p className='text-xs text-left font-semibold'>Note :</p>
           </div>
-          <div className='basis-1/3 p-2 text-center '>
-            cccccc
+          <div className='basis-1/3 p-2 text-center flex flex-col '>
+            <Image src="/mockupimg.jpg" alt="logo" width={0} height={0} sizes="100vw" priority={true}
+                style={{ width: '80px', height: '80px' }} className='mx-auto rounded-lg'/>
+            <p>cccccc</p>
           </div>
         </div>
     </div>
