@@ -24,10 +24,10 @@ export default function PlanningBox() {
           >
             <div className={`w-20 h-20 rounded-full mr-6 ${project.color}`}></div>
             <div className="flex flex-col">
-              <h5 className="mb-2 text-xl font-medium leading-tight text-neutral-800 dark:text-neutral-50">
+              <h5 className="mb-2 text-xl font-medium leading-tight text-[#E2C596] dark:text-neutral-50">
                 {project.name}
               </h5>
-              <p className="mb-4 text-base text-neutral-600 dark:text-neutral-200">
+              <p className="mb-4 text-base text-[#C3BAAA] dark:text-neutral-200">
                 Budget: {project.budget}
               </p>
             </div>
