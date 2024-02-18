@@ -9,7 +9,6 @@ export default function page(){
                 <Image src="/beach1.jpg" alt="logo" width={0} height={0} sizes="120vw" priority={true}
                     style={{ width: '100%', height: 'auto' }} className='mx-auto'/>
                 <div className="line h-20 w-full absolute bg-gradient-to-t from-first-color bottom-0">
-
                 </div>
             </div>
             <div className="container">
