@@ -3,7 +3,8 @@ import React, { useState } from 'react';
 
 export default function PlanningBox() {
   const projects = [
-    { name: "บางแสนบางใจ", budget: 100000, color: "bg-red-600" }
+    { name: "บางแสนบางใจ", budget: 100000, color: "bg-red-600", test:['a','b','c'] },
+    { name: "โกโก้", budget: 999999, color: "bg-green-600",test:['a','s','f'] }
   ];
 
   const [showIcons, setShowIcons] = useState(false);
@@ -14,7 +15,7 @@ export default function PlanningBox() {
 
   return (
     <div className="w-full">
-      <div className="flex">
+      <div className="grid grid-cols-2 gap-10">
         {projects.map((project, index) => (
           <div
             key={index}
@@ -28,7 +29,7 @@ export default function PlanningBox() {
                 {project.name}
               </h5>
               <p className="mb-4 text-base text-[#C3BAAA] dark:text-neutral-200">
-                Budget: {project.budget}
+                Budget: {project.test[2]}
               </p>
             </div>
             {showIcons && (
@@ -50,3 +51,4 @@ export default function PlanningBox() {
     </div>
   );
 }
+
