@@ -13,7 +13,7 @@ export default function Navbar() {
     }
 
     return (
-        <nav className='fixed bg-[#4E3C05] w-full h-20 shadow-xl shadow-[#4E3C05]-500/40 text-[#D3BD9A]'>
+        <nav className='navbar fixed bg-[#4E3C05] w-full h-20 shadow-xl shadow-[#4E3C05]-500/40 text-[#D3BD9A]'>
             <div className='flex justify-between items-center h-full w-full px-10 2xl:px-16'>
                 <div className='flex'>
                     <div className='flex sm:w-auto sm:flex lg:hidden'>
@@ -44,22 +44,26 @@ export default function Navbar() {
                     <Link href='/profile'><FaUserCircle className='text-4xl ml-10' /></Link>
                 </div>
             </div>
-            <div className={'sidebar fixed duration-700 overflow-auto py-6 px-8 '+
+            <div className={'sidebar fixed duration-700 overflow-auto py-6 px-8 h-screen bg-[#4E3C05] '+
                 (
                     menuOpen ? 
-                    'left-0 top-20 w-full max-w-72 h-screen bg-[#4E3C05] slide-in'
-                    : '-left-full top-20 slide-out'
+                    'left-0 top-20 w-full max-w-72'
+                    : '-left-full top-20'
                 )}>
                 
                 <div className='sidebar-header flex justify-center items-center w-full'>
-                    <Link href='/profile'><FaUserCircle className='text-5xl'/></Link>
-                    <Link href='/auth/signup' className='text-xl ml-3'>Sign up</Link>
+                    <Link href='/profile'>
+                        <FaUserCircle className='text-3xl'/>
+                    </Link>
+                    <Link href='/auth/signup' className='ml-3'>
+                        Sign up
+                    </Link>
                 </div>
                 <hr className='my-5 h-px bg-[#E3B31F] border-none'/>
                 <div className='sidebar-body'>
                     <ul>
-                        <li className="sidebar_section mb-5">
-                            <p className='mb-2'>Menu</p>
+                        <li className="sidebar_section mb-6">
+                            <p className='mb-3 font-bold'>Menu</p>
                             <Link href='/' className='block w-full hover:bg-[#F5F0E8] px-5 py-2 rounded-md hover:text-[#4E3C05]'>
                                 Home
                             </Link>
@@ -73,8 +77,8 @@ export default function Navbar() {
                                 Explore
                             </Link>
                         </li>
-                        <li className="sidebar_section mb-5">
-                            <p className='mb-2'>About PLANTIEW</p>
+                        <li className="sidebar_section mb-6">
+                            <p className='mb-3 font-bold'>About PLANTIEW</p>
                             <Link href='/' className='block w-full hover:bg-[#F5F0E8] px-5 py-2 rounded-md hover:text-[#4E3C05]'>
                                 About us
                             </Link>
@@ -85,9 +89,9 @@ export default function Navbar() {
                                 Help
                             </Link>
                         </li>
-                        <li className="sidebar_section mb-5">
-                            <Link href='/'>
-                                Log out
+                        <li className="sidebar_section mb-6">
+                            <Link href='/' className='block w-full px-5 py-2 bg-red-600 text-white rounded-md hover:bg-red-700'>
+                                Sign Out
                             </Link>
                         </li>
                     </ul>

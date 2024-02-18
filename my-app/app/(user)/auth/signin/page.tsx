@@ -74,7 +74,8 @@ export default function page(){
     return (
         <div className="pb-12 pt-36">
             <div className="container">
-                <div className="card rounded-md max-w-md p-3 mx-auto">
+                <div className="max-w-md mx-auto">
+                    <h5 className='mb-10 font-bold text-center text-2xl'>SIGN IN</h5>
                     <form onSubmit={onSubmit}>
                         <div className="input-group relative mb-5">
                             <div className="text-slate-600 dark:text-slate-600 absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none">
@@ -94,11 +95,23 @@ export default function page(){
                             className="w-full bg-[#ede4d6] pl-12 text-slate-700 px-3 py-2 rounded-md focus:outline-none forcus:border-[#674F04]/50 focus:ring-1 focus:ring-[#674F04]/50" 
                             placeholder="password" />
                         </div>
+                        <p className="mb-2">
+                            <Link href="/auth/forget" className="ml-1 font-semibold">
+                                Forgot your password?
+                            </Link>
+                        </p>
                         <div className='input-group'>
                             <button type='submit' className='w-full bg-[#a28f70] px-4 py-2 text-white hover:bg-[#8a7b60] duration-150'>
                                 Sign In
                             </button>
                         </div>
+                        <hr className='my-5 bg-[#674F04] h-px border-none' />
+                        <p className='text-center'>
+                            Don't have an account?
+                            <Link href="/auth/signup" className="ml-1 font-semibold">
+                                sign up!
+                            </Link>
+                        </p>
                     </form>
                 </div>
             </div>
