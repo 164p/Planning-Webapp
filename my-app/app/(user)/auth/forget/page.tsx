@@ -5,7 +5,7 @@ export default function page() {
         <div className="pb-12 pt-36">
             <div className="container">
                 <div className="max-w-md mx-auto">
-                    <ConstructionSign message={'ขออภัยหน้านี่ยังไม่พร้อมให่บริการ'} /> 
+                    <ConstructionSign message={'ขออภัยหน้านี่ยังไม่พร้อมให้บริการ'} /> 
                 </div>
             </div>
         </div>

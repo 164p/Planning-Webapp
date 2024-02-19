@@ -1,6 +1,6 @@
 import ConstructionLine from "./ConstructionLine"
 
-export default function ConstructionSign( {message}: any){
+export default function ConstructionSign( {message} : any){
     return (
         <div className="card overflow-hidden bg-slate-500 rounded-md max-w-xl">
             <ConstructionLine />
