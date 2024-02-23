@@ -9,17 +9,12 @@ export default function Home() {
         <div className='bg-[#F5F0E8]'>
             <h1 className='text-[#674F04] text-6xl pt-60 p-10 text-center font-medium'>Explore travel guides</h1>
             <div className='flex justify-center items-center'>
-                <div className='relative max-w-[640px] w-full px-4 mb-10'>
+                <div className='relative max-w-[640px] w-full px-4 mb-5'>
                     <input type="search" placeholder="Search your destination" className='w-full h-12 shadow p-4 rounded-full text-black'/>
                     <button type='submit' className='absolute top-0 end-0 pr-5 text-5xl font-medium h-full text-white rounded-e-lg'>
                     <IoSearchCircle className='text-[#4E3C05]'/>
                     </button>
                 </div>
-            </div>
-            <div className='flex pl-5 justify-center items-center mb-20'>
-                <p className="text-lg me-2 px-3 py-2 rounded-full bg-[#C3BAAA] text-black">tagggggggggggggggggggg</p>
-                <p className="text-lg me-2 px-3 py-2 rounded-full bg-[#C3BAAA] text-black">tag</p>
-                <p className="text-lg me-2 px-3 py-2 rounded-full bg-[#C3BAAA] text-black">tag</p>
             </div>
             <p className='flex text-[#674F04] text-2xl font-medium justify-center items-center pb-3'>Select your interest</p>
             <div className='flex m-0 justify-between'>
