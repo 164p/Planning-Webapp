@@ -2,70 +2,70 @@
 
 import React, { useEffect, useState } from 'react';
 import { Loader } from '@googlemaps/js-api-loader';
-import { Marker } from '@googlemaps/react-wrapper';
+<script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places"></script>
 
-
-function Map() {
-  const [selectedPlace, setSelectedPlace] = useState(null);
-  const mapRef = React.useRef(null);
-
-  useEffect(() => {
-    const initMap = async () => {
-      const loader = new Loader({
-        apiKey: process.env.NEXT_PUBLIC_MAPS_API_KEY ?? '',
-        version: 'weekly',
-      });
-
-      const { Map } = await loader.importLibrary('maps');
-      const { PlaceDetailsService } = await loader.importLibrary('places');
-
-      const initOptions = {
-        center: { lat: 43.642493, lng: -79.3871189 },
-        zoom: 17,
-        mapId: 'MY_NEXTJS_MAPID',
-      };
-
-      const map = new Map(mapRef.current, initOptions);
-      const placesService = new PlaceDetailsService(map);
-
-      // Add markers with clickable event listeners
-      const myMarkers = [
-        // ...marker data including location and other properties
-      ];
-
-      myMarkers.forEach((markerData) => {
-        const marker = new Marker({
-          ...markerData,
-          map,
-        });
-
-        marker.addListener('click', () => {
-          const request = {
-            placeId: markerData.placeId, // Assuming you have placeId for each marker
-          };
-
-          placesService.getDetails(request, (placeResult, status) => {
-            if (status === window.google.maps.places.PlacesServiceStatus.OK) {
-              setSelectedPlace(placeResult); // Store Place Details
-            } else {
-              console.error('Place details request failed:', status);
-            }
-          });
-        });
-      });
-    };
-
-    initMap();
-  }, []);
-
-  return (
-    <div style={{ height: '600px' }} ref={mapRef}>
-      {selectedPlace && (
-        <div>
-          <h2>{selectedPlace.name}</h2>
-          {/* Display other desired Place Details (address, website, reviews, etc.) */}
-        </div>
-      )}
-    </div>
-  );
+declare global {
+  interface Window {
+    initMap: () => void;
+  }
 }
+  // This example requires the Places library. Include the libraries=places
+// parameter when you first load the API. For example:
+// <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places">
+
+function initMap(): void {
+  const map = new google.maps.Map(
+    document.getElementById("map") as HTMLElement,
+    {
+      center: { lat: -33.866, lng: 151.196 },
+      zoom: 15,
+    }
+  );
+
+  const request = {
+    placeId: "ChIJN1t_tDeuEmsRUsoyG83frY4",
+    fields: ["name", "formatted_address", "place_id", "geometry"],
+  };
+
+  const infowindow = new google.maps.InfoWindow();
+  const service = new google.maps.places.PlacesService(map);
+
+  service.getDetails(request, (place, status) => {
+    if (
+      status === google.maps.places.PlacesServiceStatus.OK &&
+      place &&
+      place.geometry &&
+      place.geometry.location
+    ) {
+      const marker = new google.maps.Marker({
+        map,
+        position: place.geometry.location,
+      });
+
+      google.maps.event.addListener(marker, "click", () => {
+        const content = document.createElement("div");
+
+        const nameElement = document.createElement("h2");
+
+        nameElement.textContent = place.name!;
+        content.appendChild(nameElement);
+
+        const placeIdElement = document.createElement("p");
+
+        placeIdElement.textContent = place.place_id!;
+        content.appendChild(placeIdElement);
+
+        const placeAddressElement = document.createElement("p");
+
+        placeAddressElement.textContent = place.formatted_address!;
+        content.appendChild(placeAddressElement);
+
+        infowindow.setContent(content);
+        infowindow.open(map, marker);
+      });
+    }
+  });
+}
+
+
+window.initMap = initMap;

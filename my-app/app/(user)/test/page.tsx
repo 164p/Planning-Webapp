@@ -27,35 +27,52 @@ import React,{useEffect} from "react";
 import { Loader } from "@googlemaps/js-api-loader";
 
 export default function Map(){
-    const mapRef = React.useRef(null);
+// Initialize and add the map
+let map;
+async function initMap() {
+    const loader = new Loader({
+    apiKey: process.env.NEXT_PUBLIC_MAPS_API_KEY ?? "",
+    version: 'weekly'
+});
+  // The location of Uluru
+  const position = { lat: -25.344, lng: 131.031 };
 
-    useEffect(() =>{
-        const initMap = async () =>{
-            const loader = new Loader({
-                apiKey: process.env.NEXT_PUBLIC_MAPS_API_KEY ?? "",
-                version: 'weekly'
-            });
+  // Request needed libraries.
+  //@ts-ignore
+const {Map} = await loader.importLibrary('maps');
+const { Marker } = await loader.importLibrary('marker') as google.maps.MarkerLibrary;
 
-            const {Map} = await loader.importLibrary('maps');
+  // The map, centered at Uluru
+  map = new Map(
+    document.getElementById('map') as HTMLDivElement,
+    {
+      zoom: 4,
+      center: position,
+      mapId: 'DEMO_MAP_ID',
+    }
+  );
 
-            const position = {
-                lat: 43.642493,
-                lng: -79.3871189
-            }
+  // The marker, positioned at Uluru
+  const marker = new Marker({
+    map: map,
+    position: position,
+    title: 'Uluru'
+  });
+}
 
-            const mapOptions: google.maps.MapOptions={
-                center: position,
-                zoom: 17,
-                mapId: 'MY_NEXTJS_MAPID'
-            }
+initMap();
 
-            const map = new Map(mapRef.current as HTMLDivElement, mapOptions);
-        }
-
-        initMap();
-
-    },[]);
     return(
-        <div style={{height: '600px'}} ref={mapRef}></div>
+        <main>
+        <div style={{height: '600px'}} ref={map}></div>
+        </main>
     )
 }
+
+// const loader = new Loader({
+//     apiKey: process.env.NEXT_PUBLIC_MAPS_API_KEY ?? "",
+//     version: 'weekly'
+// });
+
+// const {Map} = await loader.importLibrary('maps');
+// const { Marker } = await loader.importLibrary('marker') as google.maps.MarkerLibrary;
