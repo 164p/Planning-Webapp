@@ -2,6 +2,11 @@
   "name": "my-app",
   "version": "0.1.0",
   "private": true,
+  "browser": {
+    "fs": false,
+    "os": false,
+    "path": false
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -13,6 +18,8 @@
     "@types/bcrypt": "^5.0.2",
     "bcrypt": "^5.1.1",
     "date-fns": "^3.3.1",
+    "file-system": "^2.2.2",
+    "fs": "^0.0.1-security",
     "next": "14.0.4",
     "next-auth": "^4.24.5",
     "react": "^18",
