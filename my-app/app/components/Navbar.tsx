@@ -4,100 +4,131 @@ import Link from 'next/link';
 import React, { useState } from 'react';
 import { GiHamburgerMenu } from 'react-icons/gi';
 import { FaUserCircle } from "react-icons/fa";
+import { useSession } from "next-auth/react"
+import { signOut } from "next-auth/react"
 
 export default function Navbar() {
+
     const [menuOpen, setMenuOpen] = useState(false)
 
     const handleNav = () => {
         setMenuOpen(!menuOpen);
     }
 
+    const { data: session, status } = useSession()
+
     return (
-        <nav className='navbar fixed bg-[#4E3C05] w-full h-20 shadow-xl shadow-[#4E3C05]-500/40 text-[#D3BD9A]'>
-            <div className='flex justify-between items-center h-full w-full px-10 2xl:px-16'>
-                <div className='flex'>
-                    <div className='flex sm:w-auto sm:flex lg:hidden'>
-                        <button className="block focus:outline-none" onClick={handleNav}>
-                        <GiHamburgerMenu 
-                            className="block h-6 w-6 text-color-[#A28F70]" 
-                            aria-hidden="true"
-                        />
-                        </button>
+        <div className='relative'>
+            <nav className='fixed bg-[#402E32] w-full py-5 shadow-xl text-slate-200 z-40 shadow-md '>
+                <div className='flex justify-between items-center px-7 2xl:px-16'>
+                    <div className='flex'>
+                        <div className='flex lg:hidden'>
+                            <button className="block focus:outline-none" onClick={handleNav}>
+                                <GiHamburgerMenu 
+                                    className="block h-6 w-6 text-color-[#A28F70]" 
+                                    aria-hidden="true"
+                                />
+                            </button>
+                        </div>
+                        <Link href='/' className='font-bold text-xl mx-5'>PLANTIEW</Link>
                     </div>
-                    <Link href='/' className='text-[#D3BD9A] font-bold text-3xl mx-5'>PLANTIEW</Link>
+                    <div className='flex items-center hidden lg:block'>
+                        <ul className='flex items-center'>
+                            <li className='ml-2'>
+                                <Link href='/' className='hover:text-[#4E3C05] hover:bg-[#F5F0E8] px-7 py-1.5 rounded-full duration-100'>Home</Link>
+                            </li>
+                            <li className='ml-2'>
+                                <Link href='/plan' className='hover:text-[#4E3C05] hover:bg-[#F5F0E8] px-7 py-1.5 rounded-full duration-100'>Planning</Link>
+                            </li>
+                            <li className='ml-2'>
+                                <Link href='/' className='hover:text-[#4E3C05] hover:bg-[#F5F0E8] px-7 py-1.5 rounded-full duration-100'>Journey</Link>
+                            </li>
+                            <li className='ml-2'>
+                                <Link href='/explore/trip' className='hover:text-[#4E3C05] hover:bg-[#F5F0E8] px-7 py-1.5 rounded-full duration-100'>
+                                    Explore
+                                </Link>
+                            </li>
+                            {
+                                status == "authenticated" ? (
+                                    <li className='ml-2'>
+                                        <Link href='/profile'>
+                                            <FaUserCircle className='text-4xl' />
+                                        </Link>
+                                    </li>
+                                ):(
+                                    <li className='ml-2'>
+                                        <Link href='/auth/signin' className='bg-[#674F04] hover:bg-[#7C6417] px-7 py-1.5 rounded-full duration-100'>
+                                            Sign In
+                                        </Link>
+                                    </li>
+                                )
+                            }
+                            
+                        </ul>
+                    </div>
                 </div>
-                <div className='flex lg:flex lg:items-center lg:w-auto hidden lg:block'>
-                    <ul className='flex'>
-                        <li className='flex hover:bg-[#F5F0E8] p-2 rounded-full group cursor-pointer hover:shadow-lg m-auto'>
-                            <Link href='/' className='nl-10 text-xl mx-10 group-hover:text-[#4E3C05]'>Home</Link>
-                        </li>
-                        <li className='flex hover:bg-[#F5F0E8] p-2 rounded-full group cursor-pointer hover:shadow-lg m-auto'>
-                            <Link href='/plan' className='nl-10 text-xl mx-10 group-hover:text-[#4E3C05]'>Planning</Link>
-                        </li>
-                        <li className='flex hover:bg-[#F5F0E8] p-2 rounded-full group cursor-pointer hover:shadow-lg m-auto'>
-                            <Link href='/' className='nl-10 text-xl mx-10 group-hover:text-[#4E3C05]'>Journey</Link>
-                        </li>
-                        <li className='flex hover:bg-[#F5F0E8] p-2 rounded-full group cursor-pointer hover:shadow-lg m-auto'>
-                            <Link href='/explore/trip' className='nl-10 text-xl mx-10 group-hover:text-[#4E3C05]'>Explore</Link>
-                        </li>
-                    </ul>
-                    <Link href='/profile'><FaUserCircle className='text-4xl ml-10' /></Link>
-                </div>
-            </div>
-            <div className={'sidebar fixed duration-700 overflow-auto py-6 px-8 h-screen bg-[#4E3C05] '+
-                (
-                    menuOpen ? 
-                    'left-0 top-20 w-full max-w-72'
-                    : '-left-full top-20'
-                )}>
                 
-                <div className='sidebar-header flex justify-center items-center w-full'>
-                    <Link href='/profile'>
-                        <FaUserCircle className='text-3xl'/>
-                    </Link>
-                    <Link href='/auth/signup' className='ml-3'>
-                        Sign up
-                    </Link>
+            </nav>
+            <div className={"sidebar fixed h-screen bg-[#39272B] py-6 px-5 text-slate-200 duration-700 w-64 overflow-auto top-14 "+
+                (menuOpen
+                    ? 'left-0'
+                    : 'left-[-100%]')
+                }>
+                <div className='sidebar-header flex justify-around items-center w-full mb-5 mt-3'>
+                    {
+                        status == "authenticated" ? (
+                            <Link href='/profile'><FaUserCircle className='text-5xl'/></Link>
+                        ):(
+                            <Link href='/auth/signin' className='w-full bg-[#674F04] hover:bg-[#7C6417] px-7 py-1.5 rounded-md text-center duration-100'>
+                                Sign In
+                            </Link>
+                        )
+                    }
                 </div>
-                <hr className='my-5 h-px bg-[#E3B31F] border-none'/>
+                <div className='my-5 border-b-2 border-[#E3B31F]'></div>
                 <div className='sidebar-body'>
-                    <ul>
-                        <li className="sidebar_section mb-6">
-                            <p className='mb-3 font-bold'>Menu</p>
-                            <Link href='/' className='block w-full hover:bg-[#F5F0E8] px-5 py-2 rounded-md hover:text-[#4E3C05]'>
-                                Home
-                            </Link>
-                            <Link href='/plan' className='block w-full hover:bg-[#F5F0E8] px-5 py-2 rounded-md hover:text-[#4E3C05]'>
-                                Planning
-                            </Link>
-                            <Link href='/' className='block w-full hover:bg-[#F5F0E8] px-5 py-2 rounded-md hover:text-[#4E3C05]'>
-                                Journey
-                            </Link>
-                            <Link href='/explore/trip' className='block w-full hover:bg-[#F5F0E8] px-5 py-2 rounded-md hover:text-[#4E3C05]'>
-                                Explore
-                            </Link>
-                        </li>
-                        <li className="sidebar_section mb-6">
-                            <p className='mb-3 font-bold'>About PLANTIEW</p>
-                            <Link href='/' className='block w-full hover:bg-[#F5F0E8] px-5 py-2 rounded-md hover:text-[#4E3C05]'>
-                                About us
-                            </Link>
-                            <Link href='/' className='block w-full hover:bg-[#F5F0E8] px-5 py-2 rounded-md hover:text-[#4E3C05]'>
-                                Contact us
-                            </Link>
-                            <Link href='/' className='block w-full hover:bg-[#F5F0E8] px-5 py-2 rounded-md hover:text-[#4E3C05]'>
-                                Help
-                            </Link>
-                        </li>
-                        <li className="sidebar_section mb-6">
-                            <Link href='/' className='block w-full px-5 py-2 bg-red-600 text-white rounded-md hover:bg-red-700'>
-                                Sign Out
-                            </Link>
-                        </li>
-                    </ul>
+                    <div className='sidebar-section mb-5'>
+                        <div className='sidebar-section-header mb-3'>
+                            <p className='font-bold'>Menu</p>
+                        </div>
+                        <div className='sidebar-section-body'>
+                            <ul>
+                                <li>
+                                    <Link href='/' className='block mb-3 hover:bg-[#F5F0E8] py-2 px-6 rounded-md hover:text-[#4E3C05]'>
+                                        Home
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link href='/plan' className='block mb-3 hover:bg-[#F5F0E8] py-2 px-6 rounded-md hover:text-[#4E3C05]'>
+                                        Planning
+                                    </Link>
+                                </li>
+                                <li> 
+                                    <Link href='/' className='block mb-3 hover:bg-[#F5F0E8] py-2 px-6 rounded-md hover:text-[#4E3C05]'>
+                                        Journey
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link href='/explore/trip' className='block mb-3 hover:bg-[#F5F0E8] py-2 px-6 rounded-md hover:text-[#4E3C05]'>
+                                        Explore
+                                    </Link>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div className='my-5 border-b-2 border-[#E3B31F]'></div>
+                    <div className='sidebar-section'>
+                        {
+                            status == "authenticated" && (
+                                <button className='w-full block px-5 py-1.5 bg-red-600 hover:bg-red-500 text-whtie rounded-md duration-100' onClick={() => signOut()}>
+                                    Sign out
+                                </button>
+                            )
+                        }
+                        
+                    </div>
                 </div>
-                
             </div>
-        </nav>
+        </div>
     );
 };
