@@ -14,6 +14,7 @@
     "@prisma/client": "^5.9.0",
     "@react-google-maps/api": "^2.19.2",
     "@types/bcrypt": "^5.0.2",
+    "axios": "^1.6.7",
     "bcrypt": "^5.1.1",
     "date-fns": "^3.3.1",
     "googlemaps": "^1.12.0",
@@ -25,7 +26,7 @@
     "react-icons": "^5.0.1",
     "styled-components": "^6.1.8",
     "sweetalert2": "^11.10.3",
-    "swr": "^2.2.4"
+    "swr": "^2.2.5"
   },
   "devDependencies": {
     "@types/google.maps": "^3.55.3",
