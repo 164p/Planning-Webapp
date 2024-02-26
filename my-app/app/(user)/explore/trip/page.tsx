@@ -74,7 +74,7 @@ import React, { useState, useEffect } from 'react';
 const fetcher = (url : string) => fetch(url).then(r => r.json())
 
 export default function Page() {
-  const { data, error, isLoading } = useSWR('https://maps.googleapis.com/maps/api/place/details/json?place_id=ChIJzwxgI7C0AjERShi5dyiRcJI&key=AIzaSyD9YrY4EzXon6_8L-AdvEhYcV2uh_GdFxs', fetcher)
+  const { data, error, isLoading } = useSWR('/api/placedetail', fetcher)
   if (error) return <div>failed to load</div>
   if (isLoading) return <div>loading...</div>
   return (
@@ -82,7 +82,7 @@ export default function Page() {
       <div className='w-11/12 m-auto mt-40 flex flex-col md:flex-row justify-between items-start md:items-center gap-5 md:gap-0'>
       </div>
       <div className={`font-nunito bg-gray-100`}>
-        hello {data.result.rating}
+        hello {data.data.result.name}
       </div>
 </div>
 );
