@@ -101,7 +101,7 @@ export default function page(){
                             </Link>
                         </p>
                         <div className='input-group'>
-                            <button type='submit' className='w-full bg-[#a28f70] px-4 py-2 text-white hover:bg-[#8a7b60] duration-150'>
+                            <button type='submit' className='w-full text-slate-200 bg-[#674F04] hover:bg-[#7C6417] px-7 py-2 rounded-md text-center duration-100'>
                                 Sign In
                             </button>
                         </div>
