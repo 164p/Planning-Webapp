@@ -4,28 +4,36 @@
         "img": "/mockupimg.jpg",
         "rating": 4,
         "cost": 10000,
-        "provincetag": "กทม"
+        "provincetag": "กทม",
+        "activitytag": "ดำน้ำ",
+        "typetag": "ทะเล"
     },
     {
         "name":"ชะอ้ำ",
         "img": "/mockupimg.jpg",
         "rating": 4,
         "cost": 10000,
-        "provincetag": "ฮ่องกง"
+        "provincetag": "ฮ่องกง",
+        "activitytag": "ดำน้ำ",
+        "typetag": "ทะเล"
     },
     {
         "name":"ชายเหมียง",
         "img": "/mockupimg.jpg",
         "rating": 4,
         "cost": 10000,
-        "provincetag": "บุรีรัมย์"
+        "provincetag": "บุรีรัมย์",
+        "activitytag": "ดำน้ำ",
+        "typetag": "ทะเล"
     },
     {
         "name":"หัวหิว",
         "img": "/mockupimg.jpg",
         "rating": 4,
         "cost": 10000,
-        "provincetag": "กทม"
+        "provincetag": "กทม",
+        "activitytag": "ดำน้ำ",
+        "typetag": "ทะเล"
     }
 
 ]
