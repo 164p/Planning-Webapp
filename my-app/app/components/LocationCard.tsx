@@ -3,14 +3,20 @@ import { FaLocationDot } from "react-icons/fa6";
 import { FaStar, FaStarHalf } from "react-icons/fa"
 import { PiDotsThreeCircleFill } from "react-icons/pi";
 
-export default function LocationCard(){
+export default async function LocationCard({place_id}){
+    
+    const res = await fetch(`https://maps.googleapis.com/maps/api/place/details/json?place_id=${place_id}&key=${process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}`)
+    const datas:any = await res.json()
+    const photo_ref = datas.result.photos[0].photo_reference
+    const url = `https://maps.googleapis.com/maps/api/place/photo?photoreference=${photo_ref}&maxwidth=600&maxheight=400&key=${process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}`;
+
     return(
         <main className="overflow-hidden rounded-lg shadow-lg text-[#674F04] bg-[#F5F5F5]">
-            <Image src="/mockupimg.jpg" alt="logo" width={0} height={0} sizes="120vw" priority={true}
+            <Image src={url} alt="logo" width={0} height={0} sizes="120vw" priority={true}
                     style={{ width: '100%', height: 'auto' }} className='img block rounded-2xl '/>
 
             <div className="flex items-center justify-between leading-tight">
-                <p className="text-xl font-bold text-[#674F04] pl-2 md:pl-5 py-3">Lorem ipsum dolor</p>
+                <p className="text-xl font-bold text-[#674F04] pl-2 md:pl-5 py-3">{datas.result.name}</p>
                 <div dir="rtl">
                     <div className="justify-items-end z-10 top-0 right-0 pr-5">
                         < PiDotsThreeCircleFill className="text-2xl"/>
@@ -27,7 +33,7 @@ export default function LocationCard(){
 
             <div className="flex justify-between items-center pl-2 md:pl-5 py-4">
                 <FaLocationDot className="text-red-500 text-2xl"/>
-                <p className="text-md px-3 break-words">Lorem ipsum dolor sit, amet consectetur adipisicing elits</p>
+                <p className="text-md px-3 break-words">{datas.result.formatted_address}</p>
             </div>
     
                 <div className="flex pl-5 pt-4 pb-8">
