@@ -19,6 +19,9 @@ export default function MyCombobox() {
   const [selectedPerson, setSelectedPerson] = useState(people[0])
   const [query, setQuery] = useState('')
 
+  if (error) return <div>failed to load</div>
+  if (isLoading) return <div>loading...</div>
+  
   const filteredPeople =
     query === ''
       ? data.data.predictions
