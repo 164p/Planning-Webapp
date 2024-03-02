@@ -5,6 +5,7 @@ import { IoSearchCircle } from 'react-icons/io5'
 import TypeSelector from '@/app/components/TypeSelector'
 import useSWR from 'swr';
 import React from 'react';
+import { Combobox } from '@headlessui/react'
 
 const fetcher = (url : string) => fetch(url).then(r => r.json())
 
@@ -23,24 +24,19 @@ export default function Page() {
       }
     ]
   
-    const [selectedType, setSelectedType] = useState(''); // State to store the selected type
-    const [query, setQuery] = useState('');
-    const [dropdownOptions, setDropdownOptions] = useState([]);
+    const [selectedType, setSelectedType] = useState('');
+    const [query, setQuery] = useState('')
 
-    const handleChange = (e: any) => {
-      setQuery(e.target.value);
-      setSelectedType(e.target.value);
-    };
+    // const handleChange = (e: any) => {
+    //   setSelectedType(e.target.value);
+    // };
   
-    const filterData = (type: any) => {
-      if (type === '') {
-        return data?.place;
-      } else {
-        return data.place.filter((place: any) => place.provincetag === type);
-      }
-    };
-  
-    const filteredPlaces = filterData(selectedType);
+    const filterData = 
+      query === ''
+      ? data
+      : data.filter((data:any) => {
+          return data.toLowerCase().includes(query.toLowerCase())
+        })
 
     if (error) return <div>failed to load</div>;
     if (isLoading) return <div>loading...</div>;
@@ -54,7 +50,6 @@ export default function Page() {
               type="search"
               placeholder="Search your destination"
               className='w-full h-12 shadow p-4 rounded-full text-black'
-              onChange={handleChange}
             />
             <button type='submit' className='absolute top-0 end-0 pr-5 text-5xl font-medium h-full text-white rounded-e-lg'>
               <IoSearchCircle className='text-[#4E3C05]' />
@@ -68,24 +63,11 @@ export default function Page() {
               type="search"
               placeholder="Search your destination"
               className='w-full h-12 shadow p-4 rounded-full text-black'
-              onChange={handleChange}
           />
-          
-          {dropdownOptions.length > 0 && (
+          <button type='submit'>Submit</button>
             <ul className='absolute top-full left-0 w-full bg-white shadow rounded-b-lg z-50'>
-              {dropdownOptions.map((option, index) => (
-                <li key={index} className='p-2 hover:bg-gray-200'>
-                  <button type='button' onClick={() => {
-
-                    setSelectedType(option);
-                    setQuery(option);
-                  }}>
-                    {filteredPlaces}
-                  </button>
-                </li>
-              ))}
+      
             </ul>
-          )}
           </div>
           <p className='flex text-[#674F04] text-2xl font-medium justify-center items-center pb-3'>
             Select your interest
@@ -101,8 +83,11 @@ export default function Page() {
                 {data && !isLoading && (
                 <div className='card bg-[#F5F0E8] py-10'>
                     <div className='grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 sm:px-20 md:px-20 lg:px-0 lg:grid-cols-3 gap-6 mx-auto max-w-screen-lg '>
-                    {filteredPlaces.map((datas: any , index: any) => (
-                            <div key={index} className="card-top rounded-lg shadow-lg text-[#674F04] bg-[#F5F5F5] pb-5">
+                    <Combobox value={selectedType} onChange={setSelectedType}>
+                        <Combobox.Input onChange={(event) => setQuery(event.target.value)} />
+                        <Combobox.Options>
+                          {filterData.map((datas: any , index: any) => (
+                            <Combobox.Option key={index} value={datas} className="card-top rounded-lg shadow-lg text-[#674F04] bg-[#F5F5F5] pb-5">
                                 <img src={datas.img} alt="logo" width={0} height={0} sizes="120vw" 
                                     style={{ width: '100%', height: 'auto' }} className='img block rounded-lg '/>
                             <div className="card-button mx-7">
@@ -115,8 +100,10 @@ export default function Page() {
                                     <p className="tag px-3 py-2 rounded-full bg-[#C3BAAA] text-black mx-2">{datas.provincetag}</p>
                                 </div>
                             </div>
-                        </div>
+                        </Combobox.Option>
                     ))}
+                    </Combobox.Options>
+                    </Combobox>
                     </div>
                 </div>)}
                 </div>
