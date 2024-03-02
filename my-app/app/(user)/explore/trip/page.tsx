@@ -49,6 +49,7 @@ export default function Page() {
               type="search"
               placeholder="Search your destination"
               className='w-full h-12 shadow p-4 rounded-full text-black'
+              onChange={handleChange}
             />
             <button type='submit' className='absolute top-0 end-0 pr-5 text-5xl font-medium h-full text-white rounded-e-lg'>
               <IoSearchCircle className='text-[#4E3C05]' />
@@ -62,7 +63,7 @@ export default function Page() {
               type="search"
               placeholder="Search your destination"
               className='w-full h-12 shadow p-4 rounded-full text-black'
-              onChange={handleChange}
+              
           />
           <button type='submit'>Submit</button>
             <ul className='absolute top-full left-0 w-full bg-white shadow rounded-b-lg z-50'>
