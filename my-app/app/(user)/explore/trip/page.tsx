@@ -1,10 +1,11 @@
 'use client'
+
 import { useState, useEffect } from 'react'
 import { IoSearchCircle } from 'react-icons/io5'
 import TypeSelector from '@/app/components/TypeSelector'
 import useSWR from 'swr';
 import React from 'react';
-import { useSearchParams } from 'next/navigation';
+import Typefilter from '@/app/components/Provincefilter'
 
 const fetcher = (url : string) => fetch(url).then(r => r.json())
 
@@ -26,20 +27,18 @@ export default function Page() {
     const [selectedType, setSelectedType] = useState(''); // State to store the selected type
     const [query, setQuery] = useState('')
 
-
     const handleChange = (e: any) => {
       setQuery(e.target.value);
     };
-  
-
+    
     if (error) return <div>failed to load</div>;
-    if (isLoading) return <div>loading...</div>;
-  
+    if (isLoading) return <div>loading...</div>;   
+
     const filterData = 
       query === ''
       ? data.place
-      : data.place.filter((place:any) => place.name.toLowerCase().includes(query.toLowerCase()));
-
+      : data.place.filter((place:any) => place.name.toLowerCase().includes(query.toLowerCase()));  
+  
     return (
       <div className='bg-[#F5F0E8]'>
         <h1 className='text-[#674F04] text-6xl pt-60 p-10 text-center font-medium'>Explore travel guides</h1>
@@ -57,18 +56,10 @@ export default function Page() {
           </div>
         </div>
         <div className='filter grid grid-cols-1 mx-auto max-w-screen-lg px-20 lg:px-0 gap-5'>
-          <div className='dropdown mb-5 mt-3 text-center'>
+          <div className='mb-5 mt-3 text-center'>
             <label className='font-bold text-[#674F04]'>Select Type</label>
-            <input
-              type="search"
-              placeholder="Search your destination"
-              className='w-full h-12 shadow p-4 rounded-full text-black'
-              
-          />
-          <button type='submit'>Submit</button>
-            <ul className='absolute top-full left-0 w-full bg-white shadow rounded-b-lg z-50'>
-      
-            </ul>
+              <Typefilter/>
+              <button type='submit'>Submit</button>
           </div>
           <p className='flex text-[#674F04] text-2xl font-medium justify-center items-center pb-3'>
             Select your interest
@@ -76,11 +67,11 @@ export default function Page() {
           <div className='flex m-0 justify-between'>
             <TypeSelector />
           </div>
-                    <div className='flex justify-center items-center'>
-                        <div className='flex w-full p-0.5 mt-10 mb-20 lg:w-2/3 bg-[#674F04] '>
+            <div className='flex justify-center items-center'>
+              <div className='flex w-full p-0.5 mt-10 mb-20 lg:w-2/3 bg-[#674F04] '>
                             
-                        </div>
-                    </div>
+              </div>
+            </div>
                 {data && !isLoading && (
                 <div className='card bg-[#F5F0E8] py-10'>
                     <div className='grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 sm:px-20 md:px-20 lg:px-0 lg:grid-cols-3 gap-6 mx-auto max-w-screen-lg '>
