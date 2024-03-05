@@ -5,27 +5,18 @@ import { IoSearchCircle } from 'react-icons/io5'
 import TypeSelector from '@/app/components/TypeSelector'
 import useSWR from 'swr';
 import React from 'react';
-import Typefilter from '@/app/components/Provincefilter'
+import Provincefilter from '@/app/components/Provincefilter'
 
 const fetcher = (url : string) => fetch(url).then(r => r.json())
 
 export default function Page() {
     const { data, error, isLoading } = useSWR('/api/explore/trip', fetcher);
 
-    const tag = [
-      {
-        provincetag: ["กทม",'เชียงใหม่','ฮ่องกง']
-      },
-      {
-        activitytag: ["ทะเล",'ภูเขา','กิจกรรม'],
-      },
-      {
-        typetag: ["ร้านอาหาร",'ทีพัก','สวนสนุก'],
-      }
-    ]
-  
-    const [selectedType, setSelectedType] = useState(''); // State to store the selected type
+    const [selectedType, setSelectedType] = useState('');
     const [query, setQuery] = useState('')
+    const [selectedProvince, setSelectedProvince] = useState('')
+    const [sortDirection, setSortDirection] = useState('');
+    const [sortField, setSortField] = useState('')
 
     const handleChange = (e: any) => {
       setQuery(e.target.value);
@@ -34,11 +25,46 @@ export default function Page() {
     if (error) return <div>failed to load</div>;
     if (isLoading) return <div>loading...</div>;   
 
+    const sort = (data: any[], field: string, dir: string) => {
+      switch (field) {
+        case 'nameasc':
+          return data.slice().sort((a: any, b: any) => {
+            const nameA = a.name.toLowerCase();
+            const nameB = b.name.toLowerCase();
+            return dir === 'asc' ? nameB < nameA? -1 : 1 : nameA < nameB ? -1 : 1;
+          });
+        case 'namedesc':
+          return data.slice().sort((a: any, b: any) => {
+            const nameA = a.name.toLowerCase();
+            const nameB = b.name.toLowerCase();
+            return dir === 'desc' ? nameA < nameB ? -1 : 1 : nameB < nameA ? -1 : 1;
+          });
+        case 'ratingasc':
+          return data.slice().sort((a: any, b: any) => dir === 'asc' ? b.rating - a.rating : a.rating - b.rating
+          );
+        case 'ratingdesc':
+          return data.slice().sort((a: any, b: any) => dir === 'desc' ? a.rating - b.rating : b.rating - a.rating
+          );
+        case "costasc":
+          return data.slice().sort((a: any, b: any) => dir === "asc" ? b.cost - a.cost : a.cost - b.cost
+        );
+        case "costdesc":
+          return data.slice().sort((a: any, b: any) => dir === "desc" ? a.cost - b.cost : b.cost - a.cost
+        );
+        default:
+          return data;
+      }
+    };
+    
     const filterData = 
       query === ''
       ? data.place
-      : data.place.filter((place:any) => place.name.toLowerCase().includes(query.toLowerCase()));  
-  
+      : data.place.filter(
+        (place:any) =>
+          place.name.toLowerCase().includes(query.toLowerCase()) &&
+          (selectedProvince === '' || place.provincetag === selectedProvince)
+        );
+
     return (
       <div className='bg-[#F5F0E8]'>
         <h1 className='text-[#674F04] text-6xl pt-60 p-10 text-center font-medium'>Explore travel guides</h1>
@@ -58,8 +84,7 @@ export default function Page() {
         <div className='filter grid grid-cols-1 mx-auto max-w-screen-lg px-20 lg:px-0 gap-5'>
           <div className='mb-5 mt-3 text-center'>
             <label className='font-bold text-[#674F04]'>Select Type</label>
-              <Typefilter/>
-              <button type='submit'>Submit</button>
+              <Provincefilter value={selectedProvince} onChange={setSelectedProvince}/>
           </div>
           <p className='flex text-[#674F04] text-2xl font-medium justify-center items-center pb-3'>
             Select your interest
@@ -67,15 +92,27 @@ export default function Page() {
           <div className='flex m-0 justify-between'>
             <TypeSelector />
           </div>
-            <div className='flex justify-center items-center'>
-              <div className='flex w-full p-0.5 mt-10 mb-20 lg:w-2/3 bg-[#674F04] '>
-                            
-              </div>
-            </div>
+          <div className='flex justify-center items-center'>
+            <div className='flex w-full p-0.5 mt-10 mb-20 lg:w-2/3 bg-[#674F04] '></div>
+          </div>
+          <select
+            className="px-3 py-2 rounded-md bg-white border border-gray-300 text-gray-700 shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+            value={sortField}
+            onChange={(e) => {
+              setSortField(e.target.value);
+            }}>
+            <option value="default">All</option>
+            <option value="nameasc" onClick={() => setSortDirection('asc')}>Name A-Z</option>
+            <option value="namedesc" onClick={() => setSortDirection('desc')}>Name Z-A</option>
+            <option value="ratingasc" onClick={() => setSortDirection('asc')}>Rating : Low-High</option>
+            <option value="ratingdesc" onClick={() => setSortDirection('desc')}>Rating : High-Low</option>
+            <option value="costasc" onClick={() => setSortDirection('asc')}>Cost : Low-High</option>
+            <option value="costdesc" onClick={() => setSortDirection('desc')}>Cost : High-Low</option>
+          </select>
                 {data && !isLoading && (
                 <div className='card bg-[#F5F0E8] py-10'>
                     <div className='grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 sm:px-20 md:px-20 lg:px-0 lg:grid-cols-3 gap-6 mx-auto max-w-screen-lg '>
-                    {filterData.map((datas: any , index: any) => (
+                    {sort(filterData, sortField, sortDirection).map((datas:any, index:any) => (
                             <div key={index} className="card-top rounded-lg shadow-lg text-[#674F04] bg-[#F5F5F5] pb-5">
                                 <img src={datas.img} alt="logo" width={0} height={0} sizes="120vw" 
                                     style={{ width: '100%', height: 'auto' }} className='img block rounded-lg '/>
@@ -90,13 +127,14 @@ export default function Page() {
                                 </div>
                             </div>
                         </div>
-                    ))}
+                      ))}
                     </div>
-                </div>)}
                 </div>
+                )}</div>
                 </div>
             )
     }
+
   
 
 {/* <div className='filter grid grid-cols-1 mx-auto max-w-screen-lg px-20 lg:px-0 gap-5 lg:grid-cols-4 md:grid-cols-2 sm:grid-cols-1'>
