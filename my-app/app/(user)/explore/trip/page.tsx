@@ -3,7 +3,6 @@ import TypeSelector from '@/app/components/TypeSelector'
 import { IoSearchCircle } from 'react-icons/io5'
 import Link from 'next/link'
 
-
 export default function Home() {
     return (
         <div className='bg-[#F5F0E8]'>

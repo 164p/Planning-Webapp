@@ -8,7 +8,7 @@ export default function TripDetail() {
     <main>
       <div>
       <p className="placename text-center m-6  text-5xl">หาดบางแสน</p>
-        <Image src="/bangsan1.jpg" alt="logo" width={0} height={0} sizes="120vw" priority={true}
+        <Image src="/mockupimg.jpg" alt="logo" width={0} height={0} sizes="120vw" priority={true}
           style={{ width: '80%', height: '100%' }} className='img max-w-sm mx-auto'/>
       </div>
       <Tag/>

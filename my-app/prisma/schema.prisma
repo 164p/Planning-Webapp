@@ -36,15 +36,14 @@ model planning {
 }
 
 model planAll {
-  id         String   @id @default(auto()) @map("_id") @db.ObjectId
-  name       String
-  tripBudget Int
-  images     String
-  startDate  DateTime
-  endDate    DateTime
-  owner      user     @relation(fields: [ownerId], references: [id])
-  ownerId    String   @db.ObjectId
-
+  id        String     @id @default(auto()) @map("_id") @db.ObjectId
+  name      String
+  budget    Int
+  images    String
+  startDate DateTime
+  endDate   DateTime
+  owner     user       @relation(fields: [ownerId], references: [id])
+  ownerId   String     @db.ObjectId
   planByDay planning[]
 }
 
