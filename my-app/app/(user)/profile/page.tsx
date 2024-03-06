@@ -4,7 +4,7 @@ import { IoSettingsOutline } from "react-icons/io5"
 
 export default function Home() {
     return(
-        <main className="mt-60 my-40">
+        <main className="mt-48 mb-40">
             <div className="container">
                 <div className="card relative mx-auto max-w-2xl bg-white rounded-md px-10 md:px-20 py-28">
                     <span className="icon text-9xl bg-white rounded-full -mb-20 absolute -m-16 -top-1 left-1/2">
@@ -13,7 +13,7 @@ export default function Home() {
                     <span className="icon absolute top-8 right-8">
                         <Link href="/profile/setting"><IoSettingsOutline className="text-black text-2xl" /></Link>
                     </span>
-                    <div className="card-header relative mt-10">
+                    <div className="card-header relative">
                         <p className="text-2xl font-bold text-center">USERNAME</p>
                     </div>
                     <hr className="h-px border-none bg-[#674F04] my-10" />

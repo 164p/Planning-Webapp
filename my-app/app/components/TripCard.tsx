@@ -12,10 +12,12 @@ export default function TripCard() {
         { name: "หัวหิว", img: "/mockupimg.jpg",rating: [<FaStar/>, <FaStar/>, <FaStar/>, <FaStar/>], cost: "10000", user: "AAA", typetag: "sss", activitytag: "jjjj", provincetag: "ddd"}
       ];
     return(
+
         <main className="card grid gap-5 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1">
             {tripcard.map((tripcard, index) => (
                 <div key={index} className="card-top rounded-lg shadow-lg text-[#674F04] bg-[#F5F5F5] pb-5">
                     <Image src={tripcard.img} alt="logo" width={0} height={0} sizes="120vw" priority={true}
+
                     style={{ width: '100%', height: 'auto' }} className='img block rounded-2xl '/>
                     <div className="card-button mx-7">
                         <div className="flex items-center justify-between">
