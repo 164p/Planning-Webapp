@@ -12,7 +12,6 @@ export default async function LocationCard({place_id}){
 
     return(
         <main className="overflow-hidden rounded-lg shadow-lg text-[#674F04] bg-[#F5F5F5]">
-
             <Image src={url} alt="logo" width={0} height={0} sizes="120vw" priority={true}
                     style={{ width: '100%', height: 'auto' }} className='img block rounded-2xl '/>
 
