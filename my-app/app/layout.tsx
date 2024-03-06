@@ -20,6 +20,12 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
+      <head>
+          <script async
+            src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&loading=async&libraries=places&callback=initMap">
+          </script>
+      </head>
+
       <body className={myFont.className}>
         <AuthProvider>
           {children}
