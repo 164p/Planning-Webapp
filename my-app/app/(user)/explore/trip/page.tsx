@@ -19,11 +19,7 @@ export default function Page() {
     const [selectedProvince, setSelectedProvince] = useState('')
     const [sortDirection, setSortDirection] = useState('');
     const [sortField, setSortField] = useState('')
-    const [tag, setTag] = useState('');
-
-    const tagSubmit = (e: any) => {
-      setTag(e.target.value)
-    }
+    const [tag, setTag] = useState<string[]>([]);
 
     const handleChange = (e: any) => {
       setQuery(e.target.value);
@@ -76,14 +72,33 @@ export default function Page() {
           place.name.toLowerCase().includes(query.toLowerCase()),
 
         );
-      console.log(tag)
-    const filterDataTag = 
-        tag
-        ? filterData
-        : filterData.filter(
-          (place:any) =>
-            tag.includes(place.provincetag.toLowerCase()) 
-          );
+      
+
+        const searchRegex = new RegExp(tag.map(term => term.toLowerCase()).join('|'));
+        // console.log(filterData.province)
+    // const filterDataTag = 
+    //     tag.length === 0
+    //     ? filterData
+    //     : filterData.filter(
+    //       (place:any) =>
+    //       searchRegex.test(filterData.province.toLowerCase())
+    //       );
+
+    function filterDataTag(data:any, query:any) {
+      if (query.length === 0) {
+        return data;
+      }
+    
+      // Efficiently join search terms with OR operator for case-insensitive search
+      const searchRegex = new RegExp(query.map((term: string) => term.toLowerCase()).join('|'));
+    
+      return data.filter((place:any) => searchRegex.test(place.provincetag.toLowerCase()));
+    }
+
+    const filteredData1 = filterDataTag(filterData, tag);
+          console.log(filteredData1)
+          console.log(filterData)
+          console.log(tag)
     return (
       <div className='bg-[#F5F0E8]'>
         <h1 className='text-[#674F04] text-6xl pt-60 p-10 text-center font-medium'>{tag}</h1>
@@ -107,11 +122,11 @@ export default function Page() {
           <MultiSelect
               label="Your favorite libraries"
               placeholder="Pick value"
-              data={['ก', 'ข', 'ค', 'ง']}
+              data={['กทม', 'ข', 'ค', 'ง']}
               hidePickedOptions
               searchable
               clearable
-              onOptionSubmit={tagSubmit}/>
+              onChange={setTag}/>
           <p className='flex text-[#674F04] text-2xl font-medium justify-center items-center pb-3'>
             Select your interest
           </p>
@@ -138,7 +153,7 @@ export default function Page() {
                 {data && !isLoading && (
                 <div className='card bg-[#F5F0E8] py-10'>
                     <div className='grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 sm:px-20 md:px-20 lg:px-0 lg:grid-cols-3 gap-6 mx-auto max-w-screen-lg '>
-                    {sort(filterDataTag, sortField, sortDirection).map((datas:any, index:any) => (
+                    {sort(filteredData1, sortField, sortDirection).map((datas:any, index:any) => (
                             <div key={index} className="card-top rounded-lg shadow-lg text-[#674F04] bg-[#F5F5F5] pb-5">
                                 <img src={datas.img} alt="logo" width={0} height={0} sizes="120vw" 
                                     style={{ width: '100%', height: 'auto' }} className='img block rounded-lg '/>
