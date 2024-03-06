@@ -1,4 +1,4 @@
-import DatePicker from "@/app/components/DatePicker"
+import DatePickers from "@/app/components/DatePickers"
 
 export default function page(){
     return (
@@ -8,7 +8,10 @@ export default function page(){
                 <p className="text-center">Select your plan for edit</p>
             </div>
             <div className="section">
-                <DatePicker />
+                <DatePickers />
+            </div>
+            <div className="section">
+
             </div>
         </div>
     )

@@ -1,6 +1,8 @@
 import type { Metadata } from 'next'
 import localFont from 'next/font/local'
 import AuthProvider from './context/AuthProvider'
+import { MantineProvider } from '@mantine/core';
+import '@mantine/core/styles.css';
 import './assets/css/globals.css'
 
 const myFont = localFont({
@@ -21,9 +23,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={myFont.className}>
-        <AuthProvider>
-          {children}
-        </AuthProvider>
+        <MantineProvider>
+          <AuthProvider>
+            {children}
+          </AuthProvider>
+        </MantineProvider>
       </body>
     </html>
   )
