@@ -102,6 +102,20 @@ export default function Page() {
               <IoSearchCircle className='text-[#4E3C05]' />
             </button>
           </div>
+          <select
+              className="px-4 mb-5 h-10 rounded-full bg-white border border-gray-300 text-gray-700 shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+              value={sortField}
+              onChange={(e) => {
+                setSortField(e.target.value);
+              }}>
+              <option value="default">All</option>
+              <option value="nameasc" onClick={() => setSortDirection('asc')}>Name A-Z</option>
+              <option value="namedesc" onClick={() => setSortDirection('desc')}>Name Z-A</option>
+              <option value="ratingasc" onClick={() => setSortDirection('asc')}>Rating : Low-High</option>
+              <option value="ratingdesc" onClick={() => setSortDirection('desc')}>Rating : High-Low</option>
+              <option value="costasc" onClick={() => setSortDirection('asc')}>Cost : Low-High</option>
+              <option value="costdesc" onClick={() => setSortDirection('desc')}>Cost : High-Low</option>
+            </select>
         </div>
         <div className='filter grid grid-cols-1 mx-auto max-w-screen-lg px-20 lg:px-0 gap-5'>
           <MultiSelect 
@@ -122,20 +136,7 @@ export default function Page() {
           <div className='flex justify-center items-center'>
             <div className='flex w-full p-0.5 mt-10 mb-20 lg:w-2/3 bg-[#674F04] '></div>
           </div>
-            <select
-              className="px-3 py-2 rounded-full bg-white border border-gray-300 text-gray-700 shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
-              value={sortField}
-              onChange={(e) => {
-                setSortField(e.target.value);
-              }}>
-              <option value="default">All</option>
-              <option value="nameasc" onClick={() => setSortDirection('asc')}>Name A-Z</option>
-              <option value="namedesc" onClick={() => setSortDirection('desc')}>Name Z-A</option>
-              <option value="ratingasc" onClick={() => setSortDirection('asc')}>Rating : Low-High</option>
-              <option value="ratingdesc" onClick={() => setSortDirection('desc')}>Rating : High-Low</option>
-              <option value="costasc" onClick={() => setSortDirection('asc')}>Cost : Low-High</option>
-              <option value="costdesc" onClick={() => setSortDirection('desc')}>Cost : High-Low</option>
-            </select>
+ 
                 {data && !isLoading && (
                 <div className='card bg-[#F5F0E8] py-10'>
                     <div className='grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 sm:px-20 md:px-20 lg:px-0 lg:grid-cols-3 gap-6 mx-auto max-w-screen-lg '>
