@@ -5,7 +5,6 @@ import { IoSearchCircle } from 'react-icons/io5'
 import TypeSelector from '@/app/components/TypeSelector'
 import useSWR from 'swr';
 import React from 'react';
-import Provincefilter from '@/app/components/Provincefilter'
 import {MantineProvider, MultiSelect } from '@mantine/core';
 import '@mantine/core/styles.css';
 
@@ -14,9 +13,7 @@ const fetcher = (url : string) => fetch(url).then(r => r.json())
 export default function Page() {
     const { data, error, isLoading } = useSWR('/api/explore/trip', fetcher);
 
-    const [selectedType, setSelectedType] = useState('');
     const [query, setQuery] = useState('')
-    const [selectedProvince, setSelectedProvince] = useState('')
     const [sortDirection, setSortDirection] = useState('');
     const [sortField, setSortField] = useState('')
     const [tag, setTag] = useState<string[]>([]);
@@ -92,33 +89,31 @@ export default function Page() {
           console.log(tag)
     return (
       <div className='bg-[#F5F0E8]'>
-        <h1 className='text-[#674F04] text-6xl pt-60 p-10 text-center font-medium'>{tag}</h1>
+        <h1 className='text-[#674F04] text-5xl pt-60 p-10 text-center font-medium'>Explore travel guides</h1>
         <div className='flex justify-center items-center'>
           <div className='relative max-w-[640px] w-full px-4 mb-5'>
             <input
               type="search"
               placeholder="Search your destination"
-              className='w-full h-12 shadow p-4 rounded-full text-black'
+              className='w-full h-10 shadow p-4 rounded-full text-black'
               onChange={handleChange}
             />
-            <button type='submit' className='absolute top-0 end-0 pr-5 text-5xl font-medium h-full text-white rounded-e-lg'>
+            <button type='submit' className='absolute top-0 end-0 pr-5 text-4xl font-medium h-full text-white rounded-e-lg'>
               <IoSearchCircle className='text-[#4E3C05]' />
             </button>
           </div>
         </div>
         <div className='filter grid grid-cols-1 mx-auto max-w-screen-lg px-20 lg:px-0 gap-5'>
-          <div className='mb-5 mt-3 text-center'>
-            <label className='font-bold text-[#674F04]'>Select Type</label>
-          </div>
-          <MultiSelect
-              label="Your favorite libraries"
+          <MultiSelect 
+              className='rounded-full'
+              label="Province Tag"
               placeholder="Pick value"
-              data={['กทม', 'ข', 'ค', 'ง']}
+              data={['กทม', 'กระบี่', 'ชลบุรี', 'ปทุมธานี']}
               hidePickedOptions
               searchable
               clearable
               onChange={setTag}/>
-          <p className='flex text-[#674F04] text-2xl font-medium justify-center items-center pb-3'>
+          <p className='flex text-[#674F04] text-2xl font-medium justify-center items-center pt-5 pb-3'>
             Select your interest
           </p>
           <div className='flex m-0 justify-between'>
@@ -127,20 +122,20 @@ export default function Page() {
           <div className='flex justify-center items-center'>
             <div className='flex w-full p-0.5 mt-10 mb-20 lg:w-2/3 bg-[#674F04] '></div>
           </div>
-          <select
-            className="px-3 py-2 rounded-md bg-white border border-gray-300 text-gray-700 shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
-            value={sortField}
-            onChange={(e) => {
-              setSortField(e.target.value);
-            }}>
-            <option value="default">All</option>
-            <option value="nameasc" onClick={() => setSortDirection('asc')}>Name A-Z</option>
-            <option value="namedesc" onClick={() => setSortDirection('desc')}>Name Z-A</option>
-            <option value="ratingasc" onClick={() => setSortDirection('asc')}>Rating : Low-High</option>
-            <option value="ratingdesc" onClick={() => setSortDirection('desc')}>Rating : High-Low</option>
-            <option value="costasc" onClick={() => setSortDirection('asc')}>Cost : Low-High</option>
-            <option value="costdesc" onClick={() => setSortDirection('desc')}>Cost : High-Low</option>
-          </select>
+            <select
+              className="px-3 py-2 rounded-full bg-white border border-gray-300 text-gray-700 shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+              value={sortField}
+              onChange={(e) => {
+                setSortField(e.target.value);
+              }}>
+              <option value="default">All</option>
+              <option value="nameasc" onClick={() => setSortDirection('asc')}>Name A-Z</option>
+              <option value="namedesc" onClick={() => setSortDirection('desc')}>Name Z-A</option>
+              <option value="ratingasc" onClick={() => setSortDirection('asc')}>Rating : Low-High</option>
+              <option value="ratingdesc" onClick={() => setSortDirection('desc')}>Rating : High-Low</option>
+              <option value="costasc" onClick={() => setSortDirection('asc')}>Cost : Low-High</option>
+              <option value="costdesc" onClick={() => setSortDirection('desc')}>Cost : High-Low</option>
+            </select>
                 {data && !isLoading && (
                 <div className='card bg-[#F5F0E8] py-10'>
                     <div className='grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 sm:px-20 md:px-20 lg:px-0 lg:grid-cols-3 gap-6 mx-auto max-w-screen-lg '>
@@ -166,46 +161,6 @@ export default function Page() {
                 </div>
             )
     }
-
-  
-
-{/* <div className='filter grid grid-cols-1 mx-auto max-w-screen-lg px-20 lg:px-0 gap-5 lg:grid-cols-4 md:grid-cols-2 sm:grid-cols-1'>
-                    <div className='typetag mb-5 mt-3 text-center'>
-                        <label className='font-bold text-[#674F04]'>Select Type</label>
-                        <select className='form-select appearance-none w-4/5 px-5 py-2.5 rounded-full' name="typetag">
-                            <option value="">-</option>
-                            <option value="1">กทม</option>
-                            <option value="2">ชลบุรี</option>
-                        </select>
-                    </div>
-                    <div className='activitytag mb-5 mt-3 text-center'>
-                        <label className='font-bold text-[#674F04]'>Select Activity</label>
-                        <select className='form-select appearance-none w-4/5 px-5 py-2.5 rounded-full'>
-                            <option value="">-</option>
-                            <option value="1">กทม</option>
-                            <option value="2">ชลบุรี</option>
-                        </select>
-                    </div>
-                    <div className='provincetag mb-5 mt-3 text-center'>
-                    <label className='font-bold text-[#674F04]'>Select Province</label>
-                        <select className='form-select appearance-none w-4/5 px-5 py-2.5 rounded-full'>
-                            <option value="">-</option>
-                            <option value="1">กทม</option>
-                            <option value="2">ชลบุรี</option>
-                        </select>
-                    </div>
-                    <div className='provincetag mb-5 mt-3 text-center'>
-                    <label className='font-bold text-[#674F04]'>Select Cost</label>
-                        <select className='form-select appearance-none w-4/5 px-5 py-2.5 rounded-full'>
-                            <option value="">-</option>
-                            <option value="1"></option>
-                            <option value="2">ชลบุรี</option>
-                        </select>
-                    </div>
-                </div> */}
-
-
-
 
 function setFilteredTypes(filtered: any) {
   throw new Error('Function not implemented.');
