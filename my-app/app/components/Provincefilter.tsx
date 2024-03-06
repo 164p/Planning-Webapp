@@ -10,8 +10,8 @@ const provincetag = [
   { name: 'ตาก' },
 ]
 
-export default function Provincefilter() {
-  const [selectedPerson, setSelectedPerson] = useState(provincetag[0])
+export default function Provincefilter({tagFilter}:any) {
+  const [selectedPerson, setSelectedPerson] = useState('')
   const [query, setQuery] = useState('')
 
   const filteredprovincetag =
@@ -21,10 +21,16 @@ export default function Provincefilter() {
           return pvtag.name.toLowerCase().includes(query.toLowerCase())
         })
 
+  const combinedHandler = (event:any) => {
+    setQuery(event.target.value);
+    tagFilter(event.target.value);
+    setSelectedPerson(event.target.value);
+  };
+
   return (
-    <Combobox value={selectedPerson} onChange={setSelectedPerson}>
+    <Combobox value={selectedPerson} onChange={setSelectedPerson} >
       <Combobox.Input className='w-full h-12 shadow p-4 rounded-full text-black'
-        onChange={(event) => setQuery(event.target.value)}
+        onChange={combinedHandler}
         displayValue={(pvtag:any) => pvtag.name}
       />
       <Combobox.Options>

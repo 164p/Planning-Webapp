@@ -6,6 +6,8 @@ import TypeSelector from '@/app/components/TypeSelector'
 import useSWR from 'swr';
 import React from 'react';
 import Provincefilter from '@/app/components/Provincefilter'
+import {MantineProvider, MultiSelect } from '@mantine/core';
+import '@mantine/core/styles.css';
 
 const fetcher = (url : string) => fetch(url).then(r => r.json())
 
@@ -17,6 +19,11 @@ export default function Page() {
     const [selectedProvince, setSelectedProvince] = useState('')
     const [sortDirection, setSortDirection] = useState('');
     const [sortField, setSortField] = useState('')
+    const [tag, setTag] = useState('');
+
+    const tagSubmit = (e: any) => {
+      setTag(e.target.value)
+    }
 
     const handleChange = (e: any) => {
       setQuery(e.target.value);
@@ -24,6 +31,11 @@ export default function Page() {
     
     if (error) return <div>failed to load</div>;
     if (isLoading) return <div>loading...</div>;   
+
+    function isItemInArray(array1: string[], array2: string[]): boolean {
+      // Use the `some` method to check if at least one element satisfies the condition
+      return array2.some((item) => array1.includes(item));
+    }
 
     const sort = (data: any[], field: string, dir: string) => {
       switch (field) {
@@ -61,13 +73,20 @@ export default function Page() {
       ? data.place
       : data.place.filter(
         (place:any) =>
-          place.name.toLowerCase().includes(query.toLowerCase()) &&
-          (selectedProvince === '' || place.provincetag === selectedProvince)
-        );
+          place.name.toLowerCase().includes(query.toLowerCase()),
 
+        );
+      console.log(tag)
+    const filterDataTag = 
+        tag
+        ? filterData
+        : filterData.filter(
+          (place:any) =>
+            tag.includes(place.provincetag.toLowerCase()) 
+          );
     return (
       <div className='bg-[#F5F0E8]'>
-        <h1 className='text-[#674F04] text-6xl pt-60 p-10 text-center font-medium'>Explore travel guides</h1>
+        <h1 className='text-[#674F04] text-6xl pt-60 p-10 text-center font-medium'>{tag}</h1>
         <div className='flex justify-center items-center'>
           <div className='relative max-w-[640px] w-full px-4 mb-5'>
             <input
@@ -84,8 +103,15 @@ export default function Page() {
         <div className='filter grid grid-cols-1 mx-auto max-w-screen-lg px-20 lg:px-0 gap-5'>
           <div className='mb-5 mt-3 text-center'>
             <label className='font-bold text-[#674F04]'>Select Type</label>
-              <Provincefilter value={selectedProvince} onChange={setSelectedProvince}/>
           </div>
+          <MultiSelect
+              label="Your favorite libraries"
+              placeholder="Pick value"
+              data={['ก', 'ข', 'ค', 'ง']}
+              hidePickedOptions
+              searchable
+              clearable
+              onOptionSubmit={tagSubmit}/>
           <p className='flex text-[#674F04] text-2xl font-medium justify-center items-center pb-3'>
             Select your interest
           </p>
@@ -112,7 +138,7 @@ export default function Page() {
                 {data && !isLoading && (
                 <div className='card bg-[#F5F0E8] py-10'>
                     <div className='grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 sm:px-20 md:px-20 lg:px-0 lg:grid-cols-3 gap-6 mx-auto max-w-screen-lg '>
-                    {sort(filterData, sortField, sortDirection).map((datas:any, index:any) => (
+                    {sort(filterDataTag, sortField, sortDirection).map((datas:any, index:any) => (
                             <div key={index} className="card-top rounded-lg shadow-lg text-[#674F04] bg-[#F5F5F5] pb-5">
                                 <img src={datas.img} alt="logo" width={0} height={0} sizes="120vw" 
                                     style={{ width: '100%', height: 'auto' }} className='img block rounded-lg '/>

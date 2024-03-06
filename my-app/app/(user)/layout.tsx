@@ -1,5 +1,11 @@
 import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
+import { createTheme, MantineProvider } from '@mantine/core';
+
+const theme = createTheme({
+    fontFamily: 'Open Sans, sans-serif',
+    primaryColor: 'cyan',
+  });
 
 export default async function UserLayout({
     children,
@@ -7,7 +13,8 @@ export default async function UserLayout({
     children: React.ReactNode
 }) {
     return (
-        <div className='flex flex-col min-h-screen'>
+        <MantineProvider theme={theme}>
+                    <div className='flex flex-col min-h-screen'>
             <div className='flex-none z-50'>
                 <Navbar />
             </div>
@@ -18,5 +25,7 @@ export default async function UserLayout({
                 <Footer />
             </div>
         </div>
+        </MantineProvider>
+
     )
 }
