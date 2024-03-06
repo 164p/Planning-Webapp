@@ -33,10 +33,11 @@ export default function Home() {
             <div className='bg-[#F5F0E8] py-10'>
                 <div className='grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 sm:px-20 md:px-20 lg:px-0 lg:grid-cols-3 gap-6 mx-auto max-w-screen-lg '>
 
-                    <Link href="/explore/placedetail"><LocationCard /></Link>
-                    <LocationCard />
-                    <LocationCard />
-                    <LocationCard />
+                    <Link href="/explore/placedetail"><LocationCard place_id="ChIJzwxgI7C0AjERShi5dyiRcJI"/></Link>
+                    <LocationCard place_id="ChIJq1rQU1qc4jARJKEVPTxTPTE"/>
+                    <LocationCard place_id="ChIJLU7jZClu5kcR4PcOOO6p3I0"/>
+                    <LocationCard place_id="ChIJ442GNENu5kcRGYUrvgqHw88"/>
+
                 </div>
             </div>
         </div>
