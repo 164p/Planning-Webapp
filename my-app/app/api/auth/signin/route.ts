@@ -21,7 +21,7 @@ export async function POST(request: Request) {
             })
         }
 
-        const checkData = await prisma.account.findMany({
+        const checkData = await prisma.user.findMany({
             where: {
                 OR: [
                     {
@@ -47,7 +47,7 @@ export async function POST(request: Request) {
 
         if(CheckPassword){
 
-            const userData = await prisma.account.findUnique({
+            const userData = await prisma.user.findUnique({
                 where: {
                     username: res.username
                 },
@@ -76,11 +76,12 @@ export async function POST(request: Request) {
         })
 
     } catch (error) {
+
         return new Response( JSON.stringify({
-            statusCode: 400,
+            statusCode: 500,
             message: 'เกิดข้อผิดพลาด โปรดลองใหม่อีกครั้งในภายหลัง'
         }) , {
-            status: 400
+            status: 500
         })
     }
     
