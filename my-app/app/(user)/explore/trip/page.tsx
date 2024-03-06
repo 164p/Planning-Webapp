@@ -75,21 +75,12 @@ export default function Page() {
       
 
         const searchRegex = new RegExp(tag.map(term => term.toLowerCase()).join('|'));
-        // console.log(filterData.province)
-    // const filterDataTag = 
-    //     tag.length === 0
-    //     ? filterData
-    //     : filterData.filter(
-    //       (place:any) =>
-    //       searchRegex.test(filterData.province.toLowerCase())
-    //       );
 
     function filterDataTag(data:any, query:any) {
       if (query.length === 0) {
         return data;
       }
     
-      // Efficiently join search terms with OR operator for case-insensitive search
       const searchRegex = new RegExp(query.map((term: string) => term.toLowerCase()).join('|'));
     
       return data.filter((place:any) => searchRegex.test(place.provincetag.toLowerCase()));
