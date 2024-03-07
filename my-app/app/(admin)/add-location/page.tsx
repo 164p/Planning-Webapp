@@ -44,7 +44,7 @@ export default function Page() {
         </div>
       </div>
       <div className='flex justify-center items-center mt-24'>
-      <div className="box-border h-32 w-32 p-4 border-4 text-black">{location}</div>
+      <div className="box-content h-32 w-64 p-4 border-4 text-black">{location}</div>
       </div>
 
     </main>
