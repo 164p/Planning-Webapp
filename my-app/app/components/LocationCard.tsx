@@ -5,10 +5,10 @@ import { PiDotsThreeCircleFill } from "react-icons/pi";
 
 export default async function LocationCard({place_id}){
     
-    const res = await fetch(`https://maps.googleapis.com/maps/api/place/details/json?place_id=${place_id}&key=${process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}`)
+    const res = await fetch(`https://maps.googleapis.com/maps/api/place/details/json?place_id=${place_id}&key=${process.env.NEXT_MAPS_API_KEY}`)
     const datas:any = await res.json()
     const photo_ref = datas.result.photos[0].photo_reference
-    const url = `https://maps.googleapis.com/maps/api/place/photo?photoreference=${photo_ref}&maxwidth=600&maxheight=400&key=${process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}`;
+    const url = `https://maps.googleapis.com/maps/api/place/photo?photoreference=${photo_ref}&maxwidth=600&maxheight=400&key=${process.env.NEXT_MAPS_API_KEY}`;
 
     return(
         <main className="overflow-hidden rounded-lg shadow-lg text-[#674F04] bg-[#F5F5F5]">

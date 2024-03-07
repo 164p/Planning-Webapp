@@ -9,10 +9,10 @@ import { MdOutlineStar } from "react-icons/md";
 export default async function PlaceDetail() {
 
     const place_id = "ChIJzwxgI7C0AjERShi5dyiRcJI"
-    const res = await fetch(`https://maps.googleapis.com/maps/api/place/details/json?place_id=${place_id}&key=${process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}&region=TH&language=th`)
+    const res = await fetch(`https://maps.googleapis.com/maps/api/place/details/json?place_id=${place_id}&key=${process.env.NEXT_MAPS_API_KEY}&region=TH&language=th`)
     const datas:any = await res.json()
     const photo_ref = datas.result.photos[0].photo_reference
-    const url = `https://maps.googleapis.com/maps/api/place/photo?photoreference=${photo_ref}&maxwidth=600&maxheight=400&key=${process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}`;
+    const url = `https://maps.googleapis.com/maps/api/place/photo?photoreference=${photo_ref}&maxwidth=600&maxheight=400&key=${process.env.NEXT_MAPS_API_KEY}`;
 
   return (
     <div>
