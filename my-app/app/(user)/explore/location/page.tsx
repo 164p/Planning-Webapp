@@ -33,8 +33,15 @@ export default function Home() {
                 <div className='grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 sm:px-20 md:px-20 lg:px-0 lg:grid-cols-3 gap-6 mx-auto max-w-screen-lg '>
                     <Link href="/explore/placedetail"><LocationCard place_id="ChIJzwxgI7C0AjERShi5dyiRcJI"/></Link>
                     <LocationCard place_id="ChIJq1rQU1qc4jARJKEVPTxTPTE"/>
-                    <LocationCard place_id="ChIJLU7jZClu5kcR4PcOOO6p3I0"/>
-                    <LocationCard place_id="ChIJ442GNENu5kcRGYUrvgqHw88"/>
+                    <LocationCard place_id="ChIJIeWu482e4jARYymvLJqTQ58"/>
+                    <LocationCard place_id="ChIJKxtCgc2e4jARLGP1pTT8r6E"/>
+                    <LocationCard place_id="ChIJLdw3yiyZ4jARaNnG-XlHZfA"/>
+                    <LocationCard place_id="ChIJ5Wl37g6Z4jARiP4itarBPDQ"/>
+                    <LocationCard place_id="ChIJD5RZzt-31zARo7esjg3V_Co"/>
+                    <LocationCard place_id="ChIJWaoiBdmY4jAReVIX1maq_-I"/>
+                    
+                    
+                    
                 </div>
             </div>
         </div>
