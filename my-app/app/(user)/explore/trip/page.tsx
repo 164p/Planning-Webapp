@@ -5,7 +5,7 @@ import { IoSearchCircle } from 'react-icons/io5'
 import TypeSelector from '@/app/components/TypeSelector'
 import useSWR from 'swr';
 import React from 'react';
-import {MantineProvider, MultiSelect } from '@mantine/core';
+import {MantineProvider, MultiSelect ,Autocomplete } from '@mantine/core';
 import '@mantine/core/styles.css';
 
 const fetcher = (url : string) => fetch(url).then(r => r.json())
@@ -24,11 +24,6 @@ export default function Page() {
     
     if (error) return <div>failed to load</div>;
     if (isLoading) return <div>loading...</div>;   
-
-    function isItemInArray(array1: string[], array2: string[]): boolean {
-      // Use the `some` method to check if at least one element satisfies the condition
-      return array2.some((item) => array1.includes(item));
-    }
 
     const sort = (data: any[], field: string, dir: string) => {
       switch (field) {
