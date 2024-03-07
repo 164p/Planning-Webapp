@@ -135,7 +135,6 @@ export default function page(){
                                     className='w-full py-1.5 px-3 text-sm rounded-md focus:outline-none forcus:border-slate-400 focus:ring-1 focus:ring-slate-400'
                                     placeholder='Plan name'/>
                                 </div>
-                                
                             </div>
                             
                         </div>
