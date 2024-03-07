@@ -136,7 +136,6 @@ export default function page(){
                                     placeholder='Plan name'/>
                                 </div>
                             </div>
-                            
                         </div>
                     </div>
                     <div className='col md:col-span-2'>
