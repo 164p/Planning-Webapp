@@ -27,7 +27,7 @@ export default function DatePickers(){
     useOutsideAlerter(wrapperRef);
     return (
         <>
-            <div className="card rounded-md bg-[#D3BD9A] p-3 max-w-3xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-3">
+            <div className="card rounded-md bg-[#674F04] p-3 max-w-3xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-3">
                 <div className="col md:col-span-3">
                     <div className="w-full flex items-center bg-white rounded-md p-2 relative">
                         <div className="col grow">
@@ -56,7 +56,7 @@ export default function DatePickers(){
                     {
                         (value[0] && value[1]) ? (
                             <Link href={`/plan/create?start=${value[0]}&end=${value[1]}`}>
-                                <button className='w-full h-full bg-[#674F04] hover:bg-[#856F3A] duration-100 rounded-md text-white py-2'>
+                                <button className='w-full h-full bg-[#402E32] hover:bg-[#4F3C40] duration-100 rounded-md text-white py-2'>
                                     Create plan
                                 </button>
                             </Link>
