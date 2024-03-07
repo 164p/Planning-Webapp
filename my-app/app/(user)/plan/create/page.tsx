@@ -125,7 +125,7 @@ export default function page(){
                                     </div>
                                     <div className={'datepicker absolute left-0 top-full z-10 w-full ' + (menuOpen ? 'flex' : 'hidden')}>
                                         <div className='card bg-white shadow-md rounded-md p-2 mx-auto' ref={wrapperRef}>
-                                            <DatePicker type="range" allowSingleDateInRange value={value} onChange={handleChange} />
+                                            <DatePicker type="range" minDate={new Date()} allowSingleDateInRange value={value} onChange={handleChange} />
                                         </div>
                                     </div>
                                 </div>

@@ -25,6 +25,7 @@ export default function DatePickers(){
 
     const wrapperRef = useRef(null);
     useOutsideAlerter(wrapperRef);
+    
     return (
         <>
             <div className="card rounded-md bg-[#674F04] p-3 max-w-3xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-3">
@@ -47,7 +48,7 @@ export default function DatePickers(){
                         </div>
                         <div className={'datepicker absolute left-0 top-full z-10 w-full ' + (menuOpen ? 'flex' : 'hidden')}>
                             <div className='card bg-white shadow-md rounded-md p-2 mx-auto' ref={wrapperRef}>
-                                <DatePicker type="range" allowSingleDateInRange value={value} onChange={setValue} />
+                                <DatePicker type="range" minDate={new Date()} allowSingleDateInRange value={value} onChange={setValue} />
                             </div>
                         </div>
                     </div>

@@ -15,7 +15,7 @@ export default function page(){
             </div>
             <div className="section">
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                    <div className="card rounded-md bg-[#D3BD9A] flex overflow-hidden">
+                    <div className="card rounded-md bg-[#D3BD9A] flex overflow-hidden items-center">
                         <div className="card-col relative overflow-fidden w-40 h-28 " 
                             style={{
                                 backgroundImage: `url(/beach1.jpg)`,
@@ -30,6 +30,7 @@ export default function page(){
                         </div>
                         <div className="card-col grow p-5">
                             <p className="text-xl font-bold">Trip Name</p>
+                            <p className="">Budget : 10000</p>
                         </div>
                     </div>
                     <div className="card p-5 rounded-md bg-[#D3BD9A]">
