@@ -7,14 +7,7 @@ import '@mantine/dates/styles.css';
 export default function DatePickers(){
 
     const [menuOpen, setMenuOpen] = useState(false)
-    const [indexDate, setIndexDate] = useState(0)
-    const [firstPreviewDate, setFirstPreviewDate] = useState(Date)
     const [value, setValue] = useState<[Date | null, Date | null]>([null, null]);
-
-    useEffect(() => {
-        const currentDates = new Date()
-        setFirstPreviewDate(String(currentDates))
-    },[firstPreviewDate])
 
     function useOutsideAlerter(ref: any) {
         useEffect(() => {
