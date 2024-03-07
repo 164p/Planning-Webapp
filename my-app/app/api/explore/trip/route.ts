@@ -2,7 +2,7 @@ export async function GET() {
     const place = [
         {
             "name": "บางแสนบางใจ",
-            "img": "/mockupimg.jpg",
+            "img": "/bangsan.jpg",
             "rating": 2,
             "cost": 20000,
             "provincetag": "กระบี่",
@@ -11,7 +11,7 @@ export async function GET() {
         },
         {
             "name":"ชะอ้ำ",
-            "img": "/mockupimg.jpg",
+            "img": "/bangsan.jpg",
             "rating": 4,
             "cost": 10000,
             "provincetag": "ชลบุรี",
@@ -20,7 +20,7 @@ export async function GET() {
         },
         {
             "name": "บางแสนบางใจ",
-            "img": "/mockupimg.jpg",
+            "img": "/bangsan.jpg",
             "rating": 4,
             "cost": 5000,
             "provincetag": "กทม",
@@ -29,7 +29,7 @@ export async function GET() {
         },
         {
             "name": "กระบี่",
-            "img": "/mockupimg.jpg",
+            "img": "/bangsan.jpg",
             "rating": 3,
             "cost": 30000,
             "provincetag": "กระบี่",
