@@ -76,11 +76,12 @@ export async function POST(request: Request) {
         })
 
     } catch (error) {
+
         return new Response( JSON.stringify({
-            statusCode: 400,
+            statusCode: 500,
             message: 'เกิดข้อผิดพลาด โปรดลองใหม่อีกครั้งในภายหลัง'
         }) , {
-            status: 400
+            status: 500
         })
     }
     
