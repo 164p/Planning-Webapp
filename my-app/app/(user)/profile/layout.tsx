@@ -15,8 +15,8 @@ export default async function UserLayout({
     return (
         <MantineProvider theme={theme}>
             <div className="mt-48 mb-40">
-                <div className="container grid sm:grid-flow-col grid-col-8">
-                <div className="card bg-white rounded-md md:px-10 py-20">
+                <div className="container grid sm:grid-flow-col grid-cols-4">
+                <div className="card bg-white rounded-md md:px-10 py-20 w-full">
                     <span className="icon text-9xl bg-white rounded-full">
                         <FaUserCircle className="mx-auto"/>
                     </span>
@@ -49,7 +49,7 @@ export default async function UserLayout({
                             </ul>
                         </div>
                 </div>
-                <div className="card bg-[#D3BD9A] rounded-md px-10 md:px-20 py-20 col-span-6">
+                <div className="card bg-[#D3BD9A] rounded-md px-10 md:px-20 py-20 col-span-3 w-full ">
                     {children}
                 </div>
                 </div>
