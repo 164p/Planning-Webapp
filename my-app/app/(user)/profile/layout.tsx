@@ -16,7 +16,7 @@ export default async function UserLayout({
         <MantineProvider theme={theme}>
             <div className="mt-48 mb-40">
                 <div className="container grid sm:grid-flow-col grid-cols-4">
-                <div className="card bg-white rounded-md md:px-10 py-20 w-full">
+                <div className="card bg-white rounded-md md:px-10 py-20 ">
                     <span className="icon text-9xl bg-white rounded-full">
                         <FaUserCircle className="mx-auto"/>
                     </span>
@@ -28,13 +28,8 @@ export default async function UserLayout({
                             <ul>
                                 <li>
                                     <Link href='/profile' className='block mb-3 hover:bg-[#F5F0E8] py-2 px-6 rounded-md hover:text-[#4E3C05]'>
-                                        Profile
-                                    </Link>
-                                </li>
-                                <li>
-                                    <Link href='/profile/setting' className='block mb-3 hover:bg-[#F5F0E8] py-2 px-6 rounded-md hover:text-[#4E3C05]'>
                                         Account Setting
-                                    </Link> 
+                                    </Link>
                                 </li>
                                 <li> 
                                     <Link href='/plan' className='block mb-3 hover:bg-[#F5F0E8] py-2 px-6 rounded-md hover:text-[#4E3C05]'>
