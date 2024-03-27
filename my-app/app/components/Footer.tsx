@@ -17,10 +17,10 @@ export default function Footer(){
                     </div>
                     <div className="col">
                         <p className="font-semibold mb-3">Menu</p>
-                        <Link className="block text-slate-400 hover:text-slate-300 duration-100 mb-1.5" href={''}>
+                        <Link className="block text-slate-400 hover:text-slate-300 duration-100 mb-1.5" href={'/'}>
                             Home
                         </Link>
-                        <Link className="block text-slate-400 hover:text-slate-300 duration-100 mb-1.5" href={''}>
+                        <Link className="block text-slate-400 hover:text-slate-300 duration-100 mb-1.5" href={'/plan'}>
                             Planning
                         </Link>
                         <Link className="block text-slate-400 hover:text-slate-300 duration-100 mb-1.5" href={''}>
