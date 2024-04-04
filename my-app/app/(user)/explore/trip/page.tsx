@@ -84,7 +84,7 @@ export default function Page() {
           console.log(tag)
     return (
       <div className='bg-[#F5F0E8]'>
-        <h1 className='text-[#674F04] text-5xl pt-60 p-10 text-center font-medium'>Explore travel guides</h1>
+        <h1 className='text-[#674F04] text-5xl pt-60 p-10 text-center font-bold'>Explore travel guides</h1>
         <div className='flex justify-center items-center'>
           <div className='relative max-w-[640px] w-full px-4 mb-5'>
             <input
@@ -136,15 +136,23 @@ export default function Page() {
                 <div className='card bg-[#F5F0E8] py-10'>
                     <div className='grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 sm:px-20 md:px-20 lg:px-0 lg:grid-cols-3 gap-6 mx-auto max-w-screen-lg '>
                     {sort(filteredData1, sortField, sortDirection).map((datas:any, index:any) => (
-                            <div key={index} className="card-top rounded-lg shadow-lg text-[#674F04] bg-[#F5F5F5] pb-5">
-                                <img src={datas.img} alt="logo" width={0} height={0} sizes="120vw" 
-                                    style={{ width: '100%', height: 'auto' }} className='img block rounded-lg '/>
+                            <div key={index} className="card-top rounded-2xl shadow-md text-[#674F04] bg-[#F5F5F5] pb-5">
+                              <div dir="rtl">
+                                <div className='z-10 absolute bg-[#F5F0E8] bg-opacity-90 rounded-full px-3 py-1 m-4 font-bold inline-flex'>
+                                  <div>{datas.rating}</div>
+                                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5 text-yellow mr-1">
+                                    <path fill-rule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z"clip-rule="evenodd"></path></svg>
+                                </div>
+                              </div>
+                              <img src={datas.img} alt="logo" width={0} height={0} sizes="120vw" 
+                                  style={{ width: '100%', height: '250px' }} className='img block rounded-2xl'/>
                             <div className="card-button mx-7">
                                 <div className="flex items-center justify-between">
-                                    <p className="font-bold text-[#674F04] py-3">{datas.name}</p>
+                                    <p className="font-bold text-[#674F04] text-lg py-3">{datas.name}</p>
                                 </div>
-                                <div className="flex">{datas.rating}</div>
-                                <p className="pt-4 mb-5">Cost : {datas.cost}</p>
+                                <div className='inline-flex mb-5'>
+                                  <p className='font-bold'>{datas.cost}</p>/Trip
+                                </div>
                                 <div className="tag-section flex">
                                     <p className="tag px-3 py-2 rounded-full bg-[#C3BAAA] text-black mx-2">{datas.provincetag}</p>
                                 </div>
