@@ -13,6 +13,7 @@ export default function PlanningBox() {
   };
 
   return (
+
     <div className="w-full">
       <div className="flex">
         {projects.map((project, index) => (

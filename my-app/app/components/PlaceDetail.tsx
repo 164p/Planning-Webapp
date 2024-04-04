@@ -1,36 +1,45 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react';
 import Image from "next/image"
-
+import useSWR from 'swr'
 import Tag from "@/app/components/Tag"
+import { MdOutlineStar } from "react-icons/md";
 
 
-export default function PlaceDetail() {
+
+export default async function PlaceDetail() {
+
+    const place_id = "ChIJzwxgI7C0AjERShi5dyiRcJI"
+    const res = await fetch(`https://maps.googleapis.com/maps/api/place/details/json?place_id=${place_id}&key=${process.env.NEXT_MAPS_API_KEY}&region=TH&language=th`)
+    const datas:any = await res.json()
+    const photo_ref = datas.result.photos[0].photo_reference
+    const url = `https://maps.googleapis.com/maps/api/place/photo?photoreference=${photo_ref}&maxwidth=600&maxheight=400&key=${process.env.NEXT_MAPS_API_KEY}`;
+
   return (
     <div>
         <div>
-            <p className="placename text-center m-6  text-5xl">หาดบางแสน</p>
-            <Image src="/bangsan.jpg" alt="logo" width={0} height={0} sizes="120vw" priority={true}
+            <p className="placename text-center m-6  text-5xl">{datas.result.name}</p>
+            <Image src={url} alt="logo" width={0} height={0} sizes="120vw" priority={true}
             style={{ width: '100%', height: '100%' }} className='img max-w-sm mx-auto'/>
         </div>
 
         <Tag/>
         
         <div className="rating-cost flex justify-between mx-auto  max-w-[60rem] ">
-            <p className='text-3xl mx-8'>Rating :</p>
-            <p className='text-3xl mr-8'>Cost:xxxxxx</p>
+            <p className='flex text-3xl mx-8 items-center'>Rating : {datas.result.rating} <MdOutlineStar /> </p>
+            <p className='text-3xl mr-8'>Cost : xxxxx</p>
         </div>
 
         <div className="location-container m-8 text-2xl">
             <p>Location</p>
             <div className="m-2.5 p-4 bg-[#D3BD9A] rounded-[22px]">
-                <p className="description text-base">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dignissimos reiciendis eligendi pariatur quo, laborum quis incidunt facere officia voluptas dolorum ea blanditiis, eveniet est quas placeat nam exercitationem, dolore molestias.</p>
+                <p className="description text-base">{datas.result.formatted_address}</p>
             </div>
         </div>
 
         <div className="detail-container m-8 text-2xl">
             <p>Detail</p>
             <div className="m-2.5 p-4 bg-[#D3BD9A] rounded-[22px]">
-                <p className="description text-base">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dignissimos reiciendis eligendi pariatur quo, laborum quis incidunt facere officia voluptas dolorum ea blanditiis, eveniet est quas placeat nam exercitationem, dolore molestias.</p>
+                <p className="description text-base">{datas.result.editorial_summary.overview}</p>
             </div>
         </div>
         
@@ -46,4 +55,3 @@ export default function PlaceDetail() {
     </div>
   )
 }
-
