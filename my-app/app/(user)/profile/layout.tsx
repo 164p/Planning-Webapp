@@ -20,6 +20,7 @@ export default function UserLayout({
 
     const {data: session} = useSession()
     
+    
 
     return (
         <MantineProvider theme={theme}>
@@ -57,7 +58,7 @@ export default function UserLayout({
                             </ul>
                         </div>
                 </div>
-                <div className="card bg-[#D3BD9A] rounded-md px-5 md:px-14 lg:px-32 py-20 col-span-3 w-full grid content-center">
+                <div className="card bg-[#D3BD9A] rounded-md px-5 md:px-14 xl:px-32 py-20 col-span-3 w-full ">
                     {children}
                 </div>
                 </div>

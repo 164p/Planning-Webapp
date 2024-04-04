@@ -44,8 +44,8 @@ export default function page(){
                             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                                 {data?.data.map((planData: planDatas, index: number) => {
                                     return (
-                                        <Link href={`/plan/${planData.id}`}>
-                                            <div key={index} className="card rounded-md bg-[#E4D7C1] flex overflow-hidden items-center relative">
+                                        <Link key={index} href={`/plan/${planData.id}`}>
+                                            <div className="card rounded-md bg-[#E4D7C1] flex overflow-hidden items-center relative">
                                                 {
                                                     planData.images ? (
                                                         <div className="card-col relative overflow-fidden w-40 h-28 " 

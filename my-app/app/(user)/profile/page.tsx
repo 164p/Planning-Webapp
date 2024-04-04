@@ -10,7 +10,7 @@ export default function Home() {
                     <div className="card-header mb-10">
                         <p className="text-2xl font-bold mb-10">PROFILE SETTING</p>
                         <hr className="h-px border-none bg-[#674F04] my-10" />
-                        <div className="inline-flex grid grid-col-8">
+                        
                             <div className="card-section flex flex-col col-start-1 col-end-2">
                                 <div className="">
                                     <span className="icon text-9xl bg-white rounded-full">
@@ -19,7 +19,19 @@ export default function Home() {
                                 </div>
                                 <label className="text-center text-black">Edit Picture</label>
                             </div>
-                            <div className="my-8 w-full h-36 bg-white rounded-xl"></div>
+            
+                            <div className="my-8 p-4 w-full h-full bg-white rounded-xl">
+                                <p>userdescription___ Lorem ipsum dolor sit amet consectetur adipisicing elit. Libero, iure consequuntur? Nemo deleniti nesciunt odio, voluptatem doloremque voluptate, et impedit vel vero officiis adipisci dolores suscipit alias voluptas perspiciatis veritatis.</p>
+                            </div>
+                            
+                        
+                        <p className="text-xl">bookmarks</p>
+                        <div className="my-2 p-4 bg-white rounded-xl flex flex-row flex-wrap justify-evenly">
+                            <div className="my-2 shrink-0 basis-80 h-32 bg-black/20 hover:bg-black/50 rounded-lg"></div>
+                            <div className="my-2 shrink-0 basis-80 h-32 bg-black/20 hover:bg-black/50 rounded-lg"></div>
+                            <div className="my-2 shrink-0 basis-80 h-32 bg-black/20 hover:bg-black/50 rounded-lg"></div>
+                            <div className="my-2 shrink-0 basis-80 h-32 bg-black/20 hover:bg-black/50 rounded-lg"></div>
+                            <div className="my-2 shrink-0 basis-80 h-32 bg-black/20 hover:bg-black/50 rounded-lg"></div>
                         </div>
                     </div>
                 </div>
