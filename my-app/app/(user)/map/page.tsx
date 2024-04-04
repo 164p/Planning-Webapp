@@ -29,28 +29,9 @@ export default function page() {
     }
   }
 
-  type resDataType1 = {
-    statusCode: number,
-    data?:{
-      results: any[]
-    }
-  }
-
-  type resDataType2 = {
-    statusCode: number,
-    data?:{
-      results:{
-        geometry:{
-          location: any[]
-        }
-      }
-    }
-  }
   const [text,setText] = useState('')
   const [datas,setDatas] = useState<any[]>()
-  const [nearby,setNearby] = useState<any[]>()
   const [location,setLocation] = useState<any[]>(['central world'])
-  const [placeGeo,setPlaceGeo] = useState<any[]>()
 
   const combobox = useCombobox({
     onDropdownClose: () => combobox.resetSelectedOption(),
@@ -74,15 +55,9 @@ export default function page() {
   async function handleChange(e: any) {
     setText(e);
     const resAutocomplete = await fetch(`/api/autocomplete/detail?query=${encodeURIComponent((e) as string)}`)
-    const resNearby = await fetch(`/api/explore/location?query=${encodeURIComponent((e) as string)}?types=${value.replace(/\s+/g, '_').toLowerCase()}`)
-    const resGeo = await fetch(`/api/explore/location-geo?query=${encodeURIComponent((e) as string)}`)
     if (resAutocomplete.ok){
       const resData:resDataType = await resAutocomplete.json()
       setDatas(resData.data?.predictions)
-      const resGeoData:resDataType2 = await resGeo.json()
-      setPlaceGeo(resGeoData.data?.results.geometry.location)
-      const resNearbyData:resDataType1 = await resNearby.json()
-      setNearby(resNearbyData.data?.results)
     }
     
   }
