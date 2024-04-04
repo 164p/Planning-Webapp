@@ -1,12 +1,16 @@
-'use client'
+'use client';
 
-import React, { useState, useEffect, useRef } from 'react';
-import { useSearchParams } from 'next/navigation'
+import useSWR from 'swr'
 import Link from 'next/link';
+import React, { useState, useEffect, useRef } from 'react';
 import { DatePicker } from '@mantine/dates';
 import '@mantine/dates/styles.css';
 
-export default function page(){
+const fetcher = (url: any) => fetch(url).then(res => res.json())
+
+export default function page({ params }: { params: { id: string } }) {
+
+    const { data, error, isLoading } = useSWR(`/api/plan/${params.id}`, fetcher)
 
     const dataFormat = {
         startDate: '',
@@ -14,11 +18,6 @@ export default function page(){
     }
 
     const dateSetOfPlan = []
-
-    const searchParams = useSearchParams()
-
-    const startDate = searchParams.get('start')
-    const endDate = searchParams.get('end')
 
     const [indexPage, setIndexPage] = useState(0)
     const [maxDate, setMaxDate] = useState(0)
@@ -73,15 +72,16 @@ export default function page(){
     }
 
     useEffect(() => {
-        const newDate = {
-            startDate: startDate ?? '',
-            endDate: endDate ?? ''
+        if(data){
+            const newDate = {
+                startDate: data?.data.startDate ?? '',
+                endDate: data?.data.endDate ?? ''
+            }
+            setUpArrayDataSet([new Date(newDate.startDate), new Date(newDate.endDate)])
+            setValue([new Date(newDate.startDate), new Date(newDate.endDate)])
+            setShowDate(new Date(newDate.startDate))
         }
-        setUpArrayDataSet([new Date(newDate.startDate),new Date(newDate.endDate)])
-        setValue([new Date(newDate.startDate),new Date(newDate.endDate)])
-        setShowDate(new Date(newDate.startDate))
-
-    },[startDate, endDate])
+    },[data])
 
     const wrapperRef = useRef(null);
     useOutsideAlerter(wrapperRef);
