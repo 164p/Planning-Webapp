@@ -1,8 +1,17 @@
 import prisma from "@/app/lib/prisma"
 import { getServerSession } from "next-auth/next"
 import authOptions from "@/app/lib/AuthProvider"
+import { planStatus } from "@prisma/client"
 
-export async function GET(
+type RequestData = {
+    name?: string,
+    budget?: number,
+    images?: string,
+    detail?: string,
+    status?: planStatus,
+}
+
+export async function POST(
     request: Request,
     { params }: { params: { id: string } }){
 
@@ -21,7 +30,7 @@ export async function GET(
             })
         }
 
-        if(!planId || planId.length < 24){
+        if(!planId){
             return new Response( JSON.stringify({
                 statusCode: 400,
                 message: "ไม่พบรายการที่ต้องการ"
@@ -30,28 +39,31 @@ export async function GET(
             })
         }
 
-        const planData = await prisma.plan.findUnique({
+        const planCount = await prisma.plan.count({
             where: {
                 id: planId,
                 ownerId: session.user.id
-            },
-            select: {
-                id: false,
-                name: true,
-                budget: true,
-                detail: true,
-                startDate: true,
-                endDate: true,
-                status: true
             }
         })
 
-        return new Response( JSON.stringify({
-            statusCode: 200,
-            data: planData
-        }) , {
-            status: 200
-        })
+        if(planCount < 1){
+            return new Response( JSON.stringify({
+                statusCode: 400,
+                message: 'ไม่พบรายการที่ต้องการ'
+            }) , {
+                status: 400
+            })
+        }
+
+        const res:RequestData = await request.json()
+
+        // return new Response( JSON.stringify({
+        //     statusCode: 200,
+        //     data: planData
+        // }) , {
+        //     status: 200
+        // })
+
     } catch (error) {
 
         console.log(error)

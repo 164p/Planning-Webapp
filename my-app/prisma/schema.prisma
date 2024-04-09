@@ -28,7 +28,7 @@ enum roles {
 
 model plan {
   id        String     @id @default(auto()) @map("_id") @db.ObjectId
-  name      String?
+  name      String?    @default("My plan")
   budget    Int?       @default(0)
   images    String?
   detail    String?
@@ -48,7 +48,7 @@ model touristAttraction {
   id               String  @id @default(auto()) @map("_id") @db.ObjectId
   name             String?
   images           String?
-  googleCoodinates String?
+  googleCoodinates Json
   googlePlaceId    String?
 }
 

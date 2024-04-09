@@ -1,7 +1,6 @@
 'use client';
 
 import DatePickers from "@/app/components/DatePickers"
-import Image from "next/image"
 import useSWR from 'swr'
 import Link from "next/link";
 import { planStatus } from "@prisma/client";
@@ -13,7 +12,7 @@ export default function page(){
     type planDatas = {
         id: String,
         name?: String,
-        budget?: Number
+        budget?: Number,
         images?: String,
         detail?: String,
         startDate: Date,
@@ -44,8 +43,8 @@ export default function page(){
                             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                                 {data?.data.map((planData: planDatas, index: number) => {
                                     return (
-                                        <Link href={`/plan/${planData.id}`}>
-                                            <div key={index} className="card rounded-md bg-[#E4D7C1] flex overflow-hidden items-center relative">
+                                        <Link href={`/plan/${planData.id}`} key={index}>
+                                            <div className={"card rounded-md bg-[#E4D7C1] flex overflow-hidden items-center relative hover:shadow-md duration-150 border border-slate-300 "+(planData.status === 'draft' && "opacity-60 hover:opacity-100")}>
                                                 {
                                                     planData.images ? (
                                                         <div className="card-col relative overflow-fidden w-40 h-28 " 
@@ -72,14 +71,14 @@ export default function page(){
                                                     )
                                                 }
                                                 <div className="card-col grow p-5">
-                                                    <p className="text-xl font-bold">Trip Name</p>
-                                                    <p className="">Budget: 10,000 THB</p>
+                                                    <p className="text-xl font-bold">{planData.name ?? "My plan"}</p>
+                                                    <p className="">Budget: {planData.budget?.toLocaleString()} THB</p>
                                                 </div>
                                                 {
                                                     planData.status === 'draft' && (
-                                                        <span className="absolute">
-
-                                                        </span>
+                                                        <div className="absolute right-2 top-2 bg-gray-500 text-white font-bold text-sm px-5 py-px rounded-md">
+                                                            DRAFT
+                                                        </div>
                                                     )
                                                 }
                                             </div>
