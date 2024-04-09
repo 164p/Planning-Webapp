@@ -100,14 +100,13 @@ export default function page(){
                                 Back to see your plan
                             </Link>
                         </div>
-                        <div className='card rounded-md bg-[#D3BD9A] p-5'>
+                        <div className='card rounded-md bg-[#E4D7C1] p-5'>
                             <div className='card-header mb-3'>
                                 <p className='font-semibold'>Setting plan details</p>
                             </div>
                             <div className='card-body'>
                                 <div className='section w-full flex items-center mb-2 relative'>
                                     <div className='col grow'>
-                                        <label htmlFor='startDate' className='text-sm'>Start date</label>
                                         <input type="text" id='startDate'
                                         className='w-full py-1.5 px-3 text-sm rounded-md focus:outline-none forcus:border-slate-400 focus:ring-1 focus:ring-slate-400' 
                                         placeholder="DD/MM/YYYY" autoComplete="off" onClick={() => setMenuOpen((prevDisplay) => !prevDisplay)} 
@@ -117,7 +116,6 @@ export default function page(){
                                         <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><path fill="currentColor" d="M12.7 17.925q-.35.2-.625-.063T12 17.25L14.425 13H3q-.425 0-.713-.288T2 12q0-.425.288-.713T3 11h11.425L12 6.75q-.2-.35.075-.613t.625-.062l7.975 5.075q.475.3.475.85t-.475.85L12.7 17.925Z"></path></svg>
                                     </div>
                                     <div className='col grow'>
-                                        <label htmlFor='endDate' className='text-sm'>End date</label>
                                         <input type="text" id='endDate'
                                         className='w-full py-1.5 px-3 text-sm rounded-md focus:outline-none forcus:border-slate-400 focus:ring-1 focus:ring-slate-400' 
                                         placeholder="DD/MM/YYYY" autoComplete="off" onClick={() => setMenuOpen((prevDisplay) => !prevDisplay)} 
@@ -125,7 +123,7 @@ export default function page(){
                                     </div>
                                     <div className={'datepicker absolute left-0 top-full z-10 w-full ' + (menuOpen ? 'flex' : 'hidden')}>
                                         <div className='card bg-white shadow-md rounded-md p-2 mx-auto' ref={wrapperRef}>
-                                            <DatePicker type="range" allowSingleDateInRange value={value} onChange={handleChange} />
+                                            <DatePicker type="range" minDate={new Date()} allowSingleDateInRange value={value} onChange={handleChange} />
                                         </div>
                                     </div>
                                 </div>
