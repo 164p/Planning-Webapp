@@ -8,7 +8,7 @@ export async function GET(request: NextRequest) {
         const query = searchParams.get('query')
 
         if (query) {
-            const res = await fetch(`https://maps.googleapis.com/maps/api/place/textsearch/json?query=${query}&key=${process.env.NEXT_MAPS_API_KEY}`)
+            const res = await fetch(`https://maps.googleapis.com/maps/api/place/details/json?place_id=${query}&key=${process.env.NEXT_MAPS_API_KEY}`)
             const data = await res.json()
 
             return new Response( JSON.stringify({
