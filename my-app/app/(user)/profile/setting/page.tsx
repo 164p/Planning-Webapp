@@ -119,7 +119,7 @@ export default function page() {
   return (
     <main>
       <div className="m-12 flex flex-col">
-        <form onSubmit={onSubmit}>
+        {/* <form onSubmit={onSubmit}>
             <label>New Displayname</label>
             <div className="input-group relative">
                 <div className="text-slate-600 dark:text-slate-600 absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none">
@@ -131,7 +131,7 @@ export default function page() {
             <div className='text-end mb-8'>
                 <button type='submit' className='bg-[#ae7a28] w-1/3 py-2 h-full  text-[#F5F0E8] rounded-lg'>Change</button>
             </div>
-        </form>
+        </form> */}
         <form onSubmit={passwordSubmit}>
             <label>Old Password</label>
             <div className="input-group relative mb-2">

@@ -1,9 +1,38 @@
+'use client'
+import Image from "next/image"
 import Link from "next/link";
 import { FaUserCircle } from "react-icons/fa"
-import { IoSettingsOutline } from "react-icons/io5"
-import Accountset from "@/app/components/profile/accountset";
+
+import useSWR from 'swr';
+import { useState, useEffect } from 'react'
+
+const fetcher = (url : string) => fetch(url).then(r => r.json())
 
 export default function Home() {
+    const { data, error, isLoading } = useSWR('/api/bookmark', fetcher);
+    
+    type planDatas = {
+        id: String,
+        name?: String,
+        budget?: Number
+        images?: String,
+        detail?: String,
+        startDate: Date,
+        endDate: Date,
+        ownerId: String,
+        status: planStatus
+    }
+    
+
+    
+    
+
+
+
+
+    if (error) return <div>failed to load</div>;
+    if (isLoading) return <div>loading...</div>;   
+
     return(
         <main className="content-center">
                 <div className="card">
@@ -27,11 +56,15 @@ export default function Home() {
                         
                         <p className="text-xl">bookmarks</p>
                         <div className="my-2 p-4 bg-white rounded-xl flex flex-row flex-wrap justify-evenly">
-                            <div className="my-2 shrink-0 basis-80 h-32 bg-black/20 hover:bg-black/50 rounded-lg"></div>
-                            <div className="my-2 shrink-0 basis-80 h-32 bg-black/20 hover:bg-black/50 rounded-lg"></div>
-                            <div className="my-2 shrink-0 basis-80 h-32 bg-black/20 hover:bg-black/50 rounded-lg"></div>
-                            <div className="my-2 shrink-0 basis-80 h-32 bg-black/20 hover:bg-black/50 rounded-lg"></div>
-                            <div className="my-2 shrink-0 basis-80 h-32 bg-black/20 hover:bg-black/50 rounded-lg"></div>
+                            {data.map((bookmarks:any) => (
+                                <Link href={`/plan/${bookmarks.planId}`} className="my-2 shrink-0 basis-80 flex justify-center items-center hover:text-xl h-32 
+                                 rounded-lg bg-blue-200 hover:bg-black/50" >
+                                    
+                                    
+                                    <div className="">{bookmarks.planId}</div>
+                                </Link>
+                            
+                            ))}                            
                         </div>
                     </div>
                 </div>
@@ -48,3 +81,13 @@ export default function Home() {
                             </p>    
                         </div>
                     </div> */}
+
+                    // {data.map((bookmarks:any) => (
+                    //     <Link href={`/plan/${bookmarks.planId}`} className="my-2 shrink-0 basis-80 flex justify-center items-center hover:text-xl h-32 
+                    //      rounded-lg bg-blue-200 hover:bg-black/50" >
+                            
+                            
+                    //         <div className="">{bookmarks.planId}</div>
+                    //     </Link>
+                    
+                    // ))}    
