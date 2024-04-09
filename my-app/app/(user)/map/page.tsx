@@ -32,7 +32,8 @@ export default function page() {
   type resDataTypeGeo = {
     statusCode: number,
     data?:{
-      html_attributions: []
+      html_attributions: [],
+      result: any[]
       }
     
   }
@@ -76,7 +77,7 @@ export default function page() {
   async function locationAdd (e:any) {
     setLocation(e)
     const resAutocomplete = await fetch(`/api/autocomplete/detail?query=${encodeURIComponent((e) as string)}`)
-    const resPlaceID = await fetch(`/api/explore/location-geo?place_id=${newArray1}`)
+    const resPlaceID = await fetch(`/api/explore/location-geo?place_id=${encodeURIComponent((newArray1) as string)}`)
     if (resAutocomplete.ok){
       const resData:resDataType = await resAutocomplete.json()
       setDatas1(resData.data?.predictions)
@@ -133,16 +134,15 @@ export default function page() {
     </div>
   </div>
         <div className='container my-32 mx-auto text-black'>
-        <iframe
-          width="600"
-          height="600"
-          frameBorder="0"
-          src={googleMapAPI}
-          >
-        </iframe>
+          <iframe
+            width="600"
+            height="600"
+            frameBorder="0"
+            src={googleMapAPI}
+            >
+          </iframe>
         </div>
       </div>
-
     </div>
 
   )
