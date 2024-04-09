@@ -48,7 +48,7 @@ export default function Navbar() {
                                 </Link>
                             </li>
                             <li className='ml-2'>
-                                <Link href='/' className='hover:text-[#4E3C05] hover:bg-[#F5F0E8] px-5 py-1 rounded-full duration-100'>
+                                <Link href='/journey' className='hover:text-[#4E3C05] hover:bg-[#F5F0E8] px-5 py-1 rounded-full duration-100'>
                                     Journey
                                 </Link>
                             </li>
