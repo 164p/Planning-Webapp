@@ -14,7 +14,8 @@ export default function Maps() {
     useEffect(() =>{
         const initMap = async () => {
             const loader = new Loader({
-                apiKey: "AIzaSyC6LYgvdJqZ0QLoJXA7XKLHuaqPPzLY1Ac",
+                apiKey: process.env.NEXT_PUBLIC_MAPS_API_KEY!,
+
                 version:'weekly',
                 libraries:['places']
             }) 
@@ -64,8 +65,6 @@ export default function Maps() {
                 }
               }
             }
-
-            
     }
         initMap();
     }, [])

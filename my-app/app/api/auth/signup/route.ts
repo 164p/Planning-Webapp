@@ -44,6 +44,15 @@ export async function POST(request: Request){
             })
         }
 
+        if(!usernameRegex.test(res.password_1)){
+            return new Response( JSON.stringify({
+                statusCode: 400,
+                message: 'รหัสผ่านจะต้องประกอบด้วย A-Z หรือ a-z หรือ 0-9'
+            }) , {
+                status: 400
+            })
+        }
+
         if(res.password_1 !== res.password_2){
             return new Response( JSON.stringify({
                 statusCode: 400,
@@ -89,6 +98,7 @@ export async function POST(request: Request){
             const createUser = await prisma.user.create({
                 data: {
                     username: res.username,
+                    displayName: res.username,
                     password: hashPassword,
                     email: res.email
                 }
