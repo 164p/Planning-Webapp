@@ -15,6 +15,7 @@ export default function Maps() {
         const initMap = async () => {
             const loader = new Loader({
                 apiKey: process.env.NEXT_PUBLIC_MAPS_API_KEY!,
+
                 version:'weekly',
                 libraries:['places']
             }) 

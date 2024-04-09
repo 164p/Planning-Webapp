@@ -4,6 +4,7 @@ import AuthProvider from './context/AuthProvider'
 import { MantineProvider } from '@mantine/core';
 import '@mantine/core/styles.css';
 import './assets/css/globals.css'
+import 'leaflet/dist/leaflet.css';
 
 const myFont = localFont({
   src: './lib/font/Mitr/Mitr-Light.ttf',
