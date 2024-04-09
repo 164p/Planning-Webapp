@@ -6,9 +6,9 @@ export default function page(){
     return (
         <div className="pb-12">
             <div className="banner mb-5 relative max-h-screen overflow-hidden mx-5 mt-20">
-                <div className="grid grid-cols-4 z-10 absolute w-full content-center">
-                    <div className="text-center mt-60 col-start-3 col-end-5">
-                        <div className="border-box bg-[#F5F0E8] py-40 mx-40 shadow-3xl rounded-3xl">
+                <div className="grid lg:grid-cols-4 z-10 absolute w-full content-center sm:grid-cols-2">
+                    <div className="text-center lg:mt-60 col-start-3 col-end-5 sm:mt-20">
+                        <div className="border-box bg-[#F5F0E8] lg:py-40 lg:mx-40 shadow-3xl rounded-3xl sm:py-20 sm:px-10 sm:mx-20">
                             <div className="text-5xl mb-5 font-bold">
                                 Your Next Journey
                             </div>
@@ -32,7 +32,7 @@ export default function page(){
                             <h2 className="text-2xl	font-semibold">Recommand Trip</h2>
                         </div>
                         <div className="section-body my-5">
-                            <div className="grid grid-cols-4 gap-5 mb-3">
+                            <div className="grid lg:grid-cols-4 gap-5 mb-3 md:grid-cols-2">
                                 <div className="col">
                                     <div className="card-section rounded-lg shadow-sm text-[#674F04] bg-[#EDE5D7] pb-3">
                                         <div dir="rtl">
@@ -53,7 +53,7 @@ export default function page(){
                                                     <p className="font-bold">20000</p>/Trip
                                                 </div>
                                             </div>
-                                            <div className="flex items-center justify-between mt-5 ml-12">
+                                            <div className="flex items-center justify-between mt-5 lg:ml-12 sm:ml-24">
                                                 <Link href={"/explore/placedetail"}>
                                                     <svg className="text-gray w-8 h-8" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 20 20" fill="currentColor">  <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-8.707l-3-3a1 1 0 00-1.414 1.414L10.586 9H7a1 1 0 100 2h3.586l-1.293 1.293a1 1 0 101.414 1.414l3-3a1 1 0 000-1.414z" clip-rule="evenodd"/></svg>
                                                 </Link>
@@ -81,7 +81,7 @@ export default function page(){
                                                     <p className="font-bold">10000</p>/Trip
                                                 </div>
                                             </div>
-                                            <div className="flex items-center justify-between mt-5 ml-12">
+                                            <div className="flex items-center justify-between mt-5 lg:ml-12 sm:ml-24">
                                                 <svg className="text-gray w-8 h-8" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 20 20" fill="currentColor">  <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-8.707l-3-3a1 1 0 00-1.414 1.414L10.586 9H7a1 1 0 100 2h3.586l-1.293 1.293a1 1 0 101.414 1.414l3-3a1 1 0 000-1.414z" clip-rule="evenodd"/></svg>
                                             </div>
                                         </div>
@@ -107,7 +107,7 @@ export default function page(){
                                                     <p className="font-bold">30000</p>/Trip
                                                 </div>
                                             </div>
-                                            <div className="flex items-center justify-between mt-5 ml-12">
+                                            <div className="flex items-center justify-between mt-5 lg:ml-12 sm:ml-24">
                                                 <svg className="text-gray w-8 h-8" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 20 20" fill="currentColor">  <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-8.707l-3-3a1 1 0 00-1.414 1.414L10.586 9H7a1 1 0 100 2h3.586l-1.293 1.293a1 1 0 101.414 1.414l3-3a1 1 0 000-1.414z" clip-rule="evenodd"/></svg>
                                             </div>
                                         </div>
@@ -133,7 +133,7 @@ export default function page(){
                                                     <p className="font-bold">5000</p>/Trip
                                                 </div>
                                             </div>
-                                            <div className="flex items-center justify-between mt-5 ml-12">
+                                            <div className="flex items-center justify-between mt-5 lg:ml-12 sm:ml-24">
                                                 <svg className="text-gray w-8 h-8" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 20 20" fill="currentColor">  <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-8.707l-3-3a1 1 0 00-1.414 1.414L10.586 9H7a1 1 0 100 2h3.586l-1.293 1.293a1 1 0 101.414 1.414l3-3a1 1 0 000-1.414z" clip-rule="evenodd"/></svg>
                                             </div>
                                         </div>
