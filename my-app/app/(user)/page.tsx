@@ -154,7 +154,7 @@ export default function page(){
                                     <div className="text-2xl font-semibold">Find Your Destination</div>
                                     <div className="px-16 mt-3">Find what you're interested in Places on the map with us. So that you has a purpose With color and fun!</div>
                                     <div className="text-center mt-5">
-                                        <Link href={"/explore/location"}>
+                                        <Link href={"/map"}>
                                             <button className="border-[#674F04] border-solid border-2 hover:bg-[#674F04] hover:text-white text-black font-bold py-2 px-4 rounded-full">Find</button>
                                         </Link>
                                     </div>
@@ -181,7 +181,7 @@ export default function page(){
                                     <div className="text-2xl font-semibold">Keep Your Memory</div>
                                     <div className="px-16 mt-3">Let these memories be your travel companions, Even after the journey's end. Tuck them away, a private world to revisit, Whenever your heart desires to wander again.</div>
                                     <div className="text-center mt-5">
-                                        <Link href={"/explore/location"}>
+                                        <Link href={"/journey"}>
                                             <button className="border-[#674F04] border-solid border-2 hover:bg-[#674F04] hover:text-white text-black font-bold py-2 px-4 rounded-full">Find</button>
                                         </Link>
                                     </div>
