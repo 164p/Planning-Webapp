@@ -131,8 +131,9 @@ export default function page({ params }: { params: { id: string } }) {
                 }
                 {
                     (!isLoading && !data?.data) && (
-                        <div className='card rounded-md bg-red-600 px-5 py-1 text-center text-white mx-auto max-w-64 mt-2'>
-                            Your plan is not found.
+                        <div className='card rounded-md bg-red-600 px-8 py-2 text-center text-white mx-auto max-w-fit mt-2'>
+                            <p className='font-bold'>Your plan is not found</p>
+                            <p className='text-sm'>please return to plan page</p>
                         </div>
                     )
                 }
