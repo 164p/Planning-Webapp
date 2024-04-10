@@ -7,9 +7,9 @@ export default function page(){
         <div className="pb-12">
             <div className="banner mb-5 relative max-h-screen overflow-hidden mx-5 mt-20">
                 <div className="grid lg:grid-cols-4 z-10 absolute w-full content-center sm:grid-cols-2">
-                    <div className="text-center lg:mt-60 col-start-3 col-end-5 sm:mt-20">
-                        <div className="border-box bg-[#F5F0E8] lg:py-40 lg:mx-40 shadow-3xl rounded-3xl sm:py-20 sm:px-10 sm:mx-20">
-                            <div className="text-5xl mb-5 font-bold">
+                    <div className="text-center lg:mt-40 col-start-3 col-end-5 sm:mt-20">
+                        <div className="border-box bg-[#F5F0E8] lg:mx-40 shadow-3xl rounded-3xl sm:py-20 sm:px-10 sm:mx-20">
+                            <div className="text-4xl mb-5 font-bold">
                                 Your Next Journey
                             </div>
                             <div className="mb-5">
@@ -34,9 +34,13 @@ export default function page(){
                         <div className="section-body my-5">
                             <div className="grid lg:grid-cols-4 gap-5 mb-3 md:grid-cols-2">
                                 <div className="col">
-                                    <Link href={'/plan'} className="card overflow-hidden w-full bg-[#674F04] hover:bg-[#896A08] duration-100 px-8 py-3 rounded-md flex flex-col md:flex-row text-white justify-center items-center">
-                                        <div className="card-section">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="2.5em" height="2.5em" viewBox="0 0 24 24"><path fill="currentColor" d="M19 4h-1V3c0-.6-.4-1-1-1s-1 .4-1 1v1H8V3c0-.6-.4-1-1-1s-1 .4-1 1v1H5C3.3 4 2 5.3 2 7v1h20V7c0-1.7-1.3-3-3-3M2 19c0 1.7 1.3 3 3 3h14c1.7 0 3-1.3 3-3v-9H2zm15-7c.6 0 1 .4 1 1s-.4 1-1 1s-1-.4-1-1s.4-1 1-1m0 4c.6 0 1 .4 1 1s-.4 1-1 1s-1-.4-1-1s.4-1 1-1m-5-4c.6 0 1 .4 1 1s-.4 1-1 1s-1-.4-1-1s.4-1 1-1m0 4c.6 0 1 .4 1 1s-.4 1-1 1s-1-.4-1-1s.4-1 1-1m-5-4c.6 0 1 .4 1 1s-.4 1-1 1s-1-.4-1-1s.4-1 1-1m0 4c.6 0 1 .4 1 1s-.4 1-1 1s-1-.4-1-1s.4-1 1-1"></path></svg>
+                                    <div className="card-section rounded-lg shadow-sm text-[#674F04] bg-[#EDE5D7] pb-3">
+                                        <div dir="rtl">
+                                            <div className='z-10 absolute bg-[#F5F0E8] bg-opacity-90 rounded-full px-3 py-1 m-4 font-bold inline-flex'>
+                                            <div>5</div>
+                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5 text-yellow mr-1">
+                                                <path fill-rule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z"clip-rule="evenodd"></path></svg>
+                                            </div>
                                         </div>
                                         <Image src="/bangsan1.jpg" alt="logo" width={0} height={0} sizes="120vw" priority={true}
                                             style={{ width: '100%', height: '180px' }} className='mx-auto rounded-2xl'/>
