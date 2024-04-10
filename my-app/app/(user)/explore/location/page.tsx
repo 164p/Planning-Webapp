@@ -31,8 +31,8 @@ export default function Home() {
             </div>
             <div className='bg-[#F5F0E8] py-10'>
                 <div className='grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 sm:px-20 md:px-20 lg:px-0 lg:grid-cols-3 gap-6 mx-auto max-w-screen-lg '>
-                    <Link href="/explore/placedetail"><LocationCard place_id="ChIJzwxgI7C0AjERShi5dyiRcJI"/></Link>
-                    <LocationCard place_id="ChIJq1rQU1qc4jARJKEVPTxTPTE"/>
+                    <Link href={{pathname: '/explore/placedetail',query: { place_id: 'ChIJzwxgI7C0AjERShi5dyiRcJI' },}}><LocationCard place_id="ChIJzwxgI7C0AjERShi5dyiRcJI"/></Link>
+                    <Link href={{pathname: '/explore/placedetail',query: { place_id: 'ChIJq1rQU1qc4jARJKEVPTxTPTE' },}}><LocationCard place_id="ChIJq1rQU1qc4jARJKEVPTxTPTE"/></Link>
                     <LocationCard place_id="ChIJIeWu482e4jARYymvLJqTQ58"/>
                     <LocationCard place_id="ChIJKxtCgc2e4jARLGP1pTT8r6E"/>
                     <LocationCard place_id="ChIJLdw3yiyZ4jARaNnG-XlHZfA"/>
