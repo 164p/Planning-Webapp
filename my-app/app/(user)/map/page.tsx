@@ -34,9 +34,23 @@ export default function page() {
     statusCode: number,
     data?:{
       html_attributions: [],
-      result: any[]
+      result:{
+        geometry: {
+          location:{
+            lat: any,
+            lng: any
+          }
+        }
       }
-    
+      }
+  }
+
+  type resDataNearby = {
+    statusCode: number,
+    data?:{
+      html_attributions: [],
+      result: any
+    }
   }
 
   const [text,setText] = useState('')
@@ -44,7 +58,9 @@ export default function page() {
   const [datas1,setDatas1] = useState<any[]>()
   const [location,setLocation] = useState<any[]>(['central world'])
   const [geo,setGeo] = useState<any[]>()
-  const [placeID,setPlaceID] = useState<any[]>()
+  const [geoString,setGeoString] = useState('');
+  const [nearby,setNearby] = useState<any[]>()
+  const [type,setType] = useState('cafe')
 
   const combobox = useCombobox({
     onDropdownClose: () => combobox.resetSelectedOption(),
@@ -59,7 +75,7 @@ export default function page() {
   ));
 
 
-  const googleMapAPI = `https://www.google.com/maps/embed/v1/search?key=AIzaSyC6LYgvdJqZ0QLoJXA7XKLHuaqPPzLY1Ac&q=${location}`
+  const googleMapAPI = `https://www.google.com/maps/embed/v1/search?key=AIzaSyC6LYgvdJqZ0QLoJXA7XKLHuaqPPzLY1Ac&q=${type}`
   const googleNeabyLocationAPI = 'https://maps.googleapis.com/maps/api/place/nearbysearch/json?keyword=cruise&location=-33.8670522%2C151.1957362&radius=1500&type=restaurant&key=AIzaSyC6LYgvdJqZ0QLoJXA7XKLHuaqPPzLY1Ac'
 
   async function handleChange(e: any) {
@@ -68,31 +84,36 @@ export default function page() {
     if (resAutocomplete.ok){
       const resData:resDataType = await resAutocomplete.json()
       setDatas(resData.data?.predictions)
+      setDatas1(resData.data?.predictions)
+      const geoString = geo?.join("%2C");
+      if (geoString !== undefined){
+        setGeoString(geoString)
+      }
+
     }
     
   }
   const newArray = datas?.map(subArray => subArray.description);
   const newArray1 = datas1?.map(subArray => subArray.place_id)?.[0];
-  console.log(placeID)
 
   async function locationAdd (e:any) {
     setLocation(e)
-    const resAutocomplete = await fetch(`/api/autocomplete/detail?query=${encodeURIComponent((e) as string)}`)
-    const resPlaceID = await fetch(`/api/explore/location-geo?place_id=${encodeURIComponent((newArray1) as string)}`)
-    if (resAutocomplete.ok){
-      const resData:resDataType = await resAutocomplete.json()
-      setDatas1(resData.data?.predictions)
+    const resGeo = await fetch(`/api/explore/location-geo?place_id=${encodeURIComponent((newArray1) as string)}`)
+    if (resGeo.ok){
+      const resData1:resDataTypeGeo = await resGeo.json()
+      setGeo([resData1.data?.result.geometry.location.lat,resData1.data?.result.geometry.location.lng])
     }
-    if (resPlaceID.ok){
-      const resData1:resDataTypeGeo = await resPlaceID.json()
-      setPlaceID(resData1.data?.result)
+    
+  
+    const resNearby = await fetch(`/api/explore/nearbysearch?location=${encodeURIComponent((geoString) as string)}&type=${encodeURIComponent((type) as string)}`)
+    if (resNearby.ok){
+      const resData2:resDataNearby = await resGeo.json()
+      setNearby(resData2.data?.result)
     }
   }
-  // const newArray12 = placeID?.map(subArray => subArray.geometry);
   console.log(datas)
   console.log(newArray)
-  console.log(placeID)
-  // console.log(newArray12)
+  console.log(nearby)
   return (
 <div>
 <div className='grid grid-cols-1 lg:grid-cols-2'>
@@ -108,6 +129,7 @@ export default function page() {
         withinPortal={false}
         onOptionSubmit={(val) => {
           setValue(val);
+          setType(val.toLowerCase());
           combobox.closeDropdown();
         }}
       >
