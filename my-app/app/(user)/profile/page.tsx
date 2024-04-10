@@ -23,7 +23,7 @@ export default function Home() {
         status: planStatus
     }
     
-
+    
     
     
 
@@ -56,12 +56,12 @@ export default function Home() {
                         
                         <p className="text-xl">bookmarks</p>
                         <div className="my-2 p-4 bg-white rounded-xl flex flex-row flex-wrap justify-evenly">
-                            {data.map((bookmarks:any) => (
-                                <Link href={`/plan/${bookmarks.planId}`} className="my-2 shrink-0 basis-80 flex justify-center items-center hover:text-xl h-32 
+                            {data?.data.map((bookmarks:planDatas, index: number) => (
+                                <Link href={`/plan/${bookmarks.id}`} className="my-2 shrink-0 basis-80 flex justify-center items-center hover:text-xl h-32 
                                  rounded-lg bg-blue-200 hover:bg-black/50" >
                                     
                                     
-                                    <div className="">{bookmarks.planId}</div>
+                                    <div className="">{bookmarks.name}</div>
                                 </Link>
                             
                             ))}                            
