@@ -15,8 +15,8 @@ export default function page(){
         budget?: Number,
         images?: String,
         detail?: String,
-        startDate: Date,
-        endDate: Date,
+        startDate: String,
+        endDate: String,
         ownerId: String,
         status: planStatus
     }
@@ -47,7 +47,7 @@ export default function page(){
                                             <div className={"card rounded-md bg-[#E4D7C1] flex overflow-hidden items-center relative hover:shadow-md duration-150 border border-slate-300 "+(planData.status === 'draft' && "opacity-60 hover:opacity-100")}>
                                                 {
                                                     planData.images ? (
-                                                        <div className="card-col relative overflow-fidden w-40 h-28 " 
+                                                        <div className="card-col relative overflow-fidden w-40 h-40" 
                                                             style={{
                                                                 backgroundImage: `url(${planData.images})`,
                                                                 backgroundPosition: 'left center',
@@ -58,7 +58,7 @@ export default function page(){
                                                             </div>
                                                         </div>
                                                     ):(
-                                                        <div className="card-col relative overflow-fidden w-40 h-28 " 
+                                                        <div className="card-col relative overflow-fidden w-40 h-40" 
                                                             style={{
                                                                 backgroundImage: `url(/ImageTemplate.png)`,
                                                                 backgroundPosition: 'left center',
@@ -71,8 +71,10 @@ export default function page(){
                                                     )
                                                 }
                                                 <div className="card-col grow p-5">
-                                                    <p className="text-xl font-bold">{planData.name ?? "My plan"}</p>
+                                                    <p className="text-xl font-extrabold">{planData.name ?? "My plan"}</p>
                                                     <p className="">Budget: {planData.budget?.toLocaleString()} THB</p>
+                                                    <p className="font-semibold mt-3">Date</p>
+                                                    <p className="text-sm">{ new Date(planData.startDate).toLocaleDateString('en-GB') } - { new Date(planData.endDate).toLocaleDateString('en-GB') }</p>
                                                 </div>
                                                 {
                                                     planData.status === 'draft' && (

@@ -100,10 +100,17 @@ export default function page({ params }: { params: { id: string } }) {
 
     async function onSubmit(event: FormEvent<HTMLFormElement>) {
         event.preventDefault()
-        if(inputData.startDate == null || inputData.endDate == null){
+        if(!inputData.startDate || !inputData.endDate){
             await Swal.fire({
                 title: 'Save failed!',
-                text: 'Please select date before save.',
+                text: 'Please select date before save',
+                icon: 'error',
+            }) 
+
+        }else if(!inputData.name || !inputData.detail || !inputData.budget){
+            await Swal.fire({
+                title: 'Save failed!',
+                text: 'กรุณากรอกข้อมูลให้ครบถ้วน',
                 icon: 'error',
             }) 
         }else{
@@ -111,6 +118,13 @@ export default function page({ params }: { params: { id: string } }) {
                 method: 'POST',
                 body: JSON.stringify(inputData)
             })
+
+            if(response.ok){
+                await Swal.fire({
+                    title: 'Save success!',
+                    icon: 'success',
+                }) 
+            }
         }
         
         // setLoading(false)
@@ -186,20 +200,20 @@ export default function page({ params }: { params: { id: string } }) {
                                                 <input type='text' id='name' name='name'
                                                 className='w-full py-1.5 px-3 text-sm rounded-md focus:outline-none forcus:border-slate-400 focus:ring-1 focus:ring-slate-400'
                                                 placeholder='Plan name'
-                                                onChange={e => setInputData({ ...inputData, [e.target.name]: e.target.value })} defaultValue={inputData?.name || ""}/>
+                                                onChange={e => setInputData({ ...inputData, [e.target.name]: e.target.value })} value={inputData.name}/>
                                             </div>
                                             <div className='mb-2'>
                                                 <label htmlFor='budget' className='text-sm'>Plan budget</label>
                                                 <input type='number' id='budget' name='budget'
                                                 className='w-full py-1.5 px-3 text-sm rounded-md focus:outline-none forcus:border-slate-400 focus:ring-1 focus:ring-slate-400'
                                                 placeholder='0'
-                                                onChange={e => setInputData({ ...inputData, [e.target.name]: e.target.value })} defaultValue={inputData.budget}/>
+                                                onChange={e => setInputData({ ...inputData, [e.target.name]: e.target.value })} value={inputData.budget}/>
                                             </div>
                                             <div className='mb-2'>
                                                 <label htmlFor='detail' className='text-sm'>Plan detail</label>
                                                 <textarea rows={3} name='detail' id='detail'
                                                     className='w-full py-1.5 px-3 text-sm rounded-md focus:outline-none forcus:border-slate-400 focus:ring-1 focus:ring-slate-400'
-                                                    onChange={e => setInputData({ ...inputData, [e.target.name]: e.target.value })} defaultValue={inputData.detail}>
+                                                    onChange={e => setInputData({ ...inputData, [e.target.name]: e.target.value })} value={inputData.detail}>
                                                 </textarea>
                                             </div>
                                             {
