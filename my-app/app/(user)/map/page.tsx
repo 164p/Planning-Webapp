@@ -86,12 +86,13 @@ export default function page() {
     if (resPlaceID.ok){
       const resData1:resDataTypeGeo = await resPlaceID.json()
       setPlaceID(resData1.data?.result)
-      console.log(newArray1)
-      console.log("OK")
-      console.log(resData1.data)
     }
   }
-  const newArray12 = datas1?.map(subArray => subArray.place_id)?.[0];
+  // const newArray12 = placeID?.map(subArray => subArray.geometry);
+  console.log(datas)
+  console.log(newArray)
+  console.log(placeID)
+  // console.log(newArray12)
   return (
 <div>
 <div className='grid grid-cols-1 lg:grid-cols-2'>
@@ -130,7 +131,7 @@ export default function page() {
     </div>
     <div>
       <div  className='bg-[#9D864F] w-3/4 h-96 my-8 mx-32'>
-        {placeID}
+        test
       </div>
     </div>
   </div>
