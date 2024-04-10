@@ -36,7 +36,7 @@ model plan {
   endDate   DateTime
   owner     user       @relation(fields: [ownerId], references: [id])
   ownerId   String     @db.ObjectId
-  updatedAt DateTime
+  updatedAt DateTime?
   status    planStatus @default(draft)
 }
 
