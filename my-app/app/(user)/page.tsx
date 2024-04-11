@@ -7,8 +7,8 @@ export default function page(){
         <div className="pb-12">
             <div className="banner mb-5 relative max-h-screen overflow-hidden mx-5 mt-20">
                 <div className="grid lg:grid-cols-4 z-10 absolute w-full content-center sm:grid-cols-2">
-                    <div className="text-center lg:mt-60 col-start-3 col-end-5 sm:mt-20">
-                        <div className="border-box bg-[#F5F0E8] lg:py-40 lg:mx-40 shadow-3xl rounded-3xl sm:py-20 sm:px-10 sm:mx-20">
+                    <div className="text-center lg:mt-40 col-start-3 col-end-5 sm:mt-20">
+                        <div className="border-box bg-[#F5F0E8] lg:mx-40 shadow-3xl rounded-3xl sm:py-20 sm:px-10 sm:mx-20">
                             <div className="text-5xl mb-5 font-bold">
                                 Your Next Journey
                             </div>
@@ -181,7 +181,7 @@ export default function page(){
                                     <div className="text-2xl font-semibold">Keep Your Memory</div>
                                     <div className="px-16 mt-3">Let these memories be your travel companions, Even after the journey's end. Tuck them away, a private world to revisit, Whenever your heart desires to wander again.</div>
                                     <div className="text-center mt-5">
-                                        <Link href={"/explore/location"}>
+                                        <Link href={"/map"}>
                                             <button className="border-[#674F04] border-solid border-2 hover:bg-[#674F04] hover:text-white text-black font-bold py-2 px-4 rounded-full">Find</button>
                                         </Link>
                                     </div>
