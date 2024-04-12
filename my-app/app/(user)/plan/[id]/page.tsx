@@ -6,6 +6,8 @@ import React, { useState, useEffect, useRef, FormEvent } from 'react';
 import { DatePicker } from '@mantine/dates';
 import '@mantine/dates/styles.css';
 import Swal from 'sweetalert2'
+import {Autocomplete, AutocompleteProps, Avatar, Combobox, Group, Input, InputBase, useCombobox, Text} from '@mantine/core';
+import '@mantine/core/styles.css';
 
 const fetcher = (url: any) => fetch(url).then(res => res.json())
 
@@ -128,7 +130,56 @@ export default function page({ params }: { params: { id: string } }) {
         }
         
         // setLoading(false)
-    }
+            }
+
+        // Gap Section
+        type resDataType = {
+            statusCode: number,
+            data?:{
+            predictions: any[]
+            }
+        }
+
+        interface BoxData { 
+            id: number;
+            content: string;
+          }
+
+        const [text,setText] = useState('')
+        const [datas1,setDatas1] = useState<any[]>()
+        const [datas,setDatas] = useState<any[]>()
+        const [geo,setGeo] = useState<any[]>()
+        const [geoString,setGeoString] = useState('');
+        const [location,setLocation] = useState<any[]>(['central world'])
+        const [boxes, setBoxes] = useState<BoxData[]>([]);
+        const [boxCount, setBoxCount] = useState(0); 
+        const newArray = datas?.map(subArray => subArray.description);
+
+
+
+        async function handleChangeAutocomplete(e: any) {
+            setText(e);
+            const resAutocomplete = await fetch(`/api/autocomplete/detail?query=${encodeURIComponent((e) as string)}`)
+            if (resAutocomplete.ok){
+            const resData:resDataType = await resAutocomplete.json()
+            setDatas(resData.data?.predictions)
+            const geoString = geo?.join("%2C");
+            if (geoString !== undefined){
+                setGeoString(geoString)
+            }
+            }
+        }
+
+        async function locationAdd (e:any) {
+            setLocation(e)
+            const newData = { id: boxCount, content: `Box ${boxCount + 1}` };
+
+            // Update state with the new data and increment box count
+            setBoxes([...boxes, newData]);
+            setBoxCount(boxCount + 1);
+
+        }
+            
     return (
         <div className="container py-28">
             <div className="header-section mb-8">
@@ -250,6 +301,7 @@ export default function page({ params }: { params: { id: string } }) {
                                             <svg xmlns="http://www.w3.org/2000/svg" width="1.5em" height="1.5em" viewBox="0 0 24 24"><path fill="currentColor" d="m7.85 13l2.85 2.85q.3.3.288.7t-.288.7q-.3.3-.712.313t-.713-.288L4.7 12.7q-.3-.3-.3-.7t.3-.7l4.575-4.575q.3-.3.713-.287t.712.312q.275.3.288.7t-.288.7L7.85 11H19q.425 0 .713.288T20 12q0 .425-.288.713T19 13z"></path></svg>
                                         </button>
                                     )
+
                                 }
                             </div>
                             <div className='col mx-auto text-center'>
@@ -274,9 +326,18 @@ export default function page({ params }: { params: { id: string } }) {
                                             <svg xmlns="http://www.w3.org/2000/svg" width="1.5em" height="1.5em" viewBox="0 0 24 24"><path fill="currentColor" d="M13.3 17.275q-.3-.3-.288-.725t.313-.725L16.15 13H5q-.425 0-.713-.288T4 12q0-.425.288-.713T5 11h11.15L13.3 8.15q-.3-.3-.3-.713t.3-.712q.3-.3.713-.3t.712.3L19.3 11.3q.15.15.213.325t.062.375q0 .2-.063.375t-.212.325l-4.6 4.6q-.275.275-.687.275t-.713-.3Z"></path></svg>
                                         </button>
                                     )
-                                }
+                                }   
                             </div>
                         </div>
+                            <div className='relative max-w-[640px] w-full px-4 mb-10 mt-12'>
+                                <Autocomplete data={newArray} onChange={handleChangeAutocomplete} onOptionSubmit={locationAdd} />
+                                {boxes.map((box) => (
+                                <div key={box.id} className="box">
+                                    {/* Display box content here */}
+                                    <p>{box.content}</p>
+                                </div>
+                                ))}
+                            </div>
                     </div>
                 </div>
             </div>

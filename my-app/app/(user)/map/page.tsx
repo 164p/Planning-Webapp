@@ -49,7 +49,7 @@ export default function page() {
     statusCode: number,
     data?:{
       html_attributions: [],
-      result: any
+      results: any
     }
   }
 
@@ -75,7 +75,7 @@ export default function page() {
   ));
 
 
-  const googleMapAPI = `https://www.google.com/maps/embed/v1/search?key=AIzaSyC6LYgvdJqZ0QLoJXA7XKLHuaqPPzLY1Ac&q=${type}`
+  const googleMapAPI = `https://www.google.com/maps/embed/v1/search?key=AIzaSyC6LYgvdJqZ0QLoJXA7XKLHuaqPPzLY1Ac&q=${encodeURIComponent(location)}+${type}`
   const googleNeabyLocationAPI = 'https://maps.googleapis.com/maps/api/place/nearbysearch/json?keyword=cruise&location=-33.8670522%2C151.1957362&radius=1500&type=restaurant&key=AIzaSyC6LYgvdJqZ0QLoJXA7XKLHuaqPPzLY1Ac'
 
   async function handleChange(e: any) {
@@ -94,7 +94,13 @@ export default function page() {
     
   }
   const newArray = datas?.map(subArray => subArray.description);
+  const nearby_name = nearby?.map(subArray => subArray.business_status);
+  const nearby_status = nearby?.map(subArray => subArray.name  );
   const newArray1 = datas1?.map(subArray => subArray.place_id)?.[0];
+
+  function locationSet(e:any){
+    setLocation(e)
+    }
 
   async function locationAdd (e:any) {
     setLocation(e)
@@ -107,13 +113,17 @@ export default function page() {
   
     const resNearby = await fetch(`/api/explore/nearbysearch?location=${encodeURIComponent((geoString) as string)}&type=${encodeURIComponent((type) as string)}`)
     if (resNearby.ok){
-      const resData2:resDataNearby = await resGeo.json()
-      setNearby(resData2.data?.result)
+      const resData2:resDataNearby = await resNearby.json()
+      setNearby(resData2.data?.results)
     }
+    console.log(e)
   }
   console.log(datas)
   console.log(newArray)
   console.log(nearby)
+  console.log(location)
+
+  
   return (
 <div>
 <div className='grid grid-cols-1 lg:grid-cols-2'>
@@ -153,7 +163,18 @@ export default function page() {
     </div>
     <div>
       <div  className='bg-[#9D864F] w-3/4 h-96 my-8 mx-32'>
-        test
+      {nearby && (
+                <div className='card bg-[#F5F0E8] py-10'>
+                    <div className='grid grid-cols-1 '>
+                    {nearby.map((datas:any, index:any) => (
+                            <div key={index} className="card-top rounded-2xl shadow-md text-[#674F04] bg-[#F5F5F5] pb-5"> 
+                                  <div>{datas.business_status}</div>
+                                  <div onClick={(val) => {setLocation(datas.name);}} >{datas.name}</div>
+                        </div>
+                      ))}
+                    </div>
+                </div>
+                )}
       </div>
     </div>
   </div>

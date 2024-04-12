@@ -9,7 +9,7 @@ export async function GET(request: NextRequest) {
         const types = searchParams.get('type')
 
         if (query) {
-            const res = await fetch(`https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${query}&components=country:th&radius=1500&type=${types}&key=${process.env.NEXT_MAPS_API_KEY}`)
+            const res = await fetch(`https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${query}&components=country:th&radius=1000&type=${types}&key=${process.env.NEXT_MAPS_API_KEY}`)
             const data = await res.json()
 
             return new Response( JSON.stringify({
