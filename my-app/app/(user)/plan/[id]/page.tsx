@@ -1,11 +1,13 @@
 'use client';
 
 import useSWR from 'swr'
+import Image from 'next/image';
 import Link from 'next/link';
 import React, { useState, useEffect, useRef, FormEvent } from 'react';
 import { DatePicker } from '@mantine/dates';
 import '@mantine/dates/styles.css';
 import Swal from 'sweetalert2'
+import { uploadImages } from '@/app/lib/uploadImages';
 
 const fetcher = (url: any) => fetch(url).then(res => res.json())
 
@@ -84,27 +86,18 @@ export default function page({ params }: { params: { id: string } }) {
 
     const handleChangeImages =  async (e: React.ChangeEvent<HTMLInputElement>) => {
         if (e.target.files && e.target.files[0]) {
-
-            setInputData({ ...FormDataInputs, [e.target.name]: ''});
+            if(inputData.endDate){
+                setInputData({ ...inputData, [e.target.name]: ''});
+            }
             
             const image = e.target.files[0]
             const file = await uploadImages(image)
 
-            setInputData({ ...FormDataInputs, [e.target.name]: file.url});
+            setInputData({ ...inputData, [e.target.name]: file.url});
             e.target.value = ''
+
+            console.log(inputData)
         }
-    };
-
-    async function uploadImages(files: any) {
-        const formData = new FormData();
-        formData.append('file', files);
-        formData.append('uploadType', "0");
-
-        const response = await fetch('https://up.m1r.ai/upload', {
-            method: 'post',
-            body: formData,
-        })
-        return response.json()
     };
 
     useEffect(() => {
@@ -149,6 +142,13 @@ export default function page({ params }: { params: { id: string } }) {
                     title: 'Save success!',
                     icon: 'success',
                 }) 
+            }else{
+                const resp = await response.json()
+                await Swal.fire({
+                    title: 'Save failed!',
+                    text: resp.message,
+                    icon: 'error',
+                }) 
             }
         }
         
@@ -186,17 +186,21 @@ export default function page({ params }: { params: { id: string } }) {
                                 Back to see your plan
                             </Link>
                         </div>
-                        <div className='card rounded-md bg-[#E4D7C1] p-5'>
-                            <div className='card-header mb-3'>
-                                <p className='font-semibold'>Setting plan details</p>
+                        <div className='card rounded-md bg-[#E4D7C1] overflow-hidden'>
+                            <div className='card-header'>
+                                {
+                                    inputData.images && (
+                                        <Image src={inputData.images} alt="Preview Images" width={0} height={0} sizes="120vw" priority={true}
+                                            style={{ width: '100%', height: 'auto' }} className=''/>
+                                    )
+                                }
                             </div>
-                            {
-                                isLoading ? (
-                                    <div className='card-body'>
+                            <div className='card-body p-5'>
+                                <p className='font-semibold mb-3 '>Setting plan details</p>
+                                {
+                                    isLoading ? (
                                         <p className='text-center'><svg xmlns="http://www.w3.org/2000/svg" className="animate-spin inline-block mr-2" width="1em" height="1em" viewBox="0 0 24 24"><g fill="none" fillRule="evenodd"><path d="M24 0v24H0V0h24ZM12.593 23.258l-.011.002l-.071.035l-.02.004l-.014-.004l-.071-.035c-.01-.004-.019-.001-.024.005l-.004.01l-.017.428l.005.02l.01.013l.104.074l.015.004l.012-.004l.104-.074l.012-.016l.004-.017l-.017-.427c-.002-.01-.009-.017-.017-.018Zm.265-.113l-.013.002l-.185.093l-.01.01l-.003.011l.018.43l.005.012l.008.007l.201.093c.012.004.023 0 .029-.008l.004-.014l-.034-.614c-.003-.012-.01-.02-.02-.022Zm-.715.002a.023.023 0 0 0-.027.006l-.006.014l-.034.614c0 .012.007.02.017.024l.015-.002l.201-.093l.01-.008l.004-.011l.017-.43l-.003-.012l-.01-.01l-.184-.092Z"/><path fill="currentColor" d="M12 4.5a7.5 7.5 0 1 0 0 15a7.5 7.5 0 0 0 0-15ZM1.5 12C1.5 6.201 6.201 1.5 12 1.5S22.5 6.201 22.5 12S17.799 22.5 12 22.5S1.5 17.799 1.5 12Z" opacity=".1"/><path fill="currentColor" d="M12 4.5a7.458 7.458 0 0 0-5.187 2.083a1.5 1.5 0 0 1-2.075-2.166A10.458 10.458 0 0 1 12 1.5a1.5 1.5 0 0 1 0 3Z"/></g></svg></p>
-                                    </div>
-                                ): data?.data ? (
-                                    <div className='card-body'>
+                                    ): data?.data ? (
                                         <form onSubmit={onSubmit}>
                                             <div className='w-full flex items-center mb-2 relative'>
                                                 <div className='col grow'>
@@ -260,13 +264,11 @@ export default function page({ params }: { params: { id: string } }) {
                                                 )
                                             }
                                         </form>
-                                        
-                                    </div>
-                                ):(
-                                    <></>
-                                )
-                            }
-                            
+                                    ):(
+                                        <></>
+                                    )
+                                }
+                            </div>
                         </div>
                     </div>
                     <div className='col md:col-span-2'>

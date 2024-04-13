@@ -74,7 +74,7 @@ export default function page(){
                                                     <p className="text-xl font-extrabold">{planData.name ?? "My plan"}</p>
                                                     <p className="">Budget: {planData.budget?.toLocaleString()} THB</p>
                                                     <p className="font-semibold mt-3">Date</p>
-                                                    <p className="text-sm">{ new Date(planData.startDate).toLocaleDateString('en-GB') } - { new Date(planData.endDate).toLocaleDateString('en-GB') }</p>
+                                                    <p className="text-sm">{ new Date(planData?.startDate || '').toLocaleDateString('en-GB') } - { new Date(planData.endDate).toLocaleDateString('en-GB') }</p>
                                                 </div>
                                                 {
                                                     planData.status === 'draft' && (

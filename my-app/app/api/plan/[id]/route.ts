@@ -40,6 +40,7 @@ export async function GET(
                 name: true,
                 budget: true,
                 detail: true,
+                images: true,
                 startDate: true,
                 endDate: true,
                 status: true

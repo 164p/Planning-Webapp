@@ -59,7 +59,7 @@ export async function POST(
 
         const res: RequestData = await request.json()
 
-        if(!res.budget || !res.name || !res.startDate || !res.endDate){
+        if(!res.budget || !res.name || !res.startDate || !res.endDate || !res.images){
             return new Response( JSON.stringify({
                 statusCode: 400,
                 message: "กรุณากรอกข้อมูลให้ครบถ้วน"
@@ -75,6 +75,7 @@ export async function POST(
             data: {
                 name: res.name,
                 detail: res.detail,
+                images: res.images,
                 budget: Number(res.budget),
                 startDate: new Date(res.startDate),
                 endDate: new Date(res.endDate),

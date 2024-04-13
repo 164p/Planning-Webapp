@@ -8,6 +8,12 @@ const nextConfig = {
           hostname: "maps.googleapis.com",
           port: "",
         },
+        {
+          protocol: 'https',
+          hostname: 'm1r.ai',
+          port: '',
+          pathname: '/**',
+        },
       ],
     },
   };
