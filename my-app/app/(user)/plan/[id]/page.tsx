@@ -156,28 +156,29 @@ export default function page({ params }: { params: { id: string } }) {
   type resDataLocationDetail = {
     statusCode: number;
     data?: {
-      html_attributions: [];
-      result: {
-        formatted_address: string;
-        name: string;
-        photos: [
+      html_attributions?: [];
+      result?: {
+        formatted_address?: string;
+        name?: string;
+        photos?: [
           {
-            photo_reference: string;
+            photo_reference?: string;
           }
-        ]
+        ];
       };
     };
   };
 
   interface BoxData {
-    id: number;
-    content: string;
+    id: string;
+    content?: string;
   }
 
   const [text, setText] = useState("");
   const [datas1, setDatas1] = useState<any[]>();
   const [datas, setDatas] = useState<any[]>();
-  const [photo, setPhoto] = useState("");
+  const [photos, setPhotos] = useState<any[]>([]);
+  const [placeDetails, setPlaceDetails] = useState<any[]>([]);
   const [geoString, setGeoString] = useState("");
   const [location, setLocation] = useState<any[]>(["central world"]);
   const [boxes, setBoxes] = useState<BoxData[]>([]);
@@ -206,16 +207,20 @@ export default function page({ params }: { params: { id: string } }) {
     );
     if (resLocation.ok) {
       const resLocationData = await resLocation.json();
-      setPhoto(resLocationData.data?.result.photos[0].photo_reference);
-    }
-    const newData = { id: boxCount, content: `Box ${boxCount + 1}` };
+      setPhotos(prevPhotos => [...prevPhotos, resLocationData.data?.result.photos[1].photo_reference]);
+      setPlaceDetails(prevPlaceDetails => [...prevPlaceDetails, {
+        placeName: resLocationData.data?.result.name,
+        placeAddress: resLocationData.data?.result.formatted_address
+    }]);
+    const newData = { id: placeID };
 
     // Update state with the new data and increment box count
     setBoxes([...boxes, newData]);
     setBoxCount(boxCount + 1);
   }
+}
 
-  const photoUrl = `https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${photo}&key=${process.env.NEXT_PUBLIC_MAPS_API_KEY}`;
+const photoUrls = photos.map(photo =>`https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${photo}&key=${process.env.NEXT_PUBLIC_MAPS_API_KEY}`);
 
   return (
     <div className="container py-28">
@@ -573,14 +578,17 @@ export default function page({ params }: { params: { id: string } }) {
                 )}
               </div>
             </div>
-            <div className="card 
-            rounded-md bg-[#E4D7C1] p-5">
+            {/* ส่วนของการ์ดสถานที่ (Main) */}
+            <div
+              className="card 
+            rounded-md bg-[#E4D7C1] p-5 my-8"
+            >
               <div className="relative max-w-[640px] w-1/3 px-4 mb-10 mt-12">
-                {boxes.map((box) => (
-                  <div key={box.id} className="box">
-                    {/* Display box content here */}
-                    {photo && <img src={photoUrl} alt="First Photo" />}
-                    <p>{box.content}</p>
+                {placeDetails.map((place, index) => (
+                  <div key={index} className="box">
+            {photos[index] && <img src={photoUrls[index]} alt={`Photo of ${place.placeName}`} />}
+            <p>{place.placeName}</p>
+            <p>{place.placeAddress}</p>
                   </div>
                 ))}
                 <Autocomplete
