@@ -121,6 +121,7 @@ export async function POST(request: Request){
         }
 
     } catch (error) {
+        console.log(error)
         return new Response( JSON.stringify({
             statusCode: 500,
             message: 'เกิดข้อผิดพลาด โปรดลองใหม่อีกครั้งในภายหลัง'

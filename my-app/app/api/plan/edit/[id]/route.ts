@@ -59,10 +59,10 @@ export async function POST(
 
         const res: RequestData = await request.json()
 
-        if(!res.budget || !res.detail || !res.name || !res.startDate || !res.endDate){
+        if(!res.budget || !res.name || !res.startDate || !res.endDate){
             return new Response( JSON.stringify({
                 statusCode: 400,
-                message: 'Your plan is not found.'
+                message: "กรุณากรอกข้อมูลให้ครบถ้วน"
             }) , {
                 status: 400
             })

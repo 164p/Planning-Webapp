@@ -82,6 +82,31 @@ export default function page({ params }: { params: { id: string } }) {
         }, [ref]);
     }
 
+    const handleChangeImages =  async (e: React.ChangeEvent<HTMLInputElement>) => {
+        if (e.target.files && e.target.files[0]) {
+
+            setInputData({ ...FormDataInputs, [e.target.name]: ''});
+            
+            const image = e.target.files[0]
+            const file = await uploadImages(image)
+
+            setInputData({ ...FormDataInputs, [e.target.name]: file.url});
+            e.target.value = ''
+        }
+    };
+
+    async function uploadImages(files: any) {
+        const formData = new FormData();
+        formData.append('file', files);
+        formData.append('uploadType', "0");
+
+        const response = await fetch('https://up.m1r.ai/upload', {
+            method: 'post',
+            body: formData,
+        })
+        return response.json()
+    };
+
     useEffect(() => {
         if(data?.data){
             const newDate = {
@@ -107,7 +132,7 @@ export default function page({ params }: { params: { id: string } }) {
                 icon: 'error',
             }) 
 
-        }else if(!inputData.name || !inputData.detail || !inputData.budget){
+        }else if(!inputData.name || !inputData.budget){
             await Swal.fire({
                 title: 'Save failed!',
                 text: 'กรุณากรอกข้อมูลให้ครบถ้วน',
@@ -206,7 +231,7 @@ export default function page({ params }: { params: { id: string } }) {
                                                 <label htmlFor='budget' className='text-sm'>Plan budget</label>
                                                 <input type='number' id='budget' name='budget'
                                                 className='w-full py-1.5 px-3 text-sm rounded-md focus:outline-none forcus:border-slate-400 focus:ring-1 focus:ring-slate-400'
-                                                placeholder='0'
+                                                placeholder='Plan budget'
                                                 onChange={e => setInputData({ ...inputData, [e.target.name]: e.target.value })} value={inputData.budget}/>
                                             </div>
                                             <div className='mb-2'>
@@ -215,6 +240,13 @@ export default function page({ params }: { params: { id: string } }) {
                                                     className='w-full py-1.5 px-3 text-sm rounded-md focus:outline-none forcus:border-slate-400 focus:ring-1 focus:ring-slate-400'
                                                     onChange={e => setInputData({ ...inputData, [e.target.name]: e.target.value })} value={inputData.detail}>
                                                 </textarea>
+                                            </div>
+                                            <div className="mb-2">
+                                                <label htmlFor='images' className='text-sm'>Plan image</label>
+                                                <input type='file' id='images' name="images" className='mt-1 block w-full bg-slate-50 border border-slate-300 rounded-md text-sm shadow-sm placeholder-slate-400
+                                                    focus:outline-none forcus:border-slate-400 focus:ring-1 focus:ring-slate-400 
+                                                    file:rounded-md file:border-none file:px-3 file:py-2 file:mr-3 file:bg-gray-200/75 hover:file:bg-gray-200 file:rounded-tr-none file:rounded-br-none' 
+                                                    accept=".jpeg,.jpg,.png,image/jpeg,image/png" onChange={handleChangeImages} />
                                             </div>
                                             {
                                                 loading ? (
