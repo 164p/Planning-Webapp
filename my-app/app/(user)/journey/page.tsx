@@ -1,5 +1,5 @@
 'use client'
-import Jmap from '@/app/components/Jmap'
+import Jmap from '@/app/components/่Journey/Jmap'
 
 export default function Journey(){
     return(
@@ -8,12 +8,11 @@ export default function Journey(){
             <div className='flex justify-center items-center'>
                 <div className='flex w-full p-0.5 mt-10 mb-20 lg:w-2/3 bg-[#674F04] '/>
             </div>
-            <div className='container mx-auto py-8'>
+            <div className='container mx-auto py-8 bg-[#F5F0E8]'>
                 <div className='grid lg:grid-cols-2 grid-cols-1'>
                     <div className=''>
                         <Jmap/>
-                    </div>
-                    
+                    </div>  
                     <div className='bg-[#674F04] lg:size-full w-full h-96'/>
                 </div>
             </div>
