@@ -8,7 +8,7 @@ export async function GET(request: NextRequest) {
         const query = searchParams.get('query')
 
         if (query) {
-            const res = await fetch(`https://maps.googleapis.com/maps/api/place/autocomplete/json?input=${query}&components=country:th&key=${process.env.NEXT_MAPS_API_KEY}`)
+            const res = await fetch(`https://maps.googleapis.com/maps/api/place/autocomplete/json?input=${query}&components=country:th&key=${process.env.NEXT_PUBLIC_MAPS_API_KEY}`)
             const data = await res.json()
 
             return new Response( JSON.stringify({

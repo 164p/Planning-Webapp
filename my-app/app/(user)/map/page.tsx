@@ -82,9 +82,7 @@ export default function page() {
     </Combobox.Option>
   ));
 
-  const googleMapAPI = `https://www.google.com/maps/embed/v1/search?key=AIzaSyC6LYgvdJqZ0QLoJXA7XKLHuaqPPzLY1Ac&q=${encodeURIComponent(
-    location
-  )}+${type}`;
+  const googleMapAPI = `https://www.google.com/maps/embed/v1/search?key=AIzaSyC6LYgvdJqZ0QLoJXA7XKLHuaqPPzLY1Ac&q=${encodeURIComponent(location)}+${type}`;
   const googleNeabyLocationAPI =
     "https://maps.googleapis.com/maps/api/place/nearbysearch/json?keyword=cruise&location=-33.8670522%2C151.1957362&radius=1500&type=restaurant&key=AIzaSyC6LYgvdJqZ0QLoJXA7XKLHuaqPPzLY1Ac";
 

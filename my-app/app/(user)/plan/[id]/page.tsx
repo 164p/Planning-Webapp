@@ -153,6 +153,22 @@ export default function page({ params }: { params: { id: string } }) {
     };
   };
 
+  type resDataLocationDetail = {
+    statusCode: number;
+    data?: {
+      html_attributions: [];
+      result: {
+        formatted_address: string;
+        name: string;
+        photos: [
+          {
+            photo_reference: string;
+          }
+        ]
+      };
+    };
+  };
+
   interface BoxData {
     id: number;
     content: string;
@@ -161,12 +177,12 @@ export default function page({ params }: { params: { id: string } }) {
   const [text, setText] = useState("");
   const [datas1, setDatas1] = useState<any[]>();
   const [datas, setDatas] = useState<any[]>();
-  const [geo, setGeo] = useState<any[]>();
+  const [photo, setPhoto] = useState("");
   const [geoString, setGeoString] = useState("");
   const [location, setLocation] = useState<any[]>(["central world"]);
   const [boxes, setBoxes] = useState<BoxData[]>([]);
   const [boxCount, setBoxCount] = useState(0);
-  const newArray = datas?.map((subArray) => subArray.description);
+  const placeDescription = datas?.map((subArray) => subArray.description);
 
   async function handleChangeAutocomplete(e: any) {
     setText(e);
@@ -176,21 +192,30 @@ export default function page({ params }: { params: { id: string } }) {
     if (resAutocomplete.ok) {
       const resData: resDataType = await resAutocomplete.json();
       setDatas(resData.data?.predictions);
-      const geoString = geo?.join("%2C");
-      if (geoString !== undefined) {
-        setGeoString(geoString);
-      }
     }
   }
 
+  const placeID = datas?.map((subArray) => subArray.place_id)?.[0];
+
   async function locationAdd(e: any) {
     setLocation(e);
+    const resLocation = await fetch(
+      `/api/explore/locationDetails?place_id=${encodeURIComponent(
+        placeID as string
+      )}`
+    );
+    if (resLocation.ok) {
+      const resLocationData = await resLocation.json();
+      setPhoto(resLocationData.data?.result.photos[0].photo_reference);
+    }
     const newData = { id: boxCount, content: `Box ${boxCount + 1}` };
 
     // Update state with the new data and increment box count
     setBoxes([...boxes, newData]);
     setBoxCount(boxCount + 1);
   }
+
+  const photoUrl = `https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${photo}&key=${process.env.NEXT_PUBLIC_MAPS_API_KEY}`;
 
   return (
     <div className="container py-28">
@@ -548,16 +573,18 @@ export default function page({ params }: { params: { id: string } }) {
                 )}
               </div>
             </div>
-            <div className="card rounded-md bg-[#E4D7C1] p-5">
+            <div className="card 
+            rounded-md bg-[#E4D7C1] p-5">
               <div className="relative max-w-[640px] w-1/3 px-4 mb-10 mt-12">
                 {boxes.map((box) => (
                   <div key={box.id} className="box">
                     {/* Display box content here */}
+                    {photo && <img src={photoUrl} alt="First Photo" />}
                     <p>{box.content}</p>
                   </div>
                 ))}
                 <Autocomplete
-                  data={newArray}
+                  data={placeDescription}
                   onChange={handleChangeAutocomplete}
                   onOptionSubmit={locationAdd}
                 />
