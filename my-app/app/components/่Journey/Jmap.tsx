@@ -23,6 +23,8 @@ const projection = {
 
 const customizeLayer: ILayerProps["customize"] = (elements) => {
   elements.forEach((element) => {
+    const country = mapsData.features[element.index];
+    if(country)
     element.applySettings({
       color: "#CF482B",
       hoveredColor: "#e0e000",
@@ -32,7 +34,7 @@ const customizeLayer: ILayerProps["customize"] = (elements) => {
 };
 
 const clickHandler = ({target}) => {
-  if (typeof(target.index) === "number") {
+  if (target && mapsData.features[target.index]) {
   target.selected(!target.selected());
   console.log(mapsData.features[target.index])
   }
