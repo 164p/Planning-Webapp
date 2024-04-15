@@ -8,11 +8,14 @@ import VectorMap, {
   Label,
   ILayerProps,
   Size,
+  VectorMapTypes,
+
 } from "devextreme-react/vector-map";
 import * as mapsData from "./province.json";
 
 export default function Journey() {
   const [province, setProvince] = useState('');
+  const [zoomFactor, setZoomFactor] = useState('12');
   interface MapsData {
     features?: {};
     // Define other properties if necessary
@@ -39,9 +42,14 @@ export default function Journey() {
     if (target && mapsData.features[target.index]) {
       target.selected(!target.selected());
       console.log(mapsData.features[target.index].properties.ADM1_EN);
-      setProvince(mapsData.features[target.index].properties.ADM1_EN)
+      setProvince(mapsData.features[target.index].properties.ADM1_EN);
+      console.log(zoomFactor)
     }
-  };
+  }; 
+
+  const zoomFactorChanged = useCallback((e: VectorMapTypes.ZoomFactorChangedEvent) => {
+    setZoomFactor(e.zoomFactor.toFixed(12));
+  }, [setZoomFactor]);
   return (
     <div>
       <h1 className="text-[#674F04] text-6xl pt-60 p-10 text-center font-medium">
@@ -55,10 +63,9 @@ export default function Journey() {
           <div className="">
             <VectorMap
               id="vector-map"
-              maxZoomFactor={12}
-              projection={projection}
-              zoomFactor={12}
               center={[100.523186, 13.736717]}
+              zoomFactor={25}
+              onZoomFactorChanged={zoomFactorChanged}
               onClick={clickHandler}
             >
               <Size height={800} width={600} />
@@ -70,7 +77,7 @@ export default function Journey() {
             </VectorMap>
           </div>
           <div className="bg-[#674F04] lg:size-full w-full h-96" >
-            <div>
+            <div className="text-white">
             {province}
 
             </div>
