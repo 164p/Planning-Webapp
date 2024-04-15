@@ -9,12 +9,17 @@ import VectorMap, {
   ILayerProps,
   Size,
   VectorMapTypes,
+  ITooltipProps,
+  Tooltip,
 
 } from "devextreme-react/vector-map";
 import * as mapsData from "./province.json";
+import { Button, Modal } from "@mantine/core";
+import { useDisclosure } from "@mantine/hooks";
 
 export default function Journey() {
-  const [province, setProvince] = useState('');
+  const [provinceEn, setProvinceEn] = useState('Bangkok');
+  const [provinceTh, setProvinceTh] = useState('กรุงเทพมหานคร');
   const [zoomFactor, setZoomFactor] = useState('12');
   interface MapsData {
     features?: {};
@@ -42,7 +47,9 @@ export default function Journey() {
     if (target && mapsData.features[target.index]) {
       target.selected(!target.selected());
       console.log(mapsData.features[target.index].properties.ADM1_EN);
-      setProvince(mapsData.features[target.index].properties.ADM1_EN);
+      setProvinceEn(mapsData.features[target.index].properties.ADM1_EN);
+      console.log(mapsData.features[target.index].properties.ADM1_TH);
+      setProvinceTh(mapsData.features[target.index].properties.ADM1_TH);
       console.log(zoomFactor)
     }
   }; 
@@ -50,11 +57,16 @@ export default function Journey() {
   const zoomFactorChanged = useCallback((e: VectorMapTypes.ZoomFactorChangedEvent) => {
     setZoomFactor(e.zoomFactor.toFixed(12));
   }, [setZoomFactor]);
+
+  const [opened, { open, close }] = useDisclosure(false);
+  const popupTitle = `<h1><strong>Memory</strong></h1>`;
+
   return (
     <div>
       <h1 className="text-[#674F04] text-6xl pt-60 p-10 text-center font-medium">
-        Diary's Journey
+        Memoirs
       </h1>
+
       <div className="flex justify-center items-center">
         <div className="flex w-full p-0.5 mt-10 mb-20 lg:w-2/3 bg-[#674F04] " />
       </div>
@@ -77,13 +89,98 @@ export default function Journey() {
             </VectorMap>
           </div>
           <div className="bg-[#674F04] lg:size-full w-full h-96" >
-            <div className="text-white">
-            {province}
-
-            </div>
+              <Modal opened={opened} onClose={close} title={popupTitle} centered variant="filled" color="rgba(245, 240, 232 )">
+                <>
+                  <hr className="border-[#674F04] mx-2 my-3 border-1 rounded-full"/> 
+                  <div>
+                  <div className="py-5">
+                    <p className="font-bold">How about this trip?</p>
+                    <input className="ml-2 pl-2 rounded-2xl bg-[#F5F0E8]" placeholder="name"></input>
+                  </div>
+                  <div className="pb-5">
+                    <p className="font-bold">Name Your Trip</p>
+                    <input className="ml-2 pl-2 rounded-2xl bg-[#F5F0E8]" placeholder="name"></input>
+                  </div>
+                  <div className="pb-5">
+                    <p className="font-bold">Tip note</p>
+                    <input className="ml-2 pl-2 rounded-2xl bg-[#F5F0E8]" placeholder="note!"></input>
+                  </div>
+                  <div className="flex justify-center items-center">
+                    <button className="bg-[#674F04] text-[#F5F0E8] p-2 rounded-2xl">Save</button>
+                  </div>
+                  </div>
+                </>
+              </Modal>
+              <div dir="rtl">
+                <div className="z-10 absolute px-2 py-2 mt-14 mr-10 font-bold inline-flex">
+                  <Button onClick={open} variant="filled" color="rgba(245, 240, 232 )" radius="lg">
+                    <p className="text-[#674F04]">vvvvvv</p>
+                  </Button>
+                </div>
+              </div>
+            <div className=" m-10" >
+              <div className="text-white text-4xl">
+                {provinceEn}
+              </div>
+              <div className="text-white">
+                {provinceTh}
+              </div>
+          </div>
+          <hr className="text-[#F5F0E8] m-7 border-2 rounded-full"/>
+          <div>
+            <div className="border-box bg-[#F5F0E8] px-2 py-16 mx-10 rounded-2xl "></div>
+          </div>
+          </div>
         </div>
         </div>
-      </div>
-    </div>
+        </div>
   );
 }
+
+// div dir="rtl">
+//                 <div className="z-10 absolute bg-[#F5F0E8] rounded-full px-2 py-2 mt-14 mr-10 font-bold inline-flex bg-blend-overlay">
+//                   <button className="text-[#674F04]">
+//                     vvvvvv
+//                   </button>
+//                 </div>
+//             </div>
+
+// {isOpen && (
+//   <>
+//   <div className="popup fixed z-50">
+//     <div className="place-items-center h-screen">
+//       <div className="text-[#674F04] bg-[#F5F0E8] p-5 z-10 rounded-2x">
+//         <div className="flex justify-between">
+//           <div className="text-2xl font-bold">Your Trip</div>
+//           <div dir="rtl" className="pl-32">
+//             <button onClick={handleClick}>
+//             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" className="text-[#674F04] w-5 h-5 mt-2" fill="currentcolor">
+//               <path d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"/>
+//             </svg>
+//             </button>
+//           </div> 
+//         </div>
+//         <hr className="border-[#674F04] mx-2 my-3 border-1 rounded-full"/> 
+//         <div className="pb-5">
+//           <p className="font-bold">How about this trip?</p>
+//           <input className="ml-2 pl-2 rounded-2xl" placeholder="name"></input>
+//         </div>
+//         <div className="pb-5">
+//           <p className="font-bold">Name Your Trip</p>
+//           <input className="ml-2 pl-2 rounded-2xl" placeholder="name"></input>
+//         </div>
+//         <div className="pb-5">
+//           <p className="font-bold">Tip note</p>
+//           <input className="ml-2 pl-2 rounded-2xl" placeholder="note!"></input>
+//         </div>
+//         <div className="flex justify-center items-center">
+//           <button onClick={handleClick} className="bg-[#674F04] text-[#F5F0E8] p-2 rounded-2xl">Save</button>
+//         </div>
+//       </div>  
+//       </div>                    
+//   </div>
+//   <div className="overlay fixed top-0 left-0 w-full h-full bg-gray-500 bg-opacity-50 z-40">
+//     {/* Optional content for the overlay (e.g., a loading indicator) */}
+//   </div>
+//   </>
+// )}
