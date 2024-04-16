@@ -19,6 +19,7 @@ import VectorMap, {
   Font,
 } from "devextreme-react/vector-map";
 
+import InputEmoji from 'react-input-emoji'
 import * as mapsData from "./province.json";
 import { Button, Modal } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
@@ -85,6 +86,12 @@ export default function Journey() {
   const provincehover = `You are in \n "<strong>${provinceHover}</strong>"`;
   const [opened, { open, close }] = useDisclosure(false);
 
+  const [ text, setText ] = useState('')
+  
+  function handleOnEnter (text: any) {
+    console.log('enter', text)
+  }
+
   return (
     <div className="dx-viewport">
       <h1 className="text-[#674F04] text-6xl pt-60 p-10 text-center font-medium">
@@ -128,31 +135,35 @@ export default function Journey() {
               }}
             >
               <>
-                <hr className="border-[#674F04] mx-2 my-3 border-1 rounded-full" />
+                <hr className="border-[#674F04] border-1 rounded-full" />
                 <div>
                   <div className="py-5">
                     <p className="font-bold">How about this trip?</p>
-                    <input
-                      className="ml-2 pl-2 rounded-2xl "
-                      placeholder="name"
-                    ></input>
+                    <div className="flex inline-block">
+                    <InputEmoji
+                        value={text}
+                        onChange={setText}
+                        cleanOnEnter
+                        onEnter={handleOnEnter}
+                        placeholder="Type a message" shouldReturn={false} shouldConvertEmojiToImage={false}/>
+                    </div>
                   </div>
-                  <div className="pb-5">
+                  <div className="pb-7">
                     <p className="font-bold">Name Your Trip</p>
                     <input
-                      className="ml-2 pl-2 rounded-2xl "
+                      className="ml-2 pl-2 p-2 pr-36 rounded-full "
                       placeholder="name"
                     ></input>
                   </div>
-                  <div className="pb-5">
+                  <div className="pb-10">
                     <p className="font-bold">Tip note</p>
                     <input
-                      className="ml-2 pl-2 rounded-2xl "
+                      className="ml-2 pl-2 p-2 pr-36 rounded-full "
                       placeholder="note!"
                     ></input>
                   </div>
                   <div className="flex justify-center items-center">
-                    <button className="bg-[#674F04] text-[#F5F0E8] p-2 rounded-2xl">
+                    <button className="bg-[#674F04] text-[#F5F0E8] p-2 px-3 rounded-full">
                       Save
                     </button>
                   </div>
