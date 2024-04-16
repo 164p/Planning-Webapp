@@ -1,6 +1,6 @@
 "use client";
 import { useState, useEffect, useRef, useCallback } from "react";
-
+import themes from 'devextreme/ui/themes';
 import VectorMap, {
   Layer,
   Export,
@@ -9,13 +9,24 @@ import VectorMap, {
   ILayerProps,
   Size,
   VectorMapTypes,
-
+  ILegendProps,
+  ITooltipProps,
+  Legend,
+  Source,
+  Tooltip,
+  Annotation,
+  Border,
+  Font,
 } from "devextreme-react/vector-map";
 import * as mapsData from "./province.json";
-
+import TooltipTemplate from './tooltipTemplate';
+import ReactDOM from "react-dom";
+import 'devextreme/dist/css/dx.light.css';
 export default function Journey() {
-  const [province, setProvince] = useState('');
-  const [zoomFactor, setZoomFactor] = useState('12');
+
+  const [province, setProvince] = useState("");
+  const [provinceHover, setProvinceHover] = useState("");
+  const [zoomFactor, setZoomFactor] = useState("12");
   interface MapsData {
     features?: {};
     // Define other properties if necessary
@@ -28,13 +39,18 @@ export default function Journey() {
 
   const customizeLayer: ILayerProps["customize"] = (elements) => {
     elements.forEach((element) => {
-      const country = mapsData.features[element.index];
-      if (country)
+      element.attribute(
+        "province",
+        mapsData.features[element.index].properties.ADM1_EN
+      );
+      const province = mapsData.features[element.index];
+      if (province) {
         element.applySettings({
           color: "#CF482B",
           hoveredColor: "#e0e000",
           selectedColor: "#008f00",
         });
+      }
     });
   };
 
@@ -43,15 +59,31 @@ export default function Journey() {
       target.selected(!target.selected());
       console.log(mapsData.features[target.index].properties.ADM1_EN);
       setProvince(mapsData.features[target.index].properties.ADM1_EN);
-      console.log(zoomFactor)
+      console.log(zoomFactor);
     }
-  }; 
+  };
 
-  const zoomFactorChanged = useCallback((e: VectorMapTypes.ZoomFactorChangedEvent) => {
-    setZoomFactor(e.zoomFactor.toFixed(12));
-  }, [setZoomFactor]);
+  const zoomFactorChanged = useCallback(
+    (e: VectorMapTypes.ZoomFactorChangedEvent) => {
+      setZoomFactor(e.zoomFactor.toFixed(12));
+    },
+    [setZoomFactor]
+  );
+
+  const customizeTooltip: ITooltipProps["customizeTooltip"] = (arg) => {
+    if (arg.attribute("province")) {
+      console.log(arg.attribute("province"));
+      setProvinceHover(arg.attribute("province"));
+      return { text: `${arg.attribute("province")}` };
+    }
+    return null;
+  };
+
+  const provincehover = `You are in \n "<strong>${provinceHover}</strong>"`;
+
   return (
-    <div>
+    
+    <div className="dx-viewport">
       <h1 className="text-[#674F04] text-6xl pt-60 p-10 text-center font-medium">
         Diary's Journey
       </h1>
@@ -70,20 +102,18 @@ export default function Journey() {
             >
               <Size height={800} width={600} />
               <Export enabled={true}></Export>
-              <Title text="Map of Thailand"></Title>
-              <Layer dataSource={mapsData} customize={customizeLayer}>
-                <Label enabled={true}></Label>
-              </Layer>
+              <Title text={provincehover}></Title>
+              <Layer dataSource={mapsData} customize={customizeLayer}></Layer>
+              <Tooltip enabled={true} customizeTooltip={customizeTooltip}>
+              </Tooltip>
             </VectorMap>
           </div>
-          <div className="bg-[#674F04] lg:size-full w-full h-96" >
-            <div className="text-white">
-            {province}
-
-            </div>
-        </div>
+          <div className="bg-[#674F04] lg:size-full w-full h-96">
+            <div className="text-white">{province}</div>
+          </div>
         </div>
       </div>
     </div>
   );
+  
 }

@@ -18,6 +18,7 @@ model user {
   password String
   role     roles  @default(user)
   plan     plan[]
+  visitedProvince visitedProvince[]
 }
 
 enum roles {
@@ -65,4 +66,13 @@ model location {
 
 model subLocation {
   id String @id @default(auto()) @map("_id") @db.ObjectId
+}
+
+model visitedProvince {
+  id               String  @id @default(auto()) @map("_id") @db.ObjectId
+  province         String?
+  name             String?
+  description      String?
+  owner     user       @relation(fields: [ownerId], references: [id])
+  ownerId   String     @db.ObjectId
 }
