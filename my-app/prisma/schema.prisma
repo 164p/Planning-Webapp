@@ -70,8 +70,9 @@ model subLocation {
 
 model visitedProvince {
   id               String  @id @default(auto()) @map("_id") @db.ObjectId
-  province         String?
-  name             String?
+  emoji            String?
+  province         String
+  name             String
   description      String?
   owner     user       @relation(fields: [ownerId], references: [id])
   ownerId   String     @db.ObjectId

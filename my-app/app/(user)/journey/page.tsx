@@ -1,71 +1,160 @@
 "use client";
-import { useState, useEffect, useRef, useCallback } from "react";
-import themes from "devextreme/ui/themes";
+import { useState, useCallback, FormEvent, useEffect } from "react";
+import Swal from "sweetalert2";
 import VectorMap, {
   Layer,
   Export,
   Title,
-  Label,
   ILayerProps,
   Size,
   VectorMapTypes,
-  ILegendProps,
   ITooltipProps,
-  Legend,
-  Source,
-  Tooltip,
-  Annotation,
-  Border,
-  Font,
+  Tooltip
 } from "devextreme-react/vector-map";
-
-import InputEmoji from 'react-input-emoji'
+import InputEmoji from "react-input-emoji";
 import * as mapsData from "./province.json";
 import { Button, Modal } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
+import useSWR, { mutate } from "swr";
+import dxVectorMap from "devextreme/viz/vector_map";
+
+const fetcher = (url: any) => fetch(url).then((res) => res.json());
+
 
 export default function Journey() {
+
+  type visitedProvincedData = {
+    id: String;
+    emoji?: String;
+    province: Number;
+    name: String;
+    description?: String;
+    ownerId: String;
+  };
+  const FormDataInput = {
+    province: "",
+    emoji: "",
+    name: "",
+    description: "",
+  };
+
+
+  const [opened, { open, close }] = useDisclosure(false);
+  const [text, setText] = useState("");
+  const [visitedProvinceData, setVisitedProvinceData] = useState(FormDataInput);
+  const { data, error, isLoading } = useSWR("/api/journey", fetcher);
   const [provinceEn, setProvinceEn] = useState("Bangkok");
   const [provinceTh, setProvinceTh] = useState("กรุงเทพมหานคร");
   const [zoomFactor, setZoomFactor] = useState("12");
-  const [provinceHover, setProvinceHover] = useState("");
-  interface MapsData {
-    features?: {};
-    // Define other properties if necessary
-  }
+  const [provinceHover, setProvinceHover] = useState("Bangkok");
+  const provincehover = `You are in \n "<strong>${provinceHover}</strong>"`;
+  const visitedProvinceArray: string[] = [] ;
 
-  const projection = {
-    to: ([l, lt]: [number, number]) => [l / 100, lt / 100],
-    from: ([x, y]: [number, number]) => [x * 100, y * 100],
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setVisitedProvinceData({
+      ...visitedProvinceData,
+      [e.target.name]: e.target.value,
+    });
   };
 
-  const customizeLayer: ILayerProps["customize"] = (elements) => {
+  async function onSubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+
+    visitedProvinceData.province = provinceEn;
+    visitedProvinceData.emoji = text;
+
+    if (visitedProvinceData.province == "" || visitedProvinceData.name == "") {
+      Swal.fire({
+        title: "เพิ่มข้อมูลไม่สำเร็จ",
+        text: "กรุณากรอกข้อมูลให้ครบถ้วน",
+        icon: "error",
+        confirmButtonText: "ปิด",
+      });
+    } else {
+      try {
+        Swal.fire({
+          title: "กำลังบันทึกข้อมูล",
+          icon: "warning",
+          confirmButtonText: "ปิด",
+          allowOutsideClick: false,
+        });
+
+        const response = await fetch("/api/journey/add", {
+          method: "POST",
+          body: JSON.stringify(visitedProvinceData),
+        });
+
+        if (response.ok) {
+          Swal.fire({
+            icon: "success",
+            title: "บันทึกข้อมูลสำเร็จ",
+            confirmButtonText: "ปิด",
+            timer: 1500,
+            timerProgressBar: true,
+          });
+        } else {
+          const responseData = await response.json();
+
+          Swal.fire({
+            icon: "error",
+            title: "บันทึกข้อมูลไม่สำเร็จ",
+            text: responseData.message,
+            confirmButtonText: "ปิด",
+          });
+        }
+      } catch (error) {
+        Swal.fire({
+          icon: "error",
+          title: "บันทึกข้อมูลไม่สำเร็จ",
+          text: "เกิดข้อผิดพลาด โปรดลองใหม่อีกครั้งในภายหลัง",
+          confirmButtonText: "ปิด",
+        });
+      }
+    }
+    setText("")
+    await mutate("/api/journey");
+  }
+
+  const clickHandler = ({ target }) => {
+    if (target && (mapsData as { features: any[] }).features[target.index]) {
+      target.selected(!target.selected());
+      setProvinceEn((mapsData as { features: any[] }).features[target.index].properties.ADM1_EN);
+      setProvinceTh((mapsData as { features: any[] }).features[target.index].properties.ADM1_TH); 
+      console.log(visitedProvinceArray)
+    }
+  };
+  window.onload = async function() {
+    try {
+        await mutate("/api/journey");
+        // Any additional code to handle the fetched data goes here
+        console.error("test");
+    } catch (error) {
+        console.error("Error fetching data:", error);
+        // Handle errors appropriately
+    }
+};
+
+  const test = ["Bangkok","Chiang Mai","Nan"]
+  const customizeLayer: ILayerProps["customize"] = useCallback((elements) => {
     elements.forEach((element) => {
       element.attribute(
         "province",
         mapsData.features[element.index].properties.ADM1_EN
       );
-      const province = mapsData.features[element.index];
-      if (province) {
+      const province = mapsData.features[element.index].properties.ADM1_EN;
+      if (visitedProvinceArray.includes(province)) {
         element.applySettings({
           color: "#CF482B",
           hoveredColor: "#e0e000",
           selectedColor: "#008f00",
-        });
-      }
-    });
-  };
+        })
+      } 
+      console.log(visitedProvinceArray.includes(province))
 
-  const clickHandler = ({ target }) => {
-    if (target && mapsData.features[target.index]) {
-      target.selected(!target.selected());
-      console.log(mapsData.features[target.index].properties.ADM1_EN);
-      setProvinceEn(mapsData.features[target.index].properties.ADM1_EN);
-      console.log(mapsData.features[target.index].properties.ADM1_TH);
-      setProvinceTh(mapsData.features[target.index].properties.ADM1_TH);
-      console.log(zoomFactor);
-    }
-  };
+    });
+    
+  }, []);
+
 
   const zoomFactorChanged = useCallback(
     (e: VectorMapTypes.ZoomFactorChangedEvent) => {
@@ -75,29 +164,20 @@ export default function Journey() {
   );
 
   const customizeTooltip: ITooltipProps["customizeTooltip"] = (arg) => {
-    if (arg.attribute("province")) {
-      console.log(arg.attribute("province"));
+    if (arg.attribute("province")) { 
       setProvinceHover(arg.attribute("province"));
       return { text: `${arg.attribute("province")}` };
+      
     }
     return null;
   };
 
-  const provincehover = `You are in \n "<strong>${provinceHover}</strong>"`;
-  const [opened, { open, close }] = useDisclosure(false);
-
-  const [ text, setText ] = useState('')
-  
-  function handleOnEnter (text: any) {
-    console.log('enter', text)
-  }
 
   return (
     <div className="dx-viewport">
       <h1 className="text-[#674F04] text-6xl pt-60 p-10 text-center font-medium">
         Memoirs
       </h1>
-
       <div className="flex justify-center items-center">
         <div className="flex w-full p-0.5 mt-10 mb-20 lg:w-2/3 bg-[#674F04] " />
       </div>
@@ -114,7 +194,7 @@ export default function Journey() {
               <Size height={800} width={600} />
               <Export enabled={true}></Export>
               <Title text={provincehover}></Title>
-              <Layer dataSource={mapsData} customize={customizeLayer}></Layer>
+              <Layer dataSource={mapsData}  customize={customizeLayer} ></Layer>
               <Tooltip
                 enabled={true}
                 customizeTooltip={customizeTooltip}
@@ -128,38 +208,46 @@ export default function Journey() {
               title="Memory Note"
               centered
               styles={{
-                title: {fontSize: 30},
-                header: {backgroundColor: 'rgba(245, 240, 232 )'},
-                body: {backgroundColor: 'rgba(245, 240, 232 )'}
-
+                title: { fontSize: 30 },
+                header: { backgroundColor: "rgba(245, 240, 232 )" },
+                body: { backgroundColor: "rgba(245, 240, 232 )" },
               }}
             >
               <>
                 <hr className="border-[#674F04] border-1 rounded-full" />
-                <div>
+                <form onSubmit={onSubmit}>
                   <div className="py-5">
                     <p className="font-bold">How about this trip?</p>
                     <div className="flex inline-block">
-                    <InputEmoji
+                      <InputEmoji
                         value={text}
                         onChange={setText}
                         cleanOnEnter
-                        onEnter={handleOnEnter}
-                        placeholder="Type a message" shouldReturn={false} shouldConvertEmojiToImage={false}/>
+                        placeholder="Type a message"
+                        shouldReturn={false}
+                        shouldConvertEmojiToImage={false}
+                      />
                     </div>
                   </div>
                   <div className="pb-7">
-                    <p className="font-bold">Name Your Trip</p>
+                    <p className="font-bold">Trip name</p>
                     <input
                       className="ml-2 pl-2 p-2 pr-36 rounded-full "
                       placeholder="name"
+                      name="name"
+                      id="name"
+                      onChange={handleChange}
                     ></input>
                   </div>
                   <div className="pb-10">
-                    <p className="font-bold">Tip note</p>
+                    <p className="font-bold">Trip note</p>
                     <input
                       className="ml-2 pl-2 p-2 pr-36 rounded-full "
                       placeholder="note!"
+                      name="description"
+                      id="description"
+                      onChange={handleChange}
+                      type="text"
                     ></input>
                   </div>
                   <div className="flex justify-center items-center">
@@ -167,7 +255,7 @@ export default function Journey() {
                       Save
                     </button>
                   </div>
-                </div>
+                </form>
               </>
             </Modal>
             <div dir="rtl">
@@ -187,9 +275,68 @@ export default function Journey() {
               <div className="text-white">{provinceTh}</div>
             </div>
             <hr className="text-[#F5F0E8] m-7 border-2 rounded-full" />
-            <div>
-              <div className="border-box bg-[#F5F0E8] px-2 py-16 mx-10 rounded-2xl "></div>
-            </div>
+            {isLoading ? (
+              <p className="text-center">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="animate-spin inline-block mr-2"
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                >
+                  <g fill="none" fillRule="evenodd">
+                    <path d="M24 0v24H0V0h24ZM12.593 23.258l-.011.002l-.071.035l-.02.004l-.014-.004l-.071-.035c-.01-.004-.019-.001-.024.005l-.004.01l-.017.428l.005.02l.01.013l.104.074l.015.004l.012-.004l.104-.074l.012-.016l.004-.017l-.017-.427c-.002-.01-.009-.017-.017-.018Zm.265-.113l-.013.002l-.185.093l-.01.01l-.003.011l.018.43l.005.012l.008.007l.201.093c.012.004.023 0 .029-.008l.004-.014l-.034-.614c-.003-.012-.01-.02-.02-.022Zm-.715.002a.023.023 0 0 0-.027.006l-.006.014l-.034.614c0 .012.007.02.017.024l.015-.002l.201-.093l.01-.008l.004-.011l.017-.43l-.003-.012l-.01-.01l-.184-.092Z" />
+                    <path
+                      fill="currentColor"
+                      d="M12 4.5a7.5 7.5 0 1 0 0 15a7.5 7.5 0 0 0 0-15ZM1.5 12C1.5 6.201 6.201 1.5 12 1.5S22.5 6.201 22.5 12S17.799 22.5 12 22.5S1.5 17.799 1.5 12Z"
+                      opacity=".1"
+                    />
+                    <path
+                      fill="currentColor"
+                      d="M12 4.5a7.458 7.458 0 0 0-5.187 2.083a1.5 1.5 0 0 1-2.075-2.166A10.458 10.458 0 0 1 12 1.5a1.5 1.5 0 0 1 0 3Z"
+                    />
+                  </g>
+                </svg>
+                Loading...
+              </p>
+            ) : (
+              data?.data &&
+              (data?.data.length > 0 ? (
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                  {data?.data.map(
+                    (visitedProvince: visitedProvincedData, index: number) => {
+                      // Push each province into the provincesArray
+                        // Push each province into the provincesArray
+                        visitedProvinceArray.push(visitedProvince.province); 
+                      // Return JSX content with filtering
+                      if (visitedProvince.province === provinceEn) {
+                        return (
+                          <div
+                            className={
+                              "card rounded-md bg-[#E4D7C1] flex overflow-hidden items-center relative hover:shadow-md duration-150 border border-slate-300 "
+                            }
+                          >
+                            <div className="card-col grow p-5">
+                              <p className="text-xl font-extrabold">
+                                {visitedProvince.emoji}
+                              </p>
+                              <p className="font-semibold mt-3">
+                                {visitedProvince.name}
+                              </p>
+                              <p className="font-semibold mt-3">
+                                {visitedProvince.description}
+                              </p>
+                            </div>
+                          </div>
+                        );
+                      }
+                    }
+                  )}
+                </div>
+              ) : (
+                <p className="text-center">ไม่พบข้อมูลแพลนของคุณ</p>
+              ))
+            )}
           </div>
         </div>
       </div>
@@ -197,6 +344,10 @@ export default function Journey() {
   );
 }
 
+
+function forceUpdate() {
+  throw new Error("Function not implemented.");
+}
 // div dir="rtl">
 //                 <div className="z-10 absolute bg-[#F5F0E8] rounded-full px-2 py-2 mt-14 mr-10 font-bold inline-flex bg-blend-overlay">
 //                   <button className="text-[#674F04]">
