@@ -18,6 +18,7 @@ model user {
   password String
   role     roles  @default(user)
   plan     plan[]
+  profileimage String?
 }
 
 enum roles {

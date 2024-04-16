@@ -1,16 +1,18 @@
 'use client'
-import prisma from '@/app/lib/prisma';
+
 import { createTheme, MantineProvider } from '@mantine/core';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { FaUserCircle } from 'react-icons/fa';
 import { useSession, signIn, signOut } from "next-auth/react"
-
+import useSWR from 'swr';
+import Image from "next/image"
 const theme = createTheme({
     fontFamily: 'Open Sans, sans-serif',
     primaryColor: 'cyan',
   });
 
+const fetcher = (url : string) => fetch(url).then(r => r.json())
 
 export default function UserLayout({
     children,
@@ -18,9 +20,18 @@ export default function UserLayout({
     children: React.ReactNode
 }) {
 
+    const { data, error, isLoading } = useSWR('/api/profile', fetcher);
+
     const {data: session} = useSession()
     
+    const ImageDataInput ={
+        images: ''
+    }
+    const [profileData, setProfleData] = useState(ImageDataInput)
+
     
+    if (error) return <div>failed to load</div>;
+    if (isLoading) return <div>loading...</div>;   
 
     return (
         <MantineProvider theme={theme}>
@@ -28,7 +39,19 @@ export default function UserLayout({
                 <div className="container grid sm:grid-flow-col grid-cols-4">
                 <div className="card bg-white rounded-md md:px-10 py-20 ">
                     <span className="icon text-9xl bg-white rounded-full">
-                        <FaUserCircle className="mx-auto"/>
+                    {
+                                            profileData.images !== '' ? (
+                                                
+                                                    <Image src={profileData.images} alt="Preview Images" width={0} height={0} sizes="120vw" priority={true}
+                                                    style={{ width: '100%', height: 'auto' }} className=''></Image>
+                                                
+                                            ):data?.data.profileimage ?(
+                                                
+                                                    <Image src={data?.data.profileimage} alt="Preview Images" width={0} height={0} sizes="120vw" priority={true}
+                                                    style={{ width: '100%', height: 'auto' }} className=''></Image>
+                                                
+                                            ):(<></>)
+                                        }
                     </span>
                     <div className="card-header mt-10">
                         {
