@@ -11,8 +11,7 @@ type RequestData = {
 
 export async function POST(request: Request){
 
-    try {
-        
+    try { 
         const session = await getServerSession(authOptions)
         const res:RequestData = await request.json()
         if(!session){

@@ -55,7 +55,9 @@ export default function Journey() {
       const newVisitedProvinces = data.data.map(
         (visitedProvince: visitedProvincedData) => visitedProvince.province
       );
-      setVisitedProvinceArray(newVisitedProvinces);
+      const uniqueProvinces: Set<string> = new Set(newVisitedProvinces);
+      const arrayOfStrings: string[] = Array.from(uniqueProvinces);
+      setVisitedProvinceArray(arrayOfStrings);
     }
   }, [data]);
 
