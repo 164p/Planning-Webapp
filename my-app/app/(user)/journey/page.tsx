@@ -9,7 +9,8 @@ import VectorMap, {
   Size,
   VectorMapTypes,
   ITooltipProps,
-  Tooltip
+  Tooltip,
+  LoadingIndicator,
 } from "devextreme-react/vector-map";
 import InputEmoji from "react-input-emoji";
 import * as mapsData from "./province.json";
@@ -20,9 +21,7 @@ import dxVectorMap from "devextreme/viz/vector_map";
 
 const fetcher = (url: any) => fetch(url).then((res) => res.json());
 
-
 export default function Journey() {
-
   type visitedProvincedData = {
     id: String;
     emoji?: String;
@@ -38,7 +37,6 @@ export default function Journey() {
     description: "",
   };
 
-
   const [opened, { open, close }] = useDisclosure(false);
   const [text, setText] = useState("");
   const [visitedProvinceData, setVisitedProvinceData] = useState(FormDataInput);
@@ -47,8 +45,33 @@ export default function Journey() {
   const [provinceTh, setProvinceTh] = useState("กรุงเทพมหานคร");
   const [zoomFactor, setZoomFactor] = useState("12");
   const [provinceHover, setProvinceHover] = useState("Bangkok");
+  const [visitedProvinceArray, setVisitedProvinceArray] = useState<string[]>(
+    []
+  );
   const provincehover = `You are in \n "<strong>${provinceHover}</strong>"`;
-  const visitedProvinceArray: string[] = [] ;
+
+  useEffect(() => {
+    if (data) {
+      const newVisitedProvinces = data.data.map(
+        (visitedProvince: visitedProvincedData) => visitedProvince.province
+      );
+      setVisitedProvinceArray(newVisitedProvinces);
+    }
+  }, [data]);
+
+  useEffect(() => {
+    if (visitedProvinceArray.length == 0) {
+      if (data) {
+        const newVisitedProvinces = data.data.map(
+          (visitedProvince: visitedProvincedData) => visitedProvince.province
+        );
+        const uniqueProvinces: Set<string> = new Set(newVisitedProvinces);
+        const arrayOfStrings: string[] = Array.from(uniqueProvinces);
+        setVisitedProvinceArray(arrayOfStrings);
+        console.log(visitedProvinceArray)
+      }
+    }
+  }, [visitedProvinceArray]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setVisitedProvinceData({
@@ -56,7 +79,7 @@ export default function Journey() {
       [e.target.name]: e.target.value,
     });
   };
-
+  console.log(visitedProvinceArray)
   async function onSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
@@ -111,50 +134,50 @@ export default function Journey() {
         });
       }
     }
-    setText("")
+    setText("");
     await mutate("/api/journey");
+    setVisitedProvinceArray([]);
   }
 
   const clickHandler = ({ target }) => {
     if (target && (mapsData as { features: any[] }).features[target.index]) {
       target.selected(!target.selected());
-      setProvinceEn((mapsData as { features: any[] }).features[target.index].properties.ADM1_EN);
-      setProvinceTh((mapsData as { features: any[] }).features[target.index].properties.ADM1_TH); 
-      console.log(visitedProvinceArray)
+      setProvinceEn(
+        (mapsData as { features: any[] }).features[target.index].properties
+          .ADM1_EN
+      );
+      setProvinceTh(
+        (mapsData as { features: any[] }).features[target.index].properties
+          .ADM1_TH
+      );
     }
   };
-  window.onload = async function() {
-    try {
-        await mutate("/api/journey");
-        // Any additional code to handle the fetched data goes here
-        console.error("test");
-    } catch (error) {
-        console.error("Error fetching data:", error);
-        // Handle errors appropriately
-    }
-};
 
-  const test = ["Bangkok","Chiang Mai","Nan"]
-  const customizeLayer: ILayerProps["customize"] = useCallback((elements) => {
-    elements.forEach((element) => {
-      element.attribute(
-        "province",
-        mapsData.features[element.index].properties.ADM1_EN
-      );
-      const province = mapsData.features[element.index].properties.ADM1_EN;
-      if (visitedProvinceArray.includes(province)) {
-        element.applySettings({
-          color: "#CF482B",
-          hoveredColor: "#e0e000",
-          selectedColor: "#008f00",
-        })
-      } 
-      console.log(visitedProvinceArray.includes(province))
-
-    });
-    
-  }, []);
-
+  const customizeLayer: ILayerProps["customize"] = useCallback(
+    (elements: any) => {
+      elements.forEach((element: any) => {
+        element.attribute(
+          "province",
+          mapsData.features[element.index].properties.ADM1_EN
+        );
+        const province = mapsData.features[element.index].properties.ADM1_EN;
+        if (visitedProvinceArray.includes(province)) {
+          element.applySettings({
+            color: "#CF482B",
+            hoveredColor: "#e0e000",
+            selectedColor: "#008f00",
+          });
+        } else {
+          element.applySettings({
+            color: "yellow",
+            hoveredColor: "green",
+            selectedColor: "blue",
+          });
+        }
+      });
+    },
+    [visitedProvinceArray]
+  );
 
   const zoomFactorChanged = useCallback(
     (e: VectorMapTypes.ZoomFactorChangedEvent) => {
@@ -164,14 +187,12 @@ export default function Journey() {
   );
 
   const customizeTooltip: ITooltipProps["customizeTooltip"] = (arg) => {
-    if (arg.attribute("province")) { 
+    if (arg.attribute("province")) {
       setProvinceHover(arg.attribute("province"));
       return { text: `${arg.attribute("province")}` };
-      
     }
     return null;
   };
-
 
   return (
     <div className="dx-viewport">
@@ -184,22 +205,50 @@ export default function Journey() {
       <div className="container mx-auto py-8 bg-[#F5F0E8]">
         <div className="grid lg:grid-cols-2 grid-cols-1">
           <div className="">
-            <VectorMap
-              id="vector-map"
-              center={[100.523186, 13.736717]}
-              zoomFactor={25}
-              onZoomFactorChanged={zoomFactorChanged}
-              onClick={clickHandler}
-            >
-              <Size height={800} width={600} />
-              <Export enabled={true}></Export>
-              <Title text={provincehover}></Title>
-              <Layer dataSource={mapsData}  customize={customizeLayer} ></Layer>
-              <Tooltip
-                enabled={true}
-                customizeTooltip={customizeTooltip}
-              ></Tooltip>
-            </VectorMap>
+            <div>Thailand progress {visitedProvinceArray.length}/77</div>
+            {visitedProvinceArray.length > 0 ? (
+              <VectorMap
+                id="vector-map"
+                center={[100.523186, 13.736717]}
+                zoomFactor={25}
+                onZoomFactorChanged={zoomFactorChanged}
+                onClick={clickHandler}
+              >
+                <LoadingIndicator enabled={true}></LoadingIndicator>
+                <Size height={800} width={600} />
+                <Export enabled={true}></Export>
+                <Title text={provincehover}></Title>
+                <Layer dataSource={mapsData} customize={customizeLayer}></Layer>
+                <Tooltip
+                  enabled={true}
+                  customizeTooltip={customizeTooltip}
+                ></Tooltip>
+              </VectorMap>
+            ) : (
+              <p className="text-center">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="animate-spin inline-block mr-2"
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                >
+                  <g fill="none" fillRule="evenodd">
+                    <path d="M24 0v24H0V0h24ZM12.593 23.258l-.011.002l-.071.035l-.02.004l-.014-.004l-.071-.035c-.01-.004-.019-.001-.024.005l-.004.01l-.017.428l.005.02l.01.013l.104.074l.015.004l.012-.004l.104-.074l.012-.016l.004-.017l-.017-.427c-.002-.01-.009-.017-.017-.018Zm.265-.113l-.013.002l-.185.093l-.01.01l-.003.011l.018.43l.005.012l.008.007l.201.093c.012.004.023 0 .029-.008l.004-.014l-.034-.614c-.003-.012-.01-.02-.02-.022Zm-.715.002a.023.023 0 0 0-.027.006l-.006.014l-.034.614c0 .012.007.02.017.024l.015-.002l.201-.093l.01-.008l.004-.011l.017-.43l-.003-.012l-.01-.01l-.184-.092Z" />
+                    <path
+                      fill="currentColor"
+                      d="M12 4.5a7.5 7.5 0 1 0 0 15a7.5 7.5 0 0 0 0-15ZM1.5 12C1.5 6.201 6.201 1.5 12 1.5S22.5 6.201 22.5 12S17.799 22.5 12 22.5S1.5 17.799 1.5 12Z"
+                      opacity=".1"
+                    />
+                    <path
+                      fill="currentColor"
+                      d="M12 4.5a7.458 7.458 0 0 0-5.187 2.083a1.5 1.5 0 0 1-2.075-2.166A10.458 10.458 0 0 1 12 1.5a1.5 1.5 0 0 1 0 3Z"
+                    />
+                  </g>
+                </svg>
+                Loading...
+              </p>
+            )}
           </div>
           <div className="bg-[#674F04] lg:size-full w-full h-96">
             <Modal
@@ -305,10 +354,6 @@ export default function Journey() {
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                   {data?.data.map(
                     (visitedProvince: visitedProvincedData, index: number) => {
-                      // Push each province into the provincesArray
-                        // Push each province into the provincesArray
-                        visitedProvinceArray.push(visitedProvince.province); 
-                      // Return JSX content with filtering
                       if (visitedProvince.province === provinceEn) {
                         return (
                           <div
@@ -343,7 +388,6 @@ export default function Journey() {
     </div>
   );
 }
-
 
 function forceUpdate() {
   throw new Error("Function not implemented.");
