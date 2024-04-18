@@ -64,7 +64,7 @@ export default function Journey() {
   useEffect(() => {
     if (visitedProvinceArray.length == 0) {
       if (data) {
-        const newVisitedProvinces = data.data.map(
+        const newVisitedProvinces = data?.data.map(
           (visitedProvince: visitedProvincedData) => visitedProvince.province
         );
         const uniqueProvinces: Set<string> = new Set(newVisitedProvinces);
@@ -165,15 +165,16 @@ export default function Journey() {
         const province = mapsData.features[element.index].properties.ADM1_EN;
         if (visitedProvinceArray.includes(province)) {
           element.applySettings({
-            color: "#CF482B",
-            hoveredColor: "#e0e000",
-            selectedColor: "#008f00",
+            color: "#B89130",
+            hoveredColor: "#DCCAAE",
+            selectedColor: "#FFCE85",
+            borderColor: "F5F0E8"
           });
         } else {
           element.applySettings({
-            color: "yellow",
-            hoveredColor: "green",
-            selectedColor: "blue",
+            color: "#D9D9D9",
+            hoveredColor: "#DCCAAE",
+            selectedColor: "#FFCE85",
           });
         }
       });
@@ -353,17 +354,19 @@ export default function Journey() {
             ) : (
               data?.data &&
               (data?.data.length > 0 ? (
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 flex justify-center align-center">
                   {data?.data.map(
                     (visitedProvince: visitedProvincedData, index: number) => {
                       if (visitedProvince.province === provinceEn) {
                         return (
+                          <div className="mx-10">
                           <div
                             className={
-                              "card rounded-md bg-[#E4D7C1] flex overflow-hidden items-center relative hover:shadow-md duration-150 border border-slate-300 "
+                              "card rounded-md bg-[#E4D7C1] flex overflow-hidden items-center relative hover:shadow-md px-32"
                             }
                           >
-                            <div className="card-col grow p-5">
+
+                            <div className="card-col grow ">
                               <p className="text-xl font-extrabold">
                                 {visitedProvince.emoji}
                               </p>
@@ -374,6 +377,16 @@ export default function Journey() {
                                 {visitedProvince.description}
                               </p>
                             </div>
+                            <div dir="rtl">
+                              <div className="px-2 py-2 mb-20 ml-16 font-bold inline-flex ">
+                              <button>
+                              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" className="text-[#674F04] w-5 h-5 mt-2" fill="currentcolor">
+                                <path d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"/>
+                              </svg>
+                              </button>
+                              </div>
+                            </div>
+                          </div>
                           </div>
                         );
                       }
@@ -394,50 +407,3 @@ export default function Journey() {
 function forceUpdate() {
   throw new Error("Function not implemented.");
 }
-// div dir="rtl">
-//                 <div className="z-10 absolute bg-[#F5F0E8] rounded-full px-2 py-2 mt-14 mr-10 font-bold inline-flex bg-blend-overlay">
-//                   <button className="text-[#674F04]">
-//                     vvvvvv
-//                   </button>
-//                 </div>
-//             </div>
-
-// {isOpen && (
-//   <>
-//   <div className="popup fixed z-50">
-//     <div className="place-items-center h-screen">
-//       <div className="text-[#674F04] bg-[#F5F0E8] p-5 z-10 rounded-2x">
-//         <div className="flex justify-between">
-//           <div className="text-2xl font-bold">Your Trip</div>
-//           <div dir="rtl" className="pl-32">
-//             <button onClick={handleClick}>
-//             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" className="text-[#674F04] w-5 h-5 mt-2" fill="currentcolor">
-//               <path d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"/>
-//             </svg>
-//             </button>
-//           </div>
-//         </div>
-//         <hr className="border-[#674F04] mx-2 my-3 border-1 rounded-full"/>
-//         <div className="pb-5">
-//           <p className="font-bold">How about this trip?</p>
-//           <input className="ml-2 pl-2 rounded-2xl" placeholder="name"></input>
-//         </div>
-//         <div className="pb-5">
-//           <p className="font-bold">Name Your Trip</p>
-//           <input className="ml-2 pl-2 rounded-2xl" placeholder="name"></input>
-//         </div>
-//         <div className="pb-5">
-//           <p className="font-bold">Tip note</p>
-//           <input className="ml-2 pl-2 rounded-2xl" placeholder="note!"></input>
-//         </div>
-//         <div className="flex justify-center items-center">
-//           <button onClick={handleClick} className="bg-[#674F04] text-[#F5F0E8] p-2 rounded-2xl">Save</button>
-//         </div>
-//       </div>
-//       </div>
-//   </div>
-//   <div className="overlay fixed top-0 left-0 w-full h-full bg-gray-500 bg-opacity-50 z-40">
-//     {/* Optional content for the overlay (e.g., a loading indicator) */}
-//   </div>
-//   </>
-// )}
