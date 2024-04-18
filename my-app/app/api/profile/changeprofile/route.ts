@@ -24,22 +24,32 @@ export async function POST(request:Request) {
         }
 
         const res:RequestData = await request.json()
+        if (res.images !== ''){
 
-        const changeProfile = await prisma.user.update({
-            where:{
-                id: session.user.id
-            },
-            data:{
-                profileimage:res.images
-            }
-        })
-
-        if (changeProfile){
+            const changeProfile = await prisma.user.update({
+                where:{
+                    id: session.user.id
+                },
+                data:{
+                    profileimage:res.images
+                }
+            })
+            if (changeProfile){
             return new Response( JSON.stringify({
                 statusCode: 200,
                 message: "Update data success."
             }) , {
                 status: 200
+            })
+        }
+
+        
+        }else{
+            return new Response( JSON.stringify({
+                statusCode: 400,
+                message: "Invalid input"
+            }) , {
+                status:400
             })
         }
     } catch (error) {

@@ -23,7 +23,7 @@ export default function Home() {
 
     const handleChangeImages = async(e: React.ChangeEvent<HTMLInputElement>) => {
         if (e.target.files && e.target.files[0]){
-
+            
             const image = e.target.files[0]
             const file = await uploadImages(image)
 
@@ -39,12 +39,12 @@ export default function Home() {
             method: 'POST',
             body: JSON.stringify(profileData)
         })
-        console.log(profileData)
+        
     }
 
     if (error) return <div>failed to load</div>;
     if (isLoading) return <div>loading...</div>;   
-    console.log(profileData)
+    
     return(
         <main className="content-center">
                 <div className="card">
@@ -54,29 +54,33 @@ export default function Home() {
                         
                             <div className="card-section flex flex-col col-start-1 col-end-2">
                                 <div className="">
-                                    <span className="icon text-9xl bg-white rounded-full">
+                                    <div className="w-56 mx-auto rounded-full">
                                         {
                                             profileData.images !== '' ? (
                                                 
-                                                    <Image src={profileData.images} alt="Preview Images" width={0} height={0} sizes="120vw" priority={true}
-                                                    style={{ width: '100%', height: 'auto' }} className=''></Image>
+                                                <div className="card-col rounded-full w-56 h-56" 
+                                                style={{
+                                                    backgroundImage: `url(${profileData.images})`,
+                                                    backgroundPosition: 'left center',
+                                                    backgroundSize: 'cover',
+                                                    backgroundRepeat: 'no-repeat'
+                                                }}/>
                                                 
                                             ):data?.data.profileimage ?(
                                                 
-                                                    <Image src={data?.data.profileimage} alt="Preview Images" width={0} height={0} sizes="120vw" priority={true}
-                                                    style={{ width: '100%', height: 'auto' }} className=''></Image>
+                                                <div className="card-col rounded-full w-56 h-56" 
+                                                style={{
+                                                    backgroundImage: `url(${data.data.profileimage})`,
+                                                    backgroundPosition: 'left center',
+                                                    backgroundSize: 'cover',
+                                                    backgroundRepeat: 'no-repeat'
+                                                }}/>
                                                 
                                             ):(<></>)
                                         }
-                                    </span>
+                                    </div>
                                 </div>
-                                <label className="text-center text-black">Edit Picture</label>
-                                <form onSubmit={onSubmit}>
-
-                                <input type='file' id='images' name="images" className='' 
-                                                    accept=".jpeg,.jpg,.png,image/jpeg,image/png" onChange={handleChangeImages} />
-                                <button type="submit" >enter</button>        
-                                </form>
+                                
                             </div>
             
                             <div className="my-8 p-4 w-full h-full bg-white rounded-xl">

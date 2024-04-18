@@ -38,21 +38,21 @@ export default function UserLayout({
             <div className="mt-48 mb-40">
                 <div className="container grid sm:grid-flow-col grid-cols-4">
                 <div className="card bg-white rounded-md md:px-10 py-20 ">
-                    <span className="icon text-9xl bg-white rounded-full">
+                    <div className="w-40 mx-auto rounded-full">
                     {
-                                            profileData.images !== '' ? (
+                                            data?.data.profileimage ?(
                                                 
-                                                    <Image src={profileData.images} alt="Preview Images" width={0} height={0} sizes="120vw" priority={true}
-                                                    style={{ width: '100%', height: 'auto' }} className=''></Image>
-                                                
-                                            ):data?.data.profileimage ?(
-                                                
-                                                    <Image src={data?.data.profileimage} alt="Preview Images" width={0} height={0} sizes="120vw" priority={true}
-                                                    style={{ width: '100%', height: 'auto' }} className=''></Image>
+                                                <div className="card-col relative overflow-fidden rounded-full w-40 h-40" 
+                                                style={{
+                                                    backgroundImage: `url(${data.data.profileimage})`,
+                                                    backgroundPosition: 'left center',
+                                                    backgroundSize: 'cover',
+                                                    backgroundRepeat: 'no-repeat'
+                                                }}/>
                                                 
                                             ):(<></>)
                                         }
-                    </span>
+                    </div>
                     <div className="card-header mt-10">
                         {
                             session &&

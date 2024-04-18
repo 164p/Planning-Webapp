@@ -28,9 +28,21 @@ export async function GET(request: Request) {
             }
         })
 
+        const profileImage = await prisma.user.findUnique({
+            where:{
+                id: session.user.id
+            },select:{
+                profileimage: true
+            }
+        })
+       
+
+        
+
         return new Response( JSON.stringify({
             statusCode: 200,
-            data: planAllData
+            bookmarkData: planAllData,
+            profileURL:profileImage
         }) , {
             status: 200
         })
