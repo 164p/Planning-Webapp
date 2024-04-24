@@ -197,6 +197,18 @@ export default function Journey() {
     return null;
   };
 
+  const [mapSize, setMapSize] = useState({ width: 800, height: 600 });
+
+  useEffect(() => {
+    const handleResize = () => {
+      const windowWidth = window.innerWidth;
+      setMapSize(windowWidth <= 300 ? { width: 250, height: 450 } : { width: 600, height: 800 });
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
   return (
     <div className="dx-viewport">
       <h1 className="text-[#674F04] text-6xl pt-60 p-10 text-center font-medium">
@@ -216,9 +228,11 @@ export default function Journey() {
                 zoomFactor={25}
                 onZoomFactorChanged={zoomFactorChanged}
                 onClick={clickHandler}
+                width={mapSize.width}
+                height={mapSize.height}
               >
                 <LoadingIndicator enabled={true}></LoadingIndicator>
-                <Size height={800} width={600} />
+                {/* <Size height={800} width={600} /> */}
                 <Export enabled={true}></Export>
                 <Title text={provincehover}></Title>
                 <Layer dataSource={mapsData} customize={customizeLayer}></Layer>
@@ -253,7 +267,8 @@ export default function Journey() {
               </p>
             )}
           </div>
-          <div className="bg-[#674F04] lg:size-full w-full h-96">
+        <div className="side ">
+          <div className="bg-[#674F04] lg:size-full w-full h-96 rounded-xl">
             <Modal
               opened={opened}
               onClose={close}
@@ -265,7 +280,7 @@ export default function Journey() {
                 body: { backgroundColor: "rgba(245, 240, 232 )" },
               }}
             >
-              <>
+              <div>
                 <hr className="border-[#674F04] border-1 rounded-full" />
                 <form onSubmit={onSubmit}>
                   <div className="py-5">
@@ -275,7 +290,7 @@ export default function Journey() {
                         value={text}
                         onChange={setText}
                         cleanOnEnter
-                        placeholder="Type a message"
+                        placeholder="Select Emoji ->"
                         shouldReturn={false}
                         shouldConvertEmojiToImage={false}
                       />
@@ -308,7 +323,7 @@ export default function Journey() {
                     </button>
                   </div>
                 </form>
-              </>
+              </div>
             </Modal>
             <div dir="rtl">
               <div className="z-10 absolute px-2 py-2 mt-14 mr-10 font-bold inline-flex">
@@ -322,7 +337,7 @@ export default function Journey() {
                 </Button>
               </div>
             </div>
-            <div className=" m-10">
+            <div className="m-10">
               <div className="text-white text-4xl">{provinceEn}</div>
               <div className="text-white">{provinceTh}</div>
             </div>
@@ -354,7 +369,7 @@ export default function Journey() {
             ) : (
               data?.data &&
               (data?.data.length > 0 ? (
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 flex justify-center align-center">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 flex justify-center align-center gap-2">
                   {data?.data.map(
                     (visitedProvince: visitedProvincedData, index: number) => {
                       if (visitedProvince.province === provinceEn) {
@@ -362,23 +377,26 @@ export default function Journey() {
                           <div className="mx-10">
                           <div
                             className={
-                              "card rounded-md bg-[#E4D7C1] flex overflow-hidden items-center relative hover:shadow-md px-32"
+                              "card rounded-md bg-[#E4D7C1] overflow-hidden relative hover:shadow-md p-5"
                             }
                           >
-
-                            <div className="card-col grow ">
-                              <p className="text-xl font-extrabold">
+                          <div className="grid grid-cols-3 gap-5 items-center">
+                            <div className="card-col">
+                              <p className="text-5xl font-extrabold ">
                                 {visitedProvince.emoji}
                               </p>
-                              <p className="font-semibold mt-3">
-                                {visitedProvince.name}
-                              </p>
-                              <p className="font-semibold mt-3">
-                                {visitedProvince.description}
-                              </p>
                             </div>
-                            <div dir="rtl">
-                              <div className="px-2 py-2 mb-20 ml-16 font-bold inline-flex ">
+                              <div className="card-col">
+                                <p className="font-bold text-xl mt-3">
+                                  {visitedProvince.name}
+                                </p>
+                                <p className=" mt-3">
+                                  {visitedProvince.description}
+                                </p>
+                              </div>
+                          </div>
+                            <div>
+                              <div className="px-2 py-2 mb-20 font-bold inline-flex absolute top-3 end-2.5 ms-auto justify-center items-center">
                               <button>
                               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" className="text-[#674F04] w-5 h-5 mt-2" fill="currentcolor">
                                 <path d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"/>
@@ -398,12 +416,13 @@ export default function Journey() {
               ))
             )}
           </div>
+        <div/>
         </div>
       </div>
     </div>
+    </div>
   );
 }
-
 function forceUpdate() {
   throw new Error("Function not implemented.");
 }
