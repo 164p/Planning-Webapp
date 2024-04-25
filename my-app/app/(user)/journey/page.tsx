@@ -66,7 +66,7 @@ export default function Journey() {
   useEffect(() => {
     if (mapCondition == 1) {
       if (data) {
-        const newVisitedProvinces = data.data.map(
+        const newVisitedProvinces = data?.data.map(
           (visitedProvince: visitedProvincedData) => visitedProvince.province
         );
         const uniqueProvinces: Set<string> = new Set(newVisitedProvinces);
@@ -170,15 +170,16 @@ export default function Journey() {
         const province = mapsData.features[element.index].properties.ADM1_EN;
         if (visitedProvinceArray.includes(province)) {
           element.applySettings({
-            color: "#CF482B",
-            hoveredColor: "#e0e000",
-            selectedColor: "#008f00",
+            color: "#B89130",
+            hoveredColor: "#DCCAAE",
+            selectedColor: "#FFCE85",
+            borderColor: "F5F0E8"
           });
         } else {
           element.applySettings({
-            color: "yellow",
-            hoveredColor: "green",
-            selectedColor: "blue",
+            color: "#D9D9D9",
+            hoveredColor: "#DCCAAE",
+            selectedColor: "#FFCE85",
           });
         }
       });
@@ -201,6 +202,18 @@ export default function Journey() {
     return null;
   };
 
+  const [mapSize, setMapSize] = useState({ width: 800, height: 600 });
+
+  useEffect(() => {
+    const handleResize = () => {
+      const windowWidth = window.innerWidth;
+      setMapSize(windowWidth <= 300 ? { width: 250, height: 450 } : { width: 600, height: 800 });
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
   return (
     <div className="dx-viewport">
       <h1 className="text-[#674F04] text-6xl pt-60 p-10 text-center font-medium">
@@ -220,9 +233,11 @@ export default function Journey() {
                 zoomFactor={25}
                 onZoomFactorChanged={zoomFactorChanged}
                 onClick={clickHandler}
+                width={mapSize.width}
+                height={mapSize.height}
               >
                 <LoadingIndicator enabled={true}></LoadingIndicator>
-                <Size height={800} width={600} />
+                {/* <Size height={800} width={600} /> */}
                 <Export enabled={true}></Export>
                 <Title text={provincehover}></Title>
                 <Layer dataSource={mapsData} customize={customizeLayer}></Layer>
@@ -257,7 +272,8 @@ export default function Journey() {
               </p>
             )}
           </div>
-          <div className="bg-[#674F04] lg:size-full w-full h-96">
+        <div className="side ">
+          <div className="bg-[#674F04] lg:size-full w-full h-96 rounded-xl">
             <Modal
               opened={opened}
               onClose={close}
@@ -269,7 +285,7 @@ export default function Journey() {
                 body: { backgroundColor: "rgba(245, 240, 232 )" },
               }}
             >
-              <>
+              <div>
                 <hr className="border-[#674F04] border-1 rounded-full" />
                 <form onSubmit={onSubmit}>
                   <div className="py-5">
@@ -279,7 +295,7 @@ export default function Journey() {
                         value={text}
                         onChange={setText}
                         cleanOnEnter
-                        placeholder="Type a message"
+                        placeholder="Select Emoji ->"
                         shouldReturn={false}
                         shouldConvertEmojiToImage={false}
                       />
@@ -312,7 +328,7 @@ export default function Journey() {
                     </button>
                   </div>
                 </form>
-              </>
+              </div>
             </Modal>
             <div dir="rtl">
               <div className="z-10 absolute px-2 py-2 mt-14 mr-10 font-bold inline-flex">
@@ -326,7 +342,7 @@ export default function Journey() {
                 </Button>
               </div>
             </div>
-            <div className=" m-10">
+            <div className="m-10">
               <div className="text-white text-4xl">{provinceEn}</div>
               <div className="text-white">{provinceTh}</div>
             </div>
@@ -357,28 +373,43 @@ export default function Journey() {
               </p>
             ) : (
               data?.data &&
-              (data?.data.length >= 0 ? (
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              (data?.data.length > 0 ? (
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 flex justify-center align-center gap-2">
                   {data?.data.map(
                     (visitedProvince: visitedProvincedData, index: number) => {
                       if (visitedProvince.province === provinceEn) {
                         return (
+                          <div className="mx-10">
                           <div
                             className={
-                              "card rounded-md bg-[#E4D7C1] flex overflow-hidden items-center relative hover:shadow-md duration-150 border border-slate-300 "
+                              "card rounded-md bg-[#E4D7C1] overflow-hidden relative hover:shadow-md p-5"
                             }
                           >
-                            <div className="card-col grow p-5">
-                              <p className="text-xl font-extrabold">
+                          <div className="grid grid-cols-3 gap-5 items-center">
+                            <div className="card-col">
+                              <p className="text-5xl font-extrabold ">
                                 {visitedProvince.emoji}
                               </p>
-                              <p className="font-semibold mt-3">
-                                {visitedProvince.name}
-                              </p>
-                              <p className="font-semibold mt-3">
-                                {visitedProvince.description}
-                              </p>
                             </div>
+                              <div className="card-col">
+                                <p className="font-bold text-xl mt-3">
+                                  {visitedProvince.name}
+                                </p>
+                                <p className=" mt-3">
+                                  {visitedProvince.description}
+                                </p>
+                              </div>
+                          </div>
+                            <div>
+                              <div className="px-2 py-2 mb-20 font-bold inline-flex absolute top-3 end-2.5 ms-auto justify-center items-center">
+                              <button>
+                              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" className="text-[#674F04] w-5 h-5 mt-2" fill="currentcolor">
+                                <path d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"/>
+                              </svg>
+                              </button>
+                              </div>
+                            </div>
+                          </div>
                           </div>
                         );
                       }
@@ -390,59 +421,13 @@ export default function Journey() {
               ))
             )}
           </div>
+        <div/>
         </div>
       </div>
     </div>
+    </div>
   );
 }
-
 function forceUpdate() {
   throw new Error("Function not implemented.");
 }
-// div dir="rtl">
-//                 <div className="z-10 absolute bg-[#F5F0E8] rounded-full px-2 py-2 mt-14 mr-10 font-bold inline-flex bg-blend-overlay">
-//                   <button className="text-[#674F04]">
-//                     vvvvvv
-//                   </button>
-//                 </div>
-//             </div>
-
-// {isOpen && (
-//   <>
-//   <div className="popup fixed z-50">
-//     <div className="place-items-center h-screen">
-//       <div className="text-[#674F04] bg-[#F5F0E8] p-5 z-10 rounded-2x">
-//         <div className="flex justify-between">
-//           <div className="text-2xl font-bold">Your Trip</div>
-//           <div dir="rtl" className="pl-32">
-//             <button onClick={handleClick}>
-//             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" className="text-[#674F04] w-5 h-5 mt-2" fill="currentcolor">
-//               <path d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"/>
-//             </svg>
-//             </button>
-//           </div>
-//         </div>
-//         <hr className="border-[#674F04] mx-2 my-3 border-1 rounded-full"/>
-//         <div className="pb-5">
-//           <p className="font-bold">How about this trip?</p>
-//           <input className="ml-2 pl-2 rounded-2xl" placeholder="name"></input>
-//         </div>
-//         <div className="pb-5">
-//           <p className="font-bold">Name Your Trip</p>
-//           <input className="ml-2 pl-2 rounded-2xl" placeholder="name"></input>
-//         </div>
-//         <div className="pb-5">
-//           <p className="font-bold">Tip note</p>
-//           <input className="ml-2 pl-2 rounded-2xl" placeholder="note!"></input>
-//         </div>
-//         <div className="flex justify-center items-center">
-//           <button onClick={handleClick} className="bg-[#674F04] text-[#F5F0E8] p-2 rounded-2xl">Save</button>
-//         </div>
-//       </div>
-//       </div>
-//   </div>
-//   <div className="overlay fixed top-0 left-0 w-full h-full bg-gray-500 bg-opacity-50 z-40">
-//     {/* Optional content for the overlay (e.g., a loading indicator) */}
-//   </div>
-//   </>
-// )}
