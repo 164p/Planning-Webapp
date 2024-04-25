@@ -72,7 +72,6 @@ export default function Journey() {
         const uniqueProvinces: Set<string> = new Set(newVisitedProvinces);
         const arrayOfStrings: string[] = Array.from(uniqueProvinces);
         setVisitedProvinceArray(arrayOfStrings);
-        console.log(visitedProvinceArray)
         setMapCondition(0)
       }
     }
@@ -85,7 +84,6 @@ export default function Journey() {
       [e.target.name]: e.target.value,
     });
   };
-  console.log(visitedProvinceArray)
   async function onSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
@@ -202,12 +200,17 @@ export default function Journey() {
     return null;
   };
 
-  const [mapSize, setMapSize] = useState({ width: 800, height: 600 });
+  const [mapSize, setMapSize] = useState({ width: 600, height: 800 });
 
   useEffect(() => {
     const handleResize = () => {
       const windowWidth = window.innerWidth;
-      setMapSize(windowWidth <= 300 ? { width: 250, height: 450 } : { width: 600, height: 800 });
+      if(windowWidth <= 400){
+        setMapSize({ width: 350, height: 450 });
+      }else{
+        setMapSize({ width: 600, height: 800 });
+      }
+      
     };
 
     window.addEventListener('resize', handleResize);
@@ -272,7 +275,7 @@ export default function Journey() {
               </p>
             )}
           </div>
-        <div className="side ">
+        <div className="">
           <div className="bg-[#674F04] lg:size-full w-full h-96 rounded-xl">
             <Modal
               opened={opened}
@@ -330,23 +333,23 @@ export default function Journey() {
                 </form>
               </div>
             </Modal>
+            <div className="m-10 absolute">
+              <div className="text-white text-4xl">{provinceEn}</div>
+              <div className="text-white">{provinceTh}</div>
+            </div>
             <div dir="rtl">
-              <div className="z-10 absolute px-2 py-2 mt-14 mr-10 font-bold inline-flex">
+              <div className="z-10 px-2 py-2 mt-10 mr-10 font-bold inline-flex">
                 <Button
                   onClick={open}
                   variant="filled"
                   color="rgba(245, 240, 232 )"
                   radius="lg"
                 >
-                  <p className="text-[#674F04]">vvvvvv</p>
+                  <p className="text-[#674F04]">Note</p>
                 </Button>
               </div>
             </div>
-            <div className="m-10">
-              <div className="text-white text-4xl">{provinceEn}</div>
-              <div className="text-white">{provinceTh}</div>
-            </div>
-            <hr className="text-[#F5F0E8] m-7 border-2 rounded-full" />
+            <hr className="text-[#F5F0E8]  m-7 border-2 rounded-full" />
             {isLoading ? (
               <p className="text-center">
                 <svg
