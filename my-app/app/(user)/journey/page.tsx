@@ -48,6 +48,7 @@ export default function Journey() {
   const [visitedProvinceArray, setVisitedProvinceArray] = useState<string[]>(
     []
   );
+  const [mapCondition, setMapCondition] = useState(1);
   const provincehover = `You are in \n "<strong>${provinceHover}</strong>"`;
 
   useEffect(() => {
@@ -58,11 +59,12 @@ export default function Journey() {
       const uniqueProvinces: Set<string> = new Set(newVisitedProvinces);
       const arrayOfStrings: string[] = Array.from(uniqueProvinces);
       setVisitedProvinceArray(arrayOfStrings);
+      setMapCondition(0)
     }
   }, [data]);
 
   useEffect(() => {
-    if (visitedProvinceArray.length == 0) {
+    if (mapCondition == 1) {
       if (data) {
         const newVisitedProvinces = data.data.map(
           (visitedProvince: visitedProvincedData) => visitedProvince.province
@@ -71,9 +73,11 @@ export default function Journey() {
         const arrayOfStrings: string[] = Array.from(uniqueProvinces);
         setVisitedProvinceArray(arrayOfStrings);
         console.log(visitedProvinceArray)
+        setMapCondition(0)
       }
     }
-  }, [visitedProvinceArray]);
+  }, [mapCondition,visitedProvinceArray
+  ]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setVisitedProvinceData({
@@ -139,6 +143,7 @@ export default function Journey() {
     setText("");
     await mutate("/api/journey");
     setVisitedProvinceArray([]);
+    setMapCondition(1)
   }
 
   const clickHandler = ({ target }) => {
@@ -178,7 +183,7 @@ export default function Journey() {
         }
       });
     },
-    [visitedProvinceArray]
+    [visitedProvinceArray,mapCondition]
   );
 
   const zoomFactorChanged = useCallback(
@@ -208,7 +213,7 @@ export default function Journey() {
         <div className="grid lg:grid-cols-2 grid-cols-1">
           <div className="">
             <div>Thailand progress {visitedProvinceArray.length}/77</div>
-            {visitedProvinceArray.length > 0 ? (
+            {mapCondition == 0 ? (
               <VectorMap
                 id="vector-map"
                 center={[100.523186, 13.736717]}
@@ -352,7 +357,7 @@ export default function Journey() {
               </p>
             ) : (
               data?.data &&
-              (data?.data.length > 0 ? (
+              (data?.data.length >= 0 ? (
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                   {data?.data.map(
                     (visitedProvince: visitedProvincedData, index: number) => {
