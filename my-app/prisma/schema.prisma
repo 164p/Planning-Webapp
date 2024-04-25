@@ -19,6 +19,7 @@ model user {
   role     roles  @default(user)
   plan     plan[]
   profileimage String?
+  visitedProvince visitedProvince[]
 }
 
 enum roles {
@@ -66,4 +67,14 @@ model location {
 
 model subLocation {
   id String @id @default(auto()) @map("_id") @db.ObjectId
+}
+
+model visitedProvince {
+  id               String  @id @default(auto()) @map("_id") @db.ObjectId
+  emoji            String?
+  province         String
+  name             String
+  description      String?
+  owner     user       @relation(fields: [ownerId], references: [id])
+  ownerId   String     @db.ObjectId
 }

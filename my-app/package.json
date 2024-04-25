@@ -30,6 +30,10 @@
     "bcrypt": "^5.1.1",
     "date-fns": "^3.3.1",
     "dayjs": "^1.11.10",
+    "devextreme": "23.2.5",
+    "devextreme-cli": "^1.6.7",
+    "devextreme-dist": "^23.2.5",
+    "devextreme-react": "23.2.5",
     "file-system": "^2.2.2",
     "fs": "^0.0.1-security",
     "leaflet": "^1.9.4",
@@ -41,6 +45,7 @@
     "react-datepicker": "^5.0.0",
     "react-dom": "^18",
     "react-icons": "^5.0.1",
+    "react-input-emoji": "^5.8.0",
     "react-leaflet": "^4.2.1",
     "sweetalert2": "^11.10.3",
     "swr": "^2.2.4"
