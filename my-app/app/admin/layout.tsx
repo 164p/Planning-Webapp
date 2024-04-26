@@ -3,6 +3,7 @@ import Footer from '../components/Footer'
 import { createTheme, MantineProvider } from '@mantine/core';
 import Link from 'next/link';
 
+
 const theme = createTheme({
     fontFamily: 'Open Sans, sans-serif',
     primaryColor: 'cyan',
@@ -20,7 +21,7 @@ export default async function UserLayout({
                 <div className='relative'>
                 <nav className='fixed bg-[#402E32] w-full py-5 shadow-xl text-slate-100 z-40 shadow-md'>
                     <div className='flex justify-between items-center px-7 2xl:px-16'>
-                        <Link href='/homeadmin/Users' className='font-bold text-xl mx-5'>PLANTIEW</Link>
+                        <Link href='/' className='font-bold text-xl mx-5'>PLANTIEW</Link>
                     </div>
                 </nav>
                 </div>
