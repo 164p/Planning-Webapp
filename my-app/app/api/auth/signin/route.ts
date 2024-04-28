@@ -22,7 +22,7 @@ export async function POST(request: Request) {
         }
 
         const checkData = await prisma.user.findMany({
-            where: {zdadf
+            where: {
                 OR: [
                     {
                         username: res.username

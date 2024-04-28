@@ -11,13 +11,13 @@ datasource db {
 }
 
 model user {
-  id       String    @id @default(auto()) @map("_id") @db.ObjectId
-  username String    @unique
-  displayName String? 
-  email    String    @unique
-  password String
-  role     roles  @default(user)
-  plan     plan[]
+  id          String  @id @default(auto()) @map("_id") @db.ObjectId
+  username    String  @unique
+  displayName String?
+  email       String  @unique
+  password    String
+  role        roles   @default(user)
+  plan        plan[]
 }
 
 enum roles {
@@ -38,6 +38,7 @@ model plan {
   ownerId   String     @db.ObjectId
   updatedAt DateTime?
   status    planStatus @default(draft)
+  place     place[]
 }
 
 enum planStatus {
@@ -45,22 +46,37 @@ enum planStatus {
   draft
 }
 
-model touristAttraction {
+model place {
   id               String  @id @default(auto()) @map("_id") @db.ObjectId
+  time             DateTime 
   name             String?
   images           String?
   googleCoodinates Json
   googlePlaceId    String?
+  plan             plan    @relation(fields: [planId], references: [id])
+  planId           String  @db.ObjectId
+  subPlace         subPlace[]
+}
+
+model subPlace {
+  id               String  @id @default(auto()) @map("_id") @db.ObjectId
+  time             DateTime
+  name             String?
+  images           String?
+  googleCoodinates Json
+  googlePlaceId    String?
+  place            place    @relation(fields: [placeId], references: [id])
+  placeId          String  @db.ObjectId
 }
 
 model location {
-  placeId String @id @map("_id") @db.ObjectId
-  name String
-  description String
+  placeId       String @id @map("_id") @db.ObjectId
+  name          String
+  description   String
   placeLocation String
-  provinceTag String
-  activityTag String
-  typeTag String 
+  provinceTag   String
+  activityTag   String
+  typeTag       String
 }
 
 model subLocation {

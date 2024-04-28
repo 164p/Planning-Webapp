@@ -15,12 +15,17 @@ export default function page(){
         budget?: Number,
         images?: String,
         detail?: String,
-        startDate: String,
-        endDate: String,
+        startDate: string,
+        endDate: string,
         ownerId: String,
         status: planStatus
     }
-    const { data, error, isLoading } = useSWR('/api/plan', fetcher)
+    const { data, error, isLoading } = useSWR('/api/plan', fetcher, 
+    { 
+        revalidateIfStale: false,
+        revalidateOnFocus: false,
+        revalidateOnReconnect: false
+    })
 
     return (
         <div className="container pt-28 pb-12">
@@ -44,7 +49,7 @@ export default function page(){
                                 {data?.data.map((planData: planDatas, index: number) => {
                                     return (
                                         <Link href={`/plan/${planData.id}`} key={index}>
-                                            <div className={"card rounded-md bg-[#E4D7C1] flex overflow-hidden items-center relative hover:shadow-md duration-150 border border-slate-300 "+(planData.status === 'draft' && "opacity-60 hover:opacity-100")}>
+                                            <div className={"card rounded-md bg-[#E4D7C1] flex overflow-hidden items-center relative hover:shadow-md duration-150 "+(planData.status === 'draft' && "opacity-60 hover:opacity-100")}>
                                                 {
                                                     planData.images ? (
                                                         <div className="card-col relative overflow-fidden w-40 h-40" 
@@ -74,7 +79,7 @@ export default function page(){
                                                     <p className="text-xl font-extrabold">{planData.name ?? "My plan"}</p>
                                                     <p className="">Budget: {planData.budget?.toLocaleString()} THB</p>
                                                     <p className="font-semibold mt-3">Date</p>
-                                                    <p className="text-sm">{ new Date(planData?.startDate || '').toLocaleDateString('en-GB') } - { new Date(planData.endDate).toLocaleDateString('en-GB') }</p>
+                                                    <p className="text-sm">{ new Date(planData.startDate).toLocaleDateString('en-GB') } - { new Date(planData.endDate).toLocaleDateString('en-GB') }</p>
                                                 </div>
                                                 {
                                                     planData.status === 'draft' && (
