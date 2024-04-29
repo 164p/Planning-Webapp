@@ -40,7 +40,7 @@ export default function EditPlaceDetail(props: any){
         <>
             <div className='plan-detail-main'>
                 {
-                    data.data.length > 0 && (
+                    data.data?.length > 0 && (
                         <>
                             <div className='plan-detail-section grid grid-cols-4'>
                                 <div className='col relative'>
