@@ -174,8 +174,7 @@ export default function page({ params }: { params: { id: string } }) {
     content?: string;
   }
 
-  const [text, setText] = useState("");
-  const [datas1, setDatas1] = useState<any[]>();
+  const [text, setText] = useState("");;
   const [datas, setDatas] = useState<any[]>();
   const [photos, setPhotos] = useState<any[]>([]);
   const [placeDetails, setPlaceDetails] = useState<any[]>([]);
