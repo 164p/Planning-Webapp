@@ -17,19 +17,13 @@ export default async function UserLayout({
     return (
         <MantineProvider theme={theme}>
             <div className='flex flex-col min-h-screen'>
-            <div className='flex-none z-50'>
-                <div className='relative'>
-                <nav className='fixed bg-[#402E32] w-full py-5 shadow-xl text-slate-100 z-40 shadow-md'>
-                    <div className='flex justify-between items-center px-7 2xl:px-16'>
-                        <Link href='/' className='font-bold text-xl mx-5'>PLANTIEW</Link>
-                    </div>
-                </nav>
+                <div className='flex-none z-50'>
+                    <Navbar />
                 </div>
-            </div>
             <div className='main grow bg-first-color text-[#674F04] relative'>
                 {children}
             </div>
-            <div className='flex-none z-30'>
+            {/* <div className='flex-none z-30'>
                 <footer className="bg-[#402E32] py-5 text-slate-200 h-fit">
                 <div className="container">
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
@@ -54,7 +48,7 @@ export default async function UserLayout({
                     </div>
                 </div>
                 </footer>
-            </div>
+            </div> */}
         </div>
         </MantineProvider>
 
