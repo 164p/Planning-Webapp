@@ -18,11 +18,29 @@ export default function Page(){
         startDate: String,
         endDate: String,
         ownerId: String,
+        createdAt: String,
         status: planStatus
     }
     
     const { data, error, isLoading } = useSWR('/api/explore/trip', fetcher);
+  
+    // Function to filter data for the current week !!Can use to filter data only this week!!
+    const filterDataForCurrentWeek = () => {
+      const today = new Date();
+      const startOfWeek = new Date(today.getFullYear(), today.getMonth(), today.getDate() - today.getDay());
+      const endOfWeek = new Date(today.getFullYear(), today.getMonth(), today.getDate() - today.getDay() + 6);
+      
+      const filteredData = data?.data.filter((item:any) => {
+        const itemDate = new Date(item.createdAt); 
+        return itemDate >= startOfWeek && itemDate <= endOfWeek;
+        
+      });
+      
+      return filteredData;
+    };
 
+    const dataForThisWeek = filterDataForCurrentWeek();
+    console.log()
     return(
         <div className="p-10 mt-16 ml-80">
             <div>
@@ -33,8 +51,8 @@ export default function Page(){
             <div className="grid grid-cols-3 gap-10 text-black">
                 <div className="bg-[#D3BD9A] p-5 rounded-xl mb-10 text-center font-bold">
                     <p className=" text-xl my-1">All plan</p>
-                    <p className="text-3xl my-1">12</p>
-                    <span className="text-xs"><span className="text-lime-700">5</span> plan added this week</span>
+                    <p className="text-3xl my-1">{data?.data.length}</p>
+                    <span className="text-xs"><span className="text-lime-700">{dataForThisWeek.length}</span> plan added this week</span>
                 </div>
             </div>
 
@@ -68,14 +86,14 @@ export default function Page(){
                     <tbody>
                         <tr>
                             <td className="flex items-center gap-4">
-                                <img className="" src="/images/-bndJxl9ejc3SDbanTlIL-xiCpqSs2G3aF36PNd8WbA=/60.1712173254571.XNh5kIHDDx+u-ihfsXXf-1yRFy7VqQDSBn464ftFLis=.webp"
+                                <img className="" src=""
                                 alt=""
                                 width={40}
                                 height={40}/>
                                 {planData.name}
                             </td>
-                            <td>some@email.com</td>
-                            <td>Nov 04 2024</td>
+                            <td>{planData.ownerId}</td>
+                            <td>{planData.createdAt}</td>
                             <td className="font-bold gap-2 ">
                                 <Link href="/">
                                     <button className="p-1 rounded-md mr-2 bg-[#35C132] text-white">View</button>
