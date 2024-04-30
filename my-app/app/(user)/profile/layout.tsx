@@ -73,6 +73,11 @@ export default function UserLayout({
                                     </Link>
                                 </li>
                                 <li>
+                                    <Link href='/profile/bookmark' className='block mb-3 hover:bg-[#F5F0E8] py-2 px-6 rounded-md hover:text-[#4E3C05]'>
+                                        Bookmark
+                                    </Link>
+                                </li>
+                                <li>
                                     <Link href='/profile/setting' className='block mb-3 hover:bg-[#F5F0E8] py-2 px-6 rounded-md hover:text-[#4E3C05]'>
                                         Account Setting
                                     </Link>

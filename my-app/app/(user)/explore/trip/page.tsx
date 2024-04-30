@@ -7,6 +7,7 @@ import useSWR from 'swr';
 import React from 'react';
 import {MantineProvider, MultiSelect ,Autocomplete } from '@mantine/core';
 import '@mantine/core/styles.css';
+import Link from 'next/link';
 
 const fetcher = (url : string) => fetch(url).then(r => r.json())
 
@@ -90,9 +91,7 @@ export default function Page() {
     }
 
     const filteredData1 = filterDataTag(filterData, tag);
-          console.log(filteredData1)
-          console.log(filterData)
-          console.log(tag)
+
     return (
       <div className='bg-[#F5F0E8]'>
         <h1 className='text-[#674F04] text-5xl pt-36 p-10 text-center font-bold '>Explore travel guides</h1>
@@ -148,6 +147,7 @@ export default function Page() {
                       <div className='grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 sm:px-20 md:px-20 lg:px-0 lg:grid-cols-3 gap-6 mx-auto max-w-screen-lg '>
                   {sort(filteredData1, sortField, sortDirection)?.map((planData: planDatas, index:any) => {
                     return (
+                      <Link href={`../explore/planDetail/${planData.id}`} key={index}>
                       <div key={index} className="card-top rounded-2xl shadow-md text-[#674F04] bg-[#F5F5F5] pb-5">
                       <div dir="rtl">
                         <div className='z-10 absolute bg-[#F5F0E8] bg-opacity-90 rounded-full px-3 py-1 m-4 font-bold inline-flex'>
@@ -170,6 +170,7 @@ export default function Page() {
                         </div>
                     </div>
                 </div>
+                </Link>
                        )
                       }
                   )}

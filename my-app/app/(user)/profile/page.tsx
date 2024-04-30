@@ -4,7 +4,7 @@ import Link from "next/link";
 import { FaUserCircle } from "react-icons/fa"
 
 import useSWR from 'swr';
-import { useState, useEffect } from 'react'
+import { useState, useEffect, FormEvent } from 'react'
 import { uploadImages } from "@/app/lib/uploadImages";
 
 const fetcher = (url : string) => fetch(url).then(r => r.json())
@@ -12,35 +12,11 @@ const fetcher = (url : string) => fetch(url).then(r => r.json())
 export default function Home() {
     const { data, error, isLoading } = useSWR('/api/profile', fetcher);
     
-    
-    
     const ImageDataInput ={
         images: ''
     }
     
     const [profileData, setProfleData] = useState(ImageDataInput)
-
-
-    const handleChangeImages = async(e: React.ChangeEvent<HTMLInputElement>) => {
-        if (e.target.files && e.target.files[0]){
-            
-            const image = e.target.files[0]
-            const file = await uploadImages(image)
-
-            setProfleData({...profileData, [e.target.name]: file.url})
-            e.target.value = ''
-            console.log(profileData)
-        }
-    }
-
-    async function onSubmit(event: FormEvent<HTMLFormElement>) {
-        event.preventDefault()
-        const response = await fetch('/api/profile/changeprofile',{
-            method: 'POST',
-            body: JSON.stringify(profileData)
-        })
-        
-    }
 
     if (error) return <div>failed to load</div>;
     if (isLoading) return <div>loading...</div>;   

@@ -102,6 +102,6 @@ model bookmark {
   id      String @id @default(auto()) @map("_id") @db.ObjectId
   owner   user   @relation(fields: [ownerId], references: [id])
   ownerId String @db.ObjectId
-  plan    plan   @relation(fields: [ownerId], references: [id])
+  plan    plan   @relation(fields: [planId], references: [id])
   planId  String @db.ObjectId
 }

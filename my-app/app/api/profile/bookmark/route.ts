@@ -2,12 +2,7 @@ import prisma from "@/app/lib/prisma"
 import { getServerSession } from "next-auth/next"
 import authOptions from "@/app/lib/AuthProvider"
 
-export async function GET(request: Request) {
-    
-    const bookmark = [
-        '660e498016c701be056a0c1a',
-        '6615649845b84a156b172944',
-    ]
+export async function POST(request: Request) {
 
     try {
 
@@ -22,31 +17,32 @@ export async function GET(request: Request) {
             })
         }
 
-        const planAllData = await prisma.plan.findMany({
-            where: {
-                id: {in: bookmark}
+        const res = await request.json()
+
+        const addBookmark = await prisma.bookmark.create({
+            data: {
+                planId: res,
+                ownerId: session.user.id
             }
         })
+    
 
-        const profileImage = await prisma.user.findUnique({
-            where:{
-                id: session.user.id
-            },select:{
-                profileimage: true
-            }
-        })
-       
-
-        
+        if(addBookmark){
+            return new Response( JSON.stringify({
+                statusCode: 200,
+                data: addBookmark
+            }) , {
+                status: 200
+            })
+            
+        }
 
         return new Response( JSON.stringify({
-            statusCode: 200,
-            bookmarkData: planAllData,
-            profileURL:profileImage
+            statusCode: 400,
+            message: 'เกิดข้อผิดพลาด โปรดลองใหม่อีกครั้งในภายหลัง'
         }) , {
-            status: 200
+            status: 400
         })
-
     } catch (error) {
         
         console.log(error)
