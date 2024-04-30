@@ -5,11 +5,7 @@ import authOptions from "@/app/lib/AuthProvider"
 export async function GET(request: Request){
 
     try {
-        const planAllData = await prisma.plan.findMany(
-            {
-                where: { status:'public' }
-            }
-        )
+        const planAllData = await prisma.plan.findMany()
 
         return new Response( JSON.stringify({
             statusCode: 200,

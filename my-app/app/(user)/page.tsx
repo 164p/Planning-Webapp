@@ -181,7 +181,7 @@ export default function page(){
                                     <div className="text-2xl font-semibold">Keep Your Memory</div>
                                     <div className="px-16 mt-3">Let these memories be your travel companions, Even after the journey's end. Tuck them away, a private world to revisit, Whenever your heart desires to wander again.</div>
                                     <div className="text-center mt-5">
-                                        <Link href={"/map"}>
+                                        <Link href={"/journey"}>
                                             <button className="border-[#674F04] border-solid border-2 hover:bg-[#674F04] hover:text-white text-black font-bold py-2 px-4 rounded-full">Find</button>
                                         </Link>
                                     </div>
