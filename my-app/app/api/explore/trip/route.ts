@@ -1,41 +1,28 @@
-export async function GET() {
-    const place = [
-        {
-            "name": "บางแสนบางใจ",
-            "img": "/bangsan1.jpg",
-            "rating": 5,
-            "cost": 20000,
-            "provincetag": "ชลบุรี",
-            "activitytag": "ดำน้ำ",
-            "typetag": "ทะเล",
-        },
-        {
-            "name":"ชะอำ",
-            "img": "/bangsan.jpg",
-            "rating": 4,
-            "cost": 10000,
-            "provincetag": "ชลบุรี",
-            "activitytag": "ดำน้ำ",
-            "typetag": "ทะเล"
-        },
-        {
-            "name": "บางแสนนน",
-            "img": "/beach2.jpg",
-            "rating": 4,
-            "cost": 5000,
-            "provincetag": "ชลบุรี",
-            "activitytag": "ดำน้ำ",
-            "typetag": "ทะเล",
-        },
-        {
-            "name": "กระบี่",
-            "img": "/beach1.jpg",
-            "rating": 5,
-            "cost": 30000,
-            "provincetag": "กระบี่",
-            "activitytag": "ดำน้ำ",
-            "typetag": "ทะเล",
-        },
-    ];
-    return Response.json({place})
+import prisma from "@/app/lib/prisma"
+import { getServerSession } from "next-auth/next"
+import authOptions from "@/app/lib/AuthProvider"
+
+export async function GET(request: Request){
+
+    try {
+        const planAllData = await prisma.plan.findMany()
+
+        return new Response( JSON.stringify({
+            statusCode: 200,
+            data: planAllData
+        }) , {
+            status: 200
+        })
+
+    } catch (error) {
+
+        console.log(error)
+        return new Response( JSON.stringify({
+            statusCode: 500,
+            message: 'เกิดข้อผิดพลาด โปรดลองใหม่อีกครั้ง'
+        }) , {
+            status: 500
+        })
+    }
+
 }
