@@ -127,7 +127,7 @@ export default function Page() {
                 {data && !isLoading && (
                 <div className='card bg-[#F5F0E8] py-10'>
                     <div className='grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 sm:px-20 md:px-20 lg:px-0 lg:grid-cols-3 gap-6 mx-auto max-w-screen-lg '>
-                    {sort(filteredData1, sortField, sortDirection).map((datas:any, index:any) => (
+                    {sort(filteredData1, sortField, sortDirection)?.map((datas:any, index:any) => (
                             <div key={index} className="card-top rounded-2xl shadow-md text-[#674F04] bg-[#F5F5F5] pb-5">
                               <div dir="rtl">
                                 <div className='z-10 absolute bg-[#F5F0E8] bg-opacity-90 rounded-full px-3 py-1 m-4 font-bold inline-flex'>
