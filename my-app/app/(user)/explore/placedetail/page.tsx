@@ -11,10 +11,10 @@ export default function Home() {
       
       <PlaceDetail/>
 
-      <div className="comment-section">
+      {/* <div className="comment-section">
           <Comment/>
           <Comment/>
-      </div>
+      </div> */}
       
     </main>
   )

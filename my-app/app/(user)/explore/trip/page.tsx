@@ -64,8 +64,6 @@ export default function Page() {
           place.name.toLowerCase().includes(query.toLowerCase()),
 
         );
-      
-
         const searchRegex = new RegExp(tag.map(term => term.toLowerCase()).join('|'));
 
     function filterDataTag(data:any, query:any) {
@@ -84,13 +82,13 @@ export default function Page() {
           console.log(tag)
     return (
       <div className='bg-[#F5F0E8]'>
-        <h1 className='text-[#674F04] text-5xl pt-60 p-10 text-center font-bold'>Explore travel guides</h1>
+        <h1 className='text-[#674F04] text-5xl pt-36 p-10 text-center font-bold '>Explore travel guides</h1>
         <div className='flex justify-center items-center'>
-          <div className='relative max-w-[640px] w-full px-4 mb-5'>
+          <div className='relative max-w-[1000px] w-full px-4 mb-5'>
             <input
               type="search"
-              placeholder="Search your destination"
-              className='w-full h-10 shadow p-4 rounded-full text-black'
+              placeholder="Explore travel guides"
+              className='w-full h-10 shadow p-4 rounded-full text-black bg-[#f9fafb]'
               onChange={handleChange}
             />
             <button type='submit' className='absolute top-0 end-0 pr-5 text-4xl font-medium h-full text-white rounded-e-lg'>
@@ -122,12 +120,6 @@ export default function Page() {
               searchable
               clearable
               onChange={setTag}/>
-          <p className='flex text-[#674F04] text-2xl font-medium justify-center items-center pt-5 pb-3'>
-            Select your interest
-          </p>
-          <div className='flex m-0 justify-between'>
-            <TypeSelector />
-          </div>
           <div className='flex justify-center items-center'>
             <div className='flex w-full p-0.5 mt-10 mb-20 lg:w-2/3 bg-[#674F04] '></div>
           </div>
