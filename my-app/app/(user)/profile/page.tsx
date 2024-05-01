@@ -4,35 +4,23 @@ import Link from "next/link";
 import { FaUserCircle } from "react-icons/fa"
 
 import useSWR from 'swr';
-import { useState, useEffect } from 'react'
+import { useState, useEffect, FormEvent } from 'react'
+import { uploadImages } from "@/app/lib/uploadImages";
 
 const fetcher = (url : string) => fetch(url).then(r => r.json())
 
 export default function Home() {
-    const { data, error, isLoading } = useSWR('/api/bookmark', fetcher);
+    const { data, error, isLoading } = useSWR('/api/profile', fetcher);
     
-    type planDatas = {
-        id: String,
-        name?: String,
-        budget?: Number
-        images?: String,
-        detail?: String,
-        startDate: Date,
-        endDate: Date,
-        ownerId: String,
-        status: planStatus
+    const ImageDataInput ={
+        images: ''
     }
     
-    
-    
-    
-
-
-
+    const [profileData, setProfleData] = useState(ImageDataInput)
 
     if (error) return <div>failed to load</div>;
     if (isLoading) return <div>loading...</div>;   
-
+    
     return(
         <main className="content-center">
                 <div className="card">
@@ -42,11 +30,33 @@ export default function Home() {
                         
                             <div className="card-section flex flex-col col-start-1 col-end-2">
                                 <div className="">
-                                    <span className="icon text-9xl bg-white rounded-full">
-                                        <FaUserCircle className="mx-auto text-[#4E3C05]"/>
-                                    </span>
+                                    <div className="w-56 mx-auto rounded-full">
+                                        {
+                                            profileData.images !== '' ? (
+                                                
+                                                <div className="card-col rounded-full w-56 h-56" 
+                                                style={{
+                                                    backgroundImage: `url(${profileData.images})`,
+                                                    backgroundPosition: 'left center',
+                                                    backgroundSize: 'cover',
+                                                    backgroundRepeat: 'no-repeat'
+                                                }}/>
+                                                
+                                            ):data?.data.profileimage ?(
+                                                
+                                                <div className="card-col rounded-full w-56 h-56" 
+                                                style={{
+                                                    backgroundImage: `url(${data.data.profileimage})`,
+                                                    backgroundPosition: 'left center',
+                                                    backgroundSize: 'cover',
+                                                    backgroundRepeat: 'no-repeat'
+                                                }}/>
+                                                
+                                            ):(<></>)
+                                        }
+                                    </div>
                                 </div>
-                                <label className="text-center text-black">Edit Picture</label>
+                                
                             </div>
             
                             <div className="my-8 p-4 w-full h-full bg-white rounded-xl">
@@ -56,7 +66,7 @@ export default function Home() {
                         
                         <p className="text-xl">bookmarks</p>
                         <div className="my-2 p-4 bg-white rounded-xl flex flex-row flex-wrap justify-evenly">
-                            {data?.data.map((bookmarks:planDatas, index: number) => (
+                            {/* {data?.bookmarkData.map((bookmarks:planDatas, index: number) => (
                                 <Link href={`/plan/${bookmarks.id}`} className="my-2 shrink-0 basis-80 flex justify-center items-center hover:text-xl h-32 
                                  rounded-lg bg-blue-200 hover:bg-black/50" >
                                     
@@ -64,7 +74,7 @@ export default function Home() {
                                     <div className="">{bookmarks.name}</div>
                                 </Link>
                             
-                            ))}                            
+                            ))}                             */}
                         </div>
                     </div>
                 </div>

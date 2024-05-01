@@ -11,13 +11,16 @@ datasource db {
 }
 
 model user {
-  id          String  @id @default(auto()) @map("_id") @db.ObjectId
-  username    String  @unique
-  displayName String?
-  email       String  @unique
-  password    String
-  role        roles   @default(user)
-  plan        plan[]
+  id              String            @id @default(auto()) @map("_id") @db.ObjectId
+  username        String            @unique
+  displayName     String?
+  email           String            @unique
+  password        String
+  role            roles             @default(user)
+  plan            plan[]
+  profileimage    String?
+  visitedProvince visitedProvince[]
+  bookmark        bookmark[]
 }
 
 enum roles {
@@ -36,9 +39,11 @@ model plan {
   endDate   DateTime
   owner     user       @relation(fields: [ownerId], references: [id])
   ownerId   String     @db.ObjectId
+  createdAt DateTime?  @default(now())
   updatedAt DateTime?
   status    planStatus @default(draft)
   place     place[]
+  bookmark  bookmark[]
 }
 
 enum planStatus {
@@ -51,18 +56,18 @@ model place {
   order            Int 
   name             String?
   googlePlaceId    String?
-  plan             plan    @relation(fields: [planId], references: [id])
-  planId           String  @db.ObjectId
+  plan             plan       @relation(fields: [planId], references: [id])
+  planId           String     @db.ObjectId
   subPlace         subPlace[]
 }
 
 model subPlace {
-  id               String  @id @default(auto()) @map("_id") @db.ObjectId
+  id               String   @id @default(auto()) @map("_id") @db.ObjectId
   time             DateTime
   name             String?
   googlePlaceId    String?
   place            place    @relation(fields: [placeId], references: [id])
-  placeId          String  @db.ObjectId
+  placeId          String   @db.ObjectId
 }
 
 model location {
@@ -77,4 +82,22 @@ model location {
 
 model subLocation {
   id String @id @default(auto()) @map("_id") @db.ObjectId
+}
+
+model visitedProvince {
+  id          String  @id @default(auto()) @map("_id") @db.ObjectId
+  emoji       String?
+  province    String
+  name        String
+  description String?
+  owner       user    @relation(fields: [ownerId], references: [id])
+  ownerId     String  @db.ObjectId
+}
+
+model bookmark {
+  id      String @id @default(auto()) @map("_id") @db.ObjectId
+  owner   user   @relation(fields: [ownerId], references: [id])
+  ownerId String @db.ObjectId
+  plan    plan   @relation(fields: [planId], references: [id])
+  planId  String @db.ObjectId
 }

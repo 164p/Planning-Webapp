@@ -33,17 +33,17 @@ export async function GET(
         const planData = await prisma.plan.findUnique({
             where: {
                 id: planId,
-                ownerId: session.user.id
             },
             select: {
-                id: false,
+                id: true,
                 name: true,
                 budget: true,
                 detail: true,
                 images: true,
                 startDate: true,
                 endDate: true,
-                status: true
+                status: true,
+                owner: true
             }
         })
 

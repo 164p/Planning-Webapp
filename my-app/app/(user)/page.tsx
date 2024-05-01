@@ -44,19 +44,19 @@ export default function page(){
                                         </div>
                                         <Image src="/bangsan1.jpg" alt="logo" width={0} height={0} sizes="120vw" priority={true}
                                             style={{ width: '100%', height: '180px' }} className='mx-auto rounded-2xl'/>
-                                        <div className="card-button inline-flex">
-                                            <div className="button-t mx-7 mt-5">
-                                                <div className="flex items-center justify-between">
+                                        <div className="card-button">
+                                            <div className="flex justify-between mr-7">
+                                                <div className="button-t mx-7 mt-5">
                                                     <p className="font-bold text-[#674F04] text-lg">บางแสนบางใจ</p>
+                                                    <div className="inline-flex">
+                                                        <p className="font-bold">20000</p>/Trip
+                                                    </div>
                                                 </div>
-                                                <div className="inline-flex">
-                                                    <p className="font-bold">20000</p>/Trip
+                                                <div className="flex items-center justify-between mt-5 lg:ml-12 sm:ml-24">
+                                                    <Link href={"/explore/placedetail"}>
+                                                        <svg className="text-gray w-8 h-8" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 20 20" fill="currentColor">  <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-8.707l-3-3a1 1 0 00-1.414 1.414L10.586 9H7a1 1 0 100 2h3.586l-1.293 1.293a1 1 0 101.414 1.414l3-3a1 1 0 000-1.414z" clipRule="evenodd"/></svg>
+                                                    </Link>
                                                 </div>
-                                            </div>
-                                            <div className="flex items-center justify-between mt-5 lg:ml-12 sm:ml-24">
-                                                <Link href={"/explore/placedetail"}>
-                                                    <svg className="text-gray w-8 h-8" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 20 20" fill="currentColor">  <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-8.707l-3-3a1 1 0 00-1.414 1.414L10.586 9H7a1 1 0 100 2h3.586l-1.293 1.293a1 1 0 101.414 1.414l3-3a1 1 0 000-1.414z" clipRule="evenodd"/></svg>
-                                                </Link>
                                             </div>
                                         </div>
                                     </div>
@@ -72,17 +72,17 @@ export default function page(){
                                         </div>
                                         <Image src="/bangsan.jpg" alt="logo" width={0} height={0} sizes="120vw" priority={true}
                                             style={{ width: '100%', height: '180px' }} className='mx-auto rounded-2xl'/>
-                                        <div className="card-button inline-flex">   
-                                            <div className="button-t mx-7 mt-5">
-                                                <div className="flex items-center justify-between">
+                                        <div className="card-button">
+                                            <div className="flex justify-between mr-7">   
+                                                <div className="button-t mx-7 mt-5">
                                                     <p className="font-bold text-[#674F04] text-lg">ชะอำ</p>
+                                                    <div className="inline-flex">
+                                                        <p className="font-bold">10000</p>/Trip
+                                                    </div>
                                                 </div>
-                                                <div className="inline-flex">
-                                                    <p className="font-bold">10000</p>/Trip
-                                                </div>
-                                            </div>
                                             <div className="flex items-center justify-between mt-5 lg:ml-12 sm:ml-24">
                                                 <svg className="text-gray w-8 h-8" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 20 20" fill="currentColor">  <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-8.707l-3-3a1 1 0 00-1.414 1.414L10.586 9H7a1 1 0 100 2h3.586l-1.293 1.293a1 1 0 101.414 1.414l3-3a1 1 0 000-1.414z" clipRule="evenodd"/></svg>
+                                            </div>
                                             </div>
                                         </div>
                                     </div>
@@ -98,11 +98,10 @@ export default function page(){
                                         </div>
                                         <Image src="/beach1.jpg" alt="logo" width={0} height={0} sizes="120vw" priority={true}
                                             style={{ width: '100%', height: '180px' }} className='mx-auto rounded-2xl'/>
-                                        <div className="card-button inline-flex">
-                                            <div className="card-button mx-7 mt-5">
-                                                <div className="flex items-center justify-between">
+                                        <div className="card-button">
+                                            <div className="flex justify-between mr-7">   
+                                                <div className="button-t mx-7 mt-5">
                                                     <p className="font-bold text-[#674F04] text-lg">กระบี่</p>
-                                                </div>
                                                 <div className="inline-flex">
                                                     <p className="font-bold">30000</p>/Trip
                                                 </div>
@@ -110,6 +109,7 @@ export default function page(){
                                             <div className="flex items-center justify-between mt-5 lg:ml-12 sm:ml-24">
                                                 <svg className="text-gray w-8 h-8" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 20 20" fill="currentColor">  <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-8.707l-3-3a1 1 0 00-1.414 1.414L10.586 9H7a1 1 0 100 2h3.586l-1.293 1.293a1 1 0 101.414 1.414l3-3a1 1 0 000-1.414z" clipRule="evenodd"/></svg>
                                             </div>
+                                        </div>
                                         </div>
                                     </div>
                                 </div>
@@ -124,11 +124,10 @@ export default function page(){
                                         </div>
                                         <Image src="/beach2.jpg" alt="logo" width={0} height={0} sizes="120vw" priority={true}
                                             style={{ width: '100%', height: '180px' }} className='mx-auto rounded-2xl'/>
-                                        <div className="card-button inline-flex">
-                                            <div className="card-button mx-7 mt-5">
-                                                <div className="flex items-center justify-between">
+                                        <div className="card-button">
+                                            <div className="flex justify-between mr-7">   
+                                                <div className="button-t mx-7 mt-5">
                                                     <p className="font-bold text-[#674F04] text-lg">บางแสนนน</p>
-                                                </div>
                                                 <div className="inline-flex">
                                                     <p className="font-bold">5000</p>/Trip
                                                 </div>
@@ -136,6 +135,7 @@ export default function page(){
                                             <div className="flex items-center justify-between mt-5 lg:ml-12 sm:ml-24">
                                                 <svg className="text-gray w-8 h-8" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 20 20" fill="currentColor">  <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-8.707l-3-3a1 1 0 00-1.414 1.414L10.586 9H7a1 1 0 100 2h3.586l-1.293 1.293a1 1 0 101.414 1.414l3-3a1 1 0 000-1.414z" clipRule="evenodd"/></svg>
                                             </div>
+                                        </div>
                                         </div>
                                     </div>
                                 </div>
@@ -148,9 +148,9 @@ export default function page(){
                         </div>
                     </div>
                     <div className="section my-20">
-                        <div className="grid grid-cols-2">
-                            <div className="col bg-[#D3BD9A] rounded-l-2xl content-center">
-                                <div className="text-center">
+                        <div className="grid grid-cols-1 sm:grid-cols-2">
+                            <div className="col bg-[#D3BD9A] content-center">
+                                <div className="text-center m-5">
                                     <div className="text-2xl font-semibold">Find Your Destination</div>
                                     <div className="px-16 mt-3">Find what you're interested in Places on the map with us. So that you has a purpose With color and fun!</div>
                                     <div className="text-center mt-5">
@@ -163,13 +163,13 @@ export default function page(){
                             <div className="col">
                                 <div className="bg-[#D3BD9A] rounded-2xl">
                                     <Image src="/map1.jpg" alt="logo" width={0} height={0} sizes="120vw" priority={true}
-                                        style={{ width: '100%', height: '330px' }} className='mx-auto rounded-r-2xl'/>
+                                        style={{ width: '100%', height: '330px' }} className='mx-auto'/>
                                 </div>
                             </div>
                         </div> 
                     </div>
                     <div className="section my-20">
-                        <div className="grid grid-cols-2">
+                        <div className="grid grid-cols-1 sm:grid-cols-2">
                             <div className="col">
                                 <div className="p-10">
                                     <Image src="/map2.png" alt="logo" width={0} height={0} sizes="120vw" priority={true}
@@ -181,7 +181,7 @@ export default function page(){
                                     <div className="text-2xl font-semibold">Keep Your Memory</div>
                                     <div className="px-16 mt-3">Let these memories be your travel companions, Even after the journey's end. Tuck them away, a private world to revisit, Whenever your heart desires to wander again.</div>
                                     <div className="text-center mt-5">
-                                        <Link href={"/map"}>
+                                        <Link href={"/journey"}>
                                             <button className="border-[#674F04] border-solid border-2 hover:bg-[#674F04] hover:text-white text-black font-bold py-2 px-4 rounded-full">Find</button>
                                         </Link>
                                     </div>
