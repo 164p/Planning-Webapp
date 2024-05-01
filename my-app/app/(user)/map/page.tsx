@@ -38,6 +38,19 @@ export default function Intro() {
    /** @type React.MutableRefObject<HTMLInputElement> */
    const destiantionRef = useRef()
 
+  const [searchResult, setSearchResult] = useState<google.maps.places.Autocomplete>()
+
+  function onLoad(autocomplete: google.maps.places.Autocomplete) {
+    setSearchResult(autocomplete);
+  }
+
+  function locationSelected() {
+    if(searchResult) {
+      const place = searchResult.getPlace();
+      console.log("Search : ",place);
+    } 
+  }
+
   // async function calculateRoute() {
   //   if (originRef.current.value === '' || destiantionRef.current.value === '') {
   //     return
@@ -105,8 +118,8 @@ export default function Intro() {
       >
         <HStack spacing={2} justifyContent='space-between'>
           <Box flexGrow={1}>
-            <Autocomplete>
-              <Input type='text' placeholder='Origin'  />
+            <Autocomplete onLoad={onLoad} onPlaceChanged={locationSelected}>
+              <Input type='text' placeholder='Origin'/>
             </Autocomplete>
           </Box>
           <Box flexGrow={1}>

@@ -6,12 +6,13 @@ import React, { useState, useEffect, useRef } from "react";
 import { ActionIcon, rem } from "@mantine/core";
 import { TimeInput } from "@mantine/dates";
 import { IconClock } from "@tabler/icons-react";
+import Swal from "sweetalert2";
 const fetcher = (url: any) => fetch(url).then((res) => res.json());
 
 export default function EditPlaceDetail(props: any) {
   const ref = useRef<HTMLInputElement>(null);
   const [showCard, setShowCard] = useState(false);
-
+  console.log(props.date);
   const { data, error, isLoading } = useSWR(
     `/api/place/${props.planId}?date=${encodeURIComponent(
       (props.date || "") as string
@@ -132,6 +133,40 @@ export default function EditPlaceDetail(props: any) {
       // Update state with the new data and increment box count
       setBoxes([...boxes, newData]);
       setBoxCount(boxCount + 1);
+
+      const placeData = [props.planId, boxCount, location, placeID, props.date];
+
+      try {
+        const response = await fetch("/api/place/create", {
+          method: "POST",
+          body: JSON.stringify(placeData),
+        });
+        if (response.ok) {
+          Swal.fire({
+            icon: "success",
+            title: "เพิ่มข้อมูลสำเร็จ",
+            confirmButtonText: "ปิด",
+            timer: 1500,
+            timerProgressBar: true,
+          });
+        } else {
+          const responseData = await response.json();
+
+          Swal.fire({
+            icon: "error",
+            title: "เพิ่มข้อมูลไม่สำเร็จ",
+            text: responseData.message,
+            confirmButtonText: "ปิด",
+          });
+        }
+      } catch (error) {
+        Swal.fire({
+          icon: "error",
+          title: "เพิ่มข้อมูลไม่สำเร็จ",
+          text: "เกิดข้อผิดพลาด โปรดลองใหม่อีกครั้งในภายหลัง",
+          confirmButtonText: "ปิด",
+        });
+      }
     }
   }
 
@@ -156,16 +191,6 @@ export default function EditPlaceDetail(props: any) {
     );
   }
 
-  const pickerControl = (
-    <ActionIcon
-      variant="subtle"
-      color="gray"
-      onClick={() => ref.current?.showPicker()}
-    >
-      <IconClock style={{ width: rem(16), height: rem(16) }} stroke={1.5} />
-    </ActionIcon>
-  );
-
   return (
     <>
       <div className="plan-detail-main">
@@ -176,15 +201,9 @@ export default function EditPlaceDetail(props: any) {
                 <div className="line bg-[#674F04] w-0.5 h-full absolute right-5 top-0"></div>
               </div>
               <div className="col col-span-3">
-                <div className="bg-[#E4D7C1] p-5 rounded-md mb-5"></div>
-              </div>
-            </div>
-            <div className="plan-detail-section grid grid-cols-4">
-              <div className="col relative">
-                <div className="line bg-[#674F04] w-0.5 h-full absolute right-5 top-0"></div>
-              </div>
-              <div className="col col-span-3">
-                <div className="card bg-[#E4D7C1] p-5 rounded-md mb-5"></div>
+                <div className="bg-[#E4D7C1] p-5 rounded-md mb-5">
+                  {data?.data.name}
+                </div>
               </div>
             </div>
           </>
@@ -257,7 +276,6 @@ export default function EditPlaceDetail(props: any) {
                     onChange={searchPlace}
                     value={search}
                   />
-                  <TimeInput label="" ref={ref} rightSection={pickerControl} />
                 </div>
 
                 <div className="overflow-auto max-h-52 mt-3">
@@ -281,8 +299,7 @@ export default function EditPlaceDetail(props: any) {
                 <div
                   className="card 
             rounded-md bg-[#E4D7C1] p-5 my-8"
-                >
-                </div>
+                ></div>
               </div>
             </div>
           </div>

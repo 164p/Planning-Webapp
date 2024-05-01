@@ -50,7 +50,8 @@ export async function POST(request: Request){
                     planId: res[0],
                     order: res[1],
                     name: res[2],
-                    googlePlaceId: res[3]
+                    googlePlaceId: res[3],
+                    date: res[4]
                     
                 }
             })
