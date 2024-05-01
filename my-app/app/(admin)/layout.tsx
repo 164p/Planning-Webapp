@@ -14,7 +14,7 @@ export default async function UserLayout({
 }) {
     return (
         <MantineProvider theme={theme}>
-                    <div className='flex flex-col min-h-screen'>
+            <div className='flex flex-col min-h-screen'>
             <div className='flex-none z-50'>
                 <Navbar />
             </div>

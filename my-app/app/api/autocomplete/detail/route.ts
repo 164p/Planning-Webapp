@@ -17,6 +17,7 @@ export async function GET(request: NextRequest) {
             })  
             )
         }
+
         return new Response( JSON.stringify({
             statusCode: 200,
             data: ""
@@ -29,4 +30,4 @@ export async function GET(request: NextRequest) {
     }
     
     
-  }
+}

@@ -4,7 +4,6 @@ import useSWR from 'swr'
 import Image from 'next/image';
 import Link from 'next/link';
 import React, { useState, useEffect } from 'react';
-import '@mantine/dates/styles.css';
 import ViewPlaceDetail from '@/app/components/Plan/ViewPlaceDetail';
 
 const fetcher = (url: any) => fetch(url).then(res => res.json())
