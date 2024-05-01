@@ -140,11 +140,11 @@ export default function page(){
                                     </div>
                                 </div>
                             </div>
-                            <div className="text-center mt-5">
+                            {/*<div className="text-center mt-5">
                                 <Link href={"/explore/trip"}>
                                     <button className="border-[#674F04] border-solid border-2 hover:bg-[#674F04] hover:text-white text-black font-bold py-2 px-4 rounded-full">See all</button>
                                 </Link>
-                            </div>
+    </div>*/}
                         </div>
                     </div>
                     <div className="section my-20">
@@ -154,7 +154,7 @@ export default function page(){
                                     <div className="text-2xl font-semibold">Find Your Destination</div>
                                     <div className="px-16 mt-3">Find what you're interested in Places on the map with us. So that you has a purpose With color and fun!</div>
                                     <div className="text-center mt-5">
-                                        <Link href={"/explore/location"}>
+                                        <Link href={"/explore/trip"}>
                                             <button className="border-[#674F04] border-solid border-2 hover:bg-[#674F04] hover:text-white text-black font-bold py-2 px-4 rounded-full">Find</button>
                                         </Link>
                                     </div>
