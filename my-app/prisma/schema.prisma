@@ -20,6 +20,7 @@ model user {
   plan     plan[]
   profileimage String? 
   visitedProvince visitedProvince[]
+  createdAt DateTime @default(now())
 }
 
 enum roles {
