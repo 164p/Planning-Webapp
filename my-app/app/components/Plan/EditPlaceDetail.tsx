@@ -27,34 +27,8 @@ export default function EditPlaceDetail(props: any){
         };
     };
     
-    type resDataLocationDetail = {
-        statusCode: number;
-        data?: {
-            html_attributions?: [];
-            result?: {
-                formatted_address?: string;
-                name?: string;
-                photos?: [{
-                    photo_reference?: string;
-                }];
-            };
-        };
-    };
-    
-    interface BoxData {
-        id: string;
-        content?: string;
-    }
-    
     const [datas, setDatas] = useState<any[]>();
-    const [photos, setPhotos] = useState<any[]>([]);
-    const [placeDetails, setPlaceDetails] = useState<any[]>([]);
-    const [location, setLocation] = useState<any[]>(["central world"]);
-    const [boxes, setBoxes] = useState<BoxData[]>([]);
-    const [boxCount, setBoxCount] = useState(0);
-    const placeDescription = datas?.map((subArray) => subArray.description);
     const [search, setSearcPlace] = useState("");
-    const placeID = datas?.map((subArray) => subArray.place_id)?.[0];
     const ref = useRef<HTMLInputElement>(null);
 
     const pickerControl = (
@@ -75,24 +49,8 @@ export default function EditPlaceDetail(props: any){
         }
     }
 
-    async function locationAdd(e: any) {
-        setLocation(e);
-        const resLocation = await fetch(
-            `/api/explore/locationDetails?place_id=${encodeURIComponent(placeID as string)}`
-        );
-        if (resLocation.ok) {
-            const resLocationData = await resLocation.json();
-            setPhotos(prevPhotos => [...prevPhotos, resLocationData.data?.result.photos[1].photo_reference]);
-            setPlaceDetails(prevPlaceDetails => [...prevPlaceDetails, {
-                placeName: resLocationData.data?.result.name,
-                placeAddress: resLocationData.data?.result.formatted_address
-            }]);
-            const newData = { id: placeID };
+    const renderFile = (file: string) => {
 
-            // Update state with the new data and increment box count
-            setBoxes([...boxes, newData]);
-            setBoxCount(boxCount + 1);
-        }
     }
     
     async function addPlace(placeData: any) {
@@ -132,8 +90,6 @@ export default function EditPlaceDetail(props: any){
         }
     }
 
-    const photoUrls = photos.map(photo =>`https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${photo}&key=${process.env.NEXT_PUBLIC_MAPS_API_KEY}`);
-
     if(!props.date || !props.planId){
         return (
             <>
@@ -151,46 +107,54 @@ export default function EditPlaceDetail(props: any){
             </>
         )
     }
-
+    
     return (
         <>
             <div className='plan-detail-main'>
                 {
-                    data.data.length > 0 && (
-                        <>
-                            <div className='plan-detail-section grid grid-cols-4'>
-                                <div className='col relative'>
-                                    <div className='line bg-[#674F04] w-0.5 h-full absolute right-5 top-0'>
-                                    </div>
-                                </div>
-                                <div className='col col-span-3'>
-                                    <div className='bg-[#E4D7C1] p-5 rounded-md mb-5'>
-                                        
-                                    </div>
+                    (data.data.length > 0) && data.data.map((placeData: any, index: number) => (
+                        <div key={index} className='plan-detail-section grid grid-cols-4'>
+                            <div className='col relative flex'>
+                                <span className='ml-auto mr-5 px-5 py-2'>
+                                    {new Date(placeData.time).getHours()} : {(new Date(placeData.time).getMinutes() < 10 ? '0' : '') + new Date(placeData.time).getMinutes()}
+                                </span>
+                                <div className='line bg-[#674F04] w-0.5 h-full absolute right-5 top-0'>
                                 </div>
                             </div>
-                            <div className='plan-detail-section grid grid-cols-4'>
-                                <div className='col relative'>
+                            <div className='col col-span-3'>
+                                <div className='card bg-[#E4D7C1] rounded-md mb-5 flex overflow-hidden'>
+                                    {
+                                        placeData.images ? (
+                                            <div className='card-header min-w-32 min-h-full' 
+                                                style={{
+                                                    backgroundImage: `url(${placeData.images})`,
+                                                    backgroundPosition: 'left center',
+                                                    backgroundSize: 'cover',
+                                                    backgroundRepeat: 'no-repeat'
+                                                }}>
+                                            </div>
+                                        ):(
+                                            <div className='card-header min-w-32 min-h-full' 
+                                                style={{
+                                                    backgroundImage: `url(/ImageTemplate.png)`,
+                                                    backgroundPosition: 'center center',
+                                                    backgroundSize: 'cover',
+                                                    backgroundRepeat: 'no-repeat'
+                                                }}>
+                                            </div>
+                                        )
+                                    }
                                     
-                                    <div className='line bg-[#674F04] w-0.5 h-full absolute right-5 top-0'>
+                                    <div className='card-body p-5'>
+                                        <p className='font-bold'>{placeData.name}</p>
+                                        <p className='text-sm'>{placeData.detail}</p>
                                     </div>
-                                </div>
-                                <div className='col col-span-3'>
-                                    <div className='card bg-[#E4D7C1] p-5 rounded-md mb-5'>
-                                        
-                                    </div>
+                                    
                                 </div>
                             </div>
-                        </>
-                    )
+                        </div>
+                    ))
                 }
-                {/* {placeDetails.map((place, index) => (
-                    <div key={index} className="box">
-                        {photos[index] && <img src={photoUrls[index]} alt={`Photo of ${place.placeName}`} />}
-                        <p>{place.placeName}</p>
-                        <p>{place.placeAddress}</p>
-                    </div>
-                ))} */}
                 <div className='plan-detail-section grid grid-cols-4'>
                     <div className='col relative'>
                         <div className='line bg-[#674F04] w-0.5 h-full absolute right-5 top-0'>

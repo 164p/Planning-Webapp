@@ -2,7 +2,7 @@ import prisma from "@/app/lib/prisma"
 import { getServerSession } from "next-auth/next"
 import authOptions from "@/app/lib/AuthProvider"
 
-export async function GET(
+export async function DELETE(
     request: Request,
     { params }: { params: { id: string } }){
 
@@ -30,37 +30,22 @@ export async function GET(
             })
         }
 
-        const planData = await prisma.plan.findUnique({
+        const deletePlace = await prisma.place.deleteMany({
             where: {
-                id: planId,
-                ownerId: session.user.id
-            },
-            select: {
-                id: true,
-                name: true,
-                budget: true,
-                detail: true,
-                images: true,
-                startDate: true,
-                endDate: true,
-                status: true
-            }
-        })
-        const checkPlace = await prisma.place.count({
-            where: {
-                planId: planData?.id
+                planId: planId
             }
         })
 
-        return new Response( JSON.stringify({
-            statusCode: 200,
-            data: {
-                planData,
-                isHavePlace: checkPlace
-            }
-        }) , {
-            status: 200
-        })
+        if(deletePlace){
+            return new Response( JSON.stringify({
+                statusCode: 200,
+                message: 'Successful to delete data'
+            }) , {
+                status: 200
+            })
+        }
+
+        
     } catch (error) {
 
         console.log(error)
