@@ -48,10 +48,10 @@ enum planStatus {
 
 model place {
   id               String  @id @default(auto()) @map("_id") @db.ObjectId
-  time             DateTime 
+  time             DateTime? 
   name             String?
   images           String?
-  googleCoodinates Json
+  googleCoodinates Json?
   googlePlaceId    String?
   plan             plan    @relation(fields: [planId], references: [id])
   planId           String  @db.ObjectId
