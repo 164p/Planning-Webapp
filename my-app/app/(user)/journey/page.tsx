@@ -12,8 +12,7 @@ export default function Journey(){
                 <div className='grid lg:grid-cols-2 grid-cols-1'>
                     <div className=''>
                         <Jmap/>
-                    </div>
-                    
+                    </div>      
                     <div className='bg-[#674F04] lg:size-full w-full h-96'/>
                 </div>
             </div>
