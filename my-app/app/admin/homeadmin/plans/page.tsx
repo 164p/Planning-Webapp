@@ -60,7 +60,7 @@ export default function Page(){
         confirmButtonText: "ปิด",
         allowOutsideClick: false,
       });
-      const response = await fetch("/api/journey/delete", {
+      const response = await fetch("/api/plan/delete", {
         method: "DELETE",
         body: JSON.stringify(event),
     })
@@ -148,17 +148,15 @@ export default function Page(){
                             </td>
                             <td>{userData?.username}</td>
                             <td>{planData.createdAt}</td>
-                            <td className="font-bold gap-2 ">
-                                <Link href="/">
-                                    <button className="p-1 rounded-md mr-2 bg-[#35C132] text-white">View</button>
-                                </Link>
-                                <div className="px-2 py-2 mb-20 font-bold inline-flex absolute top-3 end-2.5 ms-auto justify-center items-center" >
-                                    <button onClick={onDelete}>
-                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" className="text-[#674F04] w-5 h-5 mt-2" fill="currentcolor">
-                                        <path d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"/>
-                                    </svg>
+                            <td>
+                                <div>
+                                    <button className="p-1 rounded-md mr-2 bg-[#35C132] text-white">
+                                    View
                                     </button>
-                                </div>
+                                    <button className="p-1 rounded-md bg-[#C1323B] text-white" onClick={() => onDelete(planData)}>
+                                    Delete
+                                    </button>
+                                    </div>
                             </td>
                         </tr>
                     </tbody>
