@@ -21,6 +21,7 @@ model user {
   profileimage    String?
   visitedProvince visitedProvince[]
   bookmark        bookmark[]
+  createdAt DateTime @default(now())
 }
 
 enum roles {
