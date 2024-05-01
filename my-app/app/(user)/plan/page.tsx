@@ -46,8 +46,44 @@ export default function page(){
                     ): data?.data && (
                         data?.data.length > 0 ? (
                             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                                {data?.data.map((planData: planDatas, index: number) => {
-                                    return (
+                                {data?.data.map((planData: planDatas, index: number) => (
+                                    planData.status !== 'draft' ? (
+                                        <Link href={`/plan/${planData.id}`} key={index}>
+                                            <div className={"card rounded-md bg-[#E4D7C1] flex overflow-hidden items-center relative hover:shadow-md duration-150 "}>
+                                                {
+                                                    planData.images ? (
+                                                        <div className="card-col relative overflow-fidden w-40 h-40" 
+                                                            style={{
+                                                                backgroundImage: `url(${planData.images})`,
+                                                                backgroundPosition: 'left center',
+                                                                backgroundSize: 'cover',
+                                                                backgroundRepeat: 'no-repeat'
+                                                            }}>
+                                                            <div className="line h-full w-5 absolute bg-gradient-to-l from-[#E4D7C1] bottom-0 right-0 ">
+                                                            </div>
+                                                        </div>
+                                                    ):(
+                                                        <div className="card-col relative overflow-fidden w-40 h-40" 
+                                                            style={{
+                                                                backgroundImage: `url(/ImageTemplate.png)`,
+                                                                backgroundPosition: 'left center',
+                                                                backgroundSize: 'cover',
+                                                                backgroundRepeat: 'no-repeat'
+                                                            }}>
+                                                            <div className="line h-full w-5 absolute bg-gradient-to-l from-[#E4D7C1] bottom-0 right-0 ">
+                                                            </div>
+                                                        </div>
+                                                    )
+                                                }
+                                                <div className="card-col grow p-5">
+                                                    <p className="text-xl font-extrabold">{planData.name ?? "My plan"}</p>
+                                                    <p className="">Budget: {planData.budget?.toLocaleString()} THB</p>
+                                                    <p className="font-semibold mt-3">Date</p>
+                                                    <p className="text-sm">{ new Date(planData.startDate).toLocaleDateString('en-GB') } - { new Date(planData.endDate).toLocaleDateString('en-GB') }</p>
+                                                </div>
+                                            </div>
+                                        </Link>
+                                    ):(
                                         <Link href={`/plan/${planData.id}`} key={index}>
                                             <div className={"card rounded-md bg-[#E4D7C1] flex overflow-hidden items-center relative hover:shadow-md duration-150 "+(planData.status === 'draft' && "opacity-60 hover:opacity-100")}>
                                                 {
@@ -91,7 +127,7 @@ export default function page(){
                                             </div>
                                         </Link>
                                     )
-                                })}
+                                ))}
                             </div>
                         ):(
                             <p className="text-center">ไม่พบข้อมูลแพลนของคุณ</p>

@@ -11,7 +11,7 @@ export async function POST(request: Request){
         if(!session){
             return new Response( JSON.stringify({
                 statusCode: 401,
-                message: "กรุณาเข้าสู่ระบบก่อนดำเนินการ"
+                message: "Access denied. Please log in to proceed."
             }) , {
                 status: 401
             })
@@ -64,7 +64,7 @@ export async function POST(request: Request){
 
             return new Response( JSON.stringify({
                 statusCode: 400,
-                message: 'เกิดข้อผิดพลาด โปรดลองใหม่อีกครั้งในภายหลัง'
+                message: 'Unknown error occurred.'
             }) , {
                 status: 400
             })
@@ -75,7 +75,7 @@ export async function POST(request: Request){
     } catch (error) {
         return new Response( JSON.stringify({
             statusCode: 400,
-            message: 'เกิดข้อผิดพลาด โปรดลองใหม่อีกครั้งในภายหลัง'
+            message: 'Unknown error occurred.'
         }) , {
             status: 400
         })

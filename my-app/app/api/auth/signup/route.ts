@@ -114,7 +114,7 @@ export async function POST(request: Request){
 
             return new Response( JSON.stringify({
                 statusCode: 500,
-                message: 'เกิดข้อผิดพลาด โปรดลองใหม่อีกครั้งในภายหลัง'
+                message: 'Unknown error occurred.'
             }) , {
                 status: 500
             })
@@ -124,7 +124,7 @@ export async function POST(request: Request){
         console.log(error)
         return new Response( JSON.stringify({
             statusCode: 500,
-            message: 'เกิดข้อผิดพลาด โปรดลองใหม่อีกครั้งในภายหลัง'
+            message: 'Unknown error occurred.'
         }) , {
             status: 500
         })

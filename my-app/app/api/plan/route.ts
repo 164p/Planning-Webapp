@@ -11,7 +11,7 @@ export async function GET(request: Request){
         if(!session){
             return new Response( JSON.stringify({
                 statusCode: 401,
-                message: "กรุณาเข้าสู่ระบบก่อนดำเนินการ"
+                message: "Access denied. Please log in to proceed."
             }) , {
                 status: 401
             })

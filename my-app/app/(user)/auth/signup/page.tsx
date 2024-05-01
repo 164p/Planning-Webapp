@@ -93,7 +93,7 @@ export default function page(){
                 Swal.fire({
                     icon: 'error',
                     title: 'สมัครสมาชิกไม่สำเร็จ', 
-                    text: 'เกิดข้อผิดพลาด โปรดลองใหม่อีกครั้งในภายหลัง', 
+                    text: 'Unknown error occurred.', 
                     confirmButtonText: 'ปิด',
                 });
             }
