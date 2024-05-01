@@ -100,7 +100,7 @@ export default function Page(){
                     <p className="text-3xl my-1">{data?.data.length}</p>
                     <span className="text-xs">
                         <span className="text-lime-700">{dataForThisWeek?.length}</span>{" "}
-                        more than previous week
+                        More than previous week
                     </span>
                 </div>
             </div>
