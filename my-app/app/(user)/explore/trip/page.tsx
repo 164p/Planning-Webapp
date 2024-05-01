@@ -13,6 +13,7 @@ const fetcher = (url : string) => fetch(url).then(r => r.json())
 
 export default function Page() {
     const { data, error, isLoading } = useSWR('/api/explore/trip', fetcher);
+    const { data:dataBookmark, error:errorBookmark, isLoading:isLoadingBookmark } = useSWR(`/api/explore/bookmark`, fetcher);
 
     const [query, setQuery] = useState('')
     const [sortDirection, setSortDirection] = useState('');
@@ -33,7 +34,7 @@ export default function Page() {
       endDate: String,
       ownerId: String,
       createdAt: String,
-      status: String,
+      status: String
   }
 
     if (error) return <div>failed to load</div>;
@@ -146,12 +147,14 @@ export default function Page() {
                     <div className='card bg-[#F5F0E8] py-10'>
                       <div className='grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 sm:px-20 md:px-20 lg:px-0 lg:grid-cols-3 gap-6 mx-auto max-w-screen-lg '>
                   {sort(filteredData1, sortField, sortDirection)?.map((planData: planDatas, index:any) => {
+                    const bookmarkData = dataBookmark?.data.filter((bookmark: any) => bookmark.planId === planData.id);
+                    ;
                     return (
                       <Link href={`../explore/planDetail/${planData.id}`} key={index}>
                       <div key={index} className="card-top rounded-2xl shadow-md text-[#674F04] bg-[#F5F5F5] pb-5">
                       <div dir="rtl">
                         <div className='z-10 absolute bg-[#F5F0E8] bg-opacity-90 rounded-full px-3 py-1 m-4 font-bold inline-flex'>
-                          {/* <div>{planData.rating}</div> */}
+                          <div>{bookmarkData.length}</div>
                           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5 text-yellow mr-1">
                             <path fillRule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z"clipRule="evenodd"></path></svg>
                         </div>
@@ -163,10 +166,10 @@ export default function Page() {
                             <p className="font-bold text-[#674F04] text-lg py-3">{planData.name}</p>
                         </div>
                         <div className='inline-flex mb-5'>
-                          {/* <p className='font-bold'>{planData.cost}</p>/Trip */}
+                          <p className='font-bold'>{planData.budget}</p>/Trip
                         </div>
                         <div className="tag-section flex">
-                            {/* <p className="tag px-3 py-2 rounded-full bg-[#C3BAAA] text-black mx-2">{planData.provincetag}</p> */}
+                            <p className="tag px-3 py-2 rounded-full bg-[#C3BAAA] text-black mx-2">{planData.provincetag}</p>
                         </div>
                     </div>
                 </div>

@@ -32,6 +32,7 @@ export default function Page(){
     };
     
     const { data, error, isLoading } = useSWR('/api/explore/trip', fetcher);
+    const { data:dataUser, error:errorUser, isLoading:isLoadingUser } = useSWR(`/api/admin/user`, fetcher);
     const [visitedProvince, setVisitedProvince] = useState(FormDataInput);
   
     // Function to filter data for the current week !!Can use to filter data only this week!!
@@ -104,7 +105,7 @@ export default function Page(){
                 <div className="bg-[#D3BD9A] p-5 rounded-xl mb-10 text-center font-bold">
                     <p className=" text-xl my-1">All plan</p>
                     <p className="text-3xl my-1">{data?.data.length}</p>
-                    <span className="text-xs"><span className="text-lime-700">{dataForThisWeek.length}</span> plan added this week</span>
+                    <span className="text-xs"><span className="text-lime-700">{dataForThisWeek?.length}</span> plan added this week</span>
                 </div>
             </div>
 
@@ -124,13 +125,14 @@ export default function Page(){
                     data?.data.length > 0 ? (
                         <div>
                     {data?.data.map((planData: planDatas) => {
+                        const userData = dataUser?.data.find((user: any) => user.id === planData.ownerId);
                         return (
                             <div>
                                 <table className="text-xl w-full mb-20">
                     <thead className="font-bold">
                         <tr>
                             <td>Name</td>
-                            <td>Email</td>
+                            <td>Create By</td>
                             <td>Created At</td>
                             <td>Action</td>
                         </tr>
@@ -142,8 +144,9 @@ export default function Page(){
                                 alt=""
                                 width={40}
                                 height={40}/>
+                                {planData.name}
                             </td>
-                            <td>{planData.ownerId}</td>
+                            <td>{userData?.username}</td>
                             <td>{planData.createdAt}</td>
                             <td className="font-bold gap-2 ">
                                 <Link href="/">

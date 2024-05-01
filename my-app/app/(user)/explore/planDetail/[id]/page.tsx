@@ -11,6 +11,7 @@ import Swal from "sweetalert2";
 const fetcher = (url: any) => fetch(url).then((res) => res.json());
 export default function Home({ params }: { params: { id: string } }) {
   const { data, error, isLoading } = useSWR(`/api/plan/${params.id}`, fetcher);
+  const { data:dataBookmark, error:errorBookmark, isLoading:isLoadingBookmark } = useSWR(`/api/explore/bookmark/${params.id}`, fetcher);
   const FormDataInputs = {
     name: "",
     budget: 0,
@@ -57,7 +58,7 @@ export default function Home({ params }: { params: { id: string } }) {
   async function onBookmark(event: FormEvent<HTMLFormElement>) {
     event.preventDefault;
     try {
-      const response = await fetch("/api/profile/bookmark", {
+      const response = await fetch("/api/profile/addBookmark", {
         method: "POST",
         body: JSON.stringify(event),
       });
@@ -384,7 +385,7 @@ export default function Home({ params }: { params: { id: string } }) {
               </div>
             </div>
             <div className="flex justify-center items-center">
-              <div>{data.data.}</div>
+              <div>{dataBookmark?.data.length}</div>
               <svg
                 width="24px"
                 height="24px"
