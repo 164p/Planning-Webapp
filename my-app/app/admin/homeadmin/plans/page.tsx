@@ -151,8 +151,8 @@ export default function Page(){
                     {filterData?.map((planData: planDatas, index:any) => {
                         const userData = dataUser?.data.find((user: any) => user.id === planData.ownerId);
                         return (
-                            <div key={index}>
-                                <table className="text-xl w-full mb-20">
+                            <div>
+                                <table className="text-xl w-full mb-3">
                     <thead className="font-bold">
                         <tr>
                             <td>Name</td>
@@ -186,7 +186,7 @@ export default function Page(){
                     </tbody>
                 </table>
 
-                <Pagenavi/>
+                {/*<Pagenavi/>*/}
                             </div>
                         )
                     })}
