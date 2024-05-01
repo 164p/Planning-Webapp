@@ -9,7 +9,10 @@ export async function GET(request: Request){
     try {
         const bookmarkData = await prisma.bookmark.findMany(
             {
-                where: { ownerId: session.user.id }
+                where: { ownerId: session.user.id },
+                select:{
+                    plan:true
+                }
             }
         )
 

@@ -27,7 +27,7 @@ const { data, error, isLoading } = useSWR('/api/profile/getBookmark', fetcher)
                                 {data?.data.map((bookmarks:any, index: number) => (
                                 <Link href={`/explore/planDetail/${bookmarks.planId}`} className="my-2 shrink-0 basis-80 flex justify-center items-center hover:text-xl h-32 
                                  rounded-lg bg-blue-200 hover:bg-black/50" >
-                                    <div className="">{bookmarks.planId}</div>
+                                    <div className="">{bookmarks.plan.name}</div>
                                 </Link>))}
                             </div>
                         ):(
