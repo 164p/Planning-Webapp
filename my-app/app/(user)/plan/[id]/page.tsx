@@ -174,7 +174,7 @@ export default function page({ params }: { params: { id: string } }) {
     content?: string;
   }
 
-  const [text, setText] = useState("");;
+  const [text, setText] = useState("");
   const [datas, setDatas] = useState<any[]>();
   const [photos, setPhotos] = useState<any[]>([]);
   const [placeDetails, setPlaceDetails] = useState<any[]>([]);
@@ -206,20 +206,29 @@ export default function page({ params }: { params: { id: string } }) {
     );
     if (resLocation.ok) {
       const resLocationData = await resLocation.json();
-      setPhotos(prevPhotos => [...prevPhotos, resLocationData.data?.result.photos[1].photo_reference]);
-      setPlaceDetails(prevPlaceDetails => [...prevPlaceDetails, {
-        placeName: resLocationData.data?.result.name,
-        placeAddress: resLocationData.data?.result.formatted_address
-    }]);
-    const newData = { id: placeID };
+      setPhotos((prevPhotos) => [
+        ...prevPhotos,
+        resLocationData.data?.result.photos[1].photo_reference,
+      ]);
+      setPlaceDetails((prevPlaceDetails) => [
+        ...prevPlaceDetails,
+        {
+          placeName: resLocationData.data?.result.name,
+          placeAddress: resLocationData.data?.result.formatted_address,
+        },
+      ]);
+      const newData = { id: placeID };
 
-    // Update state with the new data and increment box count
-    setBoxes([...boxes, newData]);
-    setBoxCount(boxCount + 1);
+      // Update state with the new data and increment box count
+      setBoxes([...boxes, newData]);
+      setBoxCount(boxCount + 1);
+    }
   }
-}
 
-const photoUrls = photos.map(photo =>`https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${photo}&key=${process.env.NEXT_PUBLIC_MAPS_API_KEY}`);
+  const photoUrls = photos.map(
+    (photo) =>
+      `https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${photo}&key=${process.env.NEXT_PUBLIC_MAPS_API_KEY}`
+  );
 
   return (
     <div className="container py-28">
@@ -585,9 +594,14 @@ const photoUrls = photos.map(photo =>`https://maps.googleapis.com/maps/api/place
               <div className="relative max-w-[640px] w-1/3 px-4 mb-10 mt-12">
                 {placeDetails.map((place, index) => (
                   <div key={index} className="box">
-            {photos[index] && <img src={photoUrls[index]} alt={`Photo of ${place.placeName}`} />}
-            <p>{place.placeName}</p>
-            <p>{place.placeAddress}</p>
+                    {photos[index] && (
+                      <img
+                        src={photoUrls[index]}
+                        alt={`Photo of ${place.placeName}`}
+                      />
+                    )}
+                    <p>{place.placeName}</p>
+                    <p>{place.placeAddress}</p>
                   </div>
                 ))}
                 <Autocomplete
