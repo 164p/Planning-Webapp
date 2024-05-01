@@ -25,16 +25,16 @@ export default function Page() {
     };
     
     type planDatas = {
-      id: String,
-      name?: String,
-      budget?: Number,
-      images?: String,
-      detail?: String,
-      startDate: String,
-      endDate: String,
-      ownerId: String,
-      createdAt: String,
-      status: String
+      id: string,
+      name?: string,
+      budget?: number,
+      images?: string,
+      detail?: string,
+      startDate: string,
+      endDate: string,
+      ownerId: string,
+      createdAt: string,
+      status: string
   }
 
     if (error) return <div>failed to load</div>;
@@ -162,17 +162,14 @@ export default function Page() {
                           <svg fill="#674F04" width="24px" height="24px" viewBox="0 0 24 24" id="bookmark" data-name="Flat Color" xmlns="http://www.w3.org/2000/svg" className="icon flat-color"><path id="primary" d="M18,2H6A2,2,0,0,0,4,4V21a1,1,0,0,0,.5.86,1,1,0,0,0,1,0L12,18.15l6.5,3.72A1,1,0,0,0,19,22a.9.9,0,0,0,.5-.14A1,1,0,0,0,20,21V4A2,2,0,0,0,18,2Z" className="fill: rgb(0, 0, 0);"></path></svg>
                         </div>
                       </div>
-                      <img src={planData.images} alt="logo" width={0} height={0} sizes="120vw"
+                      <img src={planData.images??""} alt="logo" width={0} height={0} sizes="120vw"
                           style={{ width: '100%', height: '250px' }} className='img block rounded-2xl'/>
                     <div className="card-button mx-7">
                         <div className="flex items-center justify-between">
                             <p className="font-bold text-[#674F04] text-lg py-3">{planData.name}</p>
                         </div>
                         <div className='inline-flex mb-5'>
-                          <p className='font-bold'>{planData.budget}</p>/Trip
-                        </div>
-                        <div className="tag-section flex">
-                            <p className="tag px-3 py-2 rounded-full bg-[#C3BAAA] text-black mx-2">{planData.provincetag}</p>
+                          <p className='font-bold'>{planData.budget??0}</p>/Trip
                         </div>
                     </div>
                 </div>

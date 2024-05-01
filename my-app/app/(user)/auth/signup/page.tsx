@@ -5,7 +5,7 @@ import { FormEvent, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import Swal from 'sweetalert2'
 
-export default function page(){
+export default function Page(){
 
     const router = useRouter();
 

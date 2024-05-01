@@ -1,6 +1,6 @@
 import { MdSearch } from "react-icons/md";
 
-export default function DashboardSearch({placeholder}) {
+export default function DashboardSearch({placeholder}:any) {
     return (
         <div className="flex items-center gap-1 rounded-xl p-1 bg-gray-300 w-max">
             <MdSearch/>

@@ -12,15 +12,15 @@ const fetcher = (url : string) => fetch(url).then(r => r.json())
 export default function Page(){
 
     type planDatas = {
-        id: String,
-        name?: String,
-        budget?: Number,
-        images?: String,
-        detail?: String,
-        startDate: String,
-        endDate: String,
-        ownerId: String,
-        createdAt: String,
+        id: string,
+        name?: string,
+        budget?: number,
+        images?: string,
+        detail?: string,
+        startDate: string,
+        endDate: string,
+        ownerId: string,
+        createdAt: string,
         status: planStatus
     }
 
@@ -124,10 +124,10 @@ export default function Page(){
                 ): data?.data && (
                     data?.data.length > 0 ? (
                         <div>
-                    {data?.data.map((planData: planDatas) => {
+                    {data?.data.map((planData: planDatas,index: number) => {
                         const userData = dataUser?.data.find((user: any) => user.id === planData.ownerId);
                         return (
-                            <div>
+                            <div key={index}>
                                 <table className="text-xl w-full mb-20">
                     <thead className="font-bold">
                         <tr>
@@ -140,7 +140,7 @@ export default function Page(){
                     <tbody>
                         <tr>
                             <td className="flex items-center gap-4">
-                                <img className="" src={planData.images}
+                                <img className="" src={planData.images??""}
                                 alt=""
                                 width={40}
                                 height={40}/>
@@ -153,7 +153,7 @@ export default function Page(){
                                     <button className="p-1 rounded-md mr-2 bg-[#35C132] text-white">View</button>
                                 </Link>
                                 <div className="px-2 py-2 mb-20 font-bold inline-flex absolute top-3 end-2.5 ms-auto justify-center items-center" >
-                                    <button onClick={onDelete}>
+                                    <button onClick={() => onDelete}>
                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" className="text-[#674F04] w-5 h-5 mt-2" fill="currentcolor">
                                         <path d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"/>
                                     </svg>

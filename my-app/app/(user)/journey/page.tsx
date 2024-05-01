@@ -18,6 +18,7 @@ import { Button, Modal } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import useSWR, { mutate } from "swr";
 import dxVectorMap from "devextreme/viz/vector_map";
+import { stringify } from "querystring";
 
 const fetcher = (url: any) => fetch(url).then((res) => res.json());
 
@@ -25,7 +26,7 @@ export default function Journey() {
   type visitedProvincedData = {
     id: String;
     emoji?: String;
-    province: Number;
+    province: String;
     name: String;
     description?: String;
     ownerId: String;
@@ -142,7 +143,7 @@ export default function Journey() {
     setVisitedProvinceArray([]);
     setMapCondition(1);
   }
-  async function onDelete(event: FormEvent<HTMLFormElement>) {
+  async function onDelete(event: any) {
     event.preventDefault;
     try {
       Swal.fire({
@@ -187,7 +188,7 @@ export default function Journey() {
     setMapCondition(1);
   }
 
-  const clickHandler = ({ target }) => {
+  const clickHandler = ({ target }:any) => {
     if (target && (mapsData as { features: any[] }).features[target.index]) {
       target.selected(!target.selected());
       setProvinceEn(
@@ -206,9 +207,9 @@ export default function Journey() {
       elements.forEach((element: any) => {
         element.attribute(
           "province",
-          mapsData.features[element.index].properties.ADM1_EN
+          (mapsData as { features: any[] }).features[element.index].properties.ADM1_EN
         );
-        const province = mapsData.features[element.index].properties.ADM1_EN;
+        const province = (mapsData as { features: any[] }).features[element.index].properties.ADM1_EN;
         if (visitedProvinceArray.includes(province)) {
           element.applySettings({
             color: "#B89130",
@@ -240,7 +241,7 @@ export default function Journey() {
       setProvinceHover(arg.attribute("province"));
       return { text: `${arg.attribute("province")}` };
     }
-    return null;
+    return {text};
   };
 
   const [mapSize, setMapSize] = useState({ width: 600, height: 800 });
@@ -427,7 +428,7 @@ export default function Journey() {
                       ) => {
                         if (visitedProvince.province === provinceEn) {
                           return (
-                            <div className="mx-10">
+                            <div key={index} className="mx-10">
                               <div
                                 className={
                                   "card rounded-md bg-[#E4D7C1] overflow-hidden relative hover:shadow-md p-5"

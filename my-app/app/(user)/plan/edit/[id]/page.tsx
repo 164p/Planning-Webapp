@@ -12,7 +12,7 @@ import EditPlaceDetail from '@/app/components/Plan/EditPlaceDetail';
 
 const fetcher = (url: any) => fetch(url).then(res => res.json())
 
-export default function page({ params }: { params: { id: string } }) {
+export default function Page({ params }: { params: { id: string } }) {
 
     const { data, error, isLoading } = useSWR(`/api/plan/${params.id}`, fetcher)
 

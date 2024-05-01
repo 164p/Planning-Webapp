@@ -41,7 +41,7 @@ export default function Page(){
         return filteredData;
       };
 
-    async function onDelete(event:FormEvent<HTMLFormElement>) {
+    async function onDelete(event:any) {
         event.preventDefault;
         try {
             Swal.fire({

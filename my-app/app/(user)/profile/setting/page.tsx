@@ -8,7 +8,7 @@ import { uploadImages } from "@/app/lib/uploadImages";
 
 const fetcher = (url : string) => fetch(url).then(r => r.json())
 
-export default function page() {
+export default function Page() {
 
     const NewDisplayNameInput = {
         newDisplayName :''
@@ -18,38 +18,7 @@ export default function page() {
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) =>{
         setDisplayName({...displayName, [e.target.name]: e.target.value })
     }
-    async function onSubmit(event: FormEvent<HTMLFormElement>) {
-        event.preventDefault()
-        
-        try {
-            const response = await fetch("/api/auth/resetdisplayname",{
-              method:'POST',
-              body: JSON.stringify(displayName)
-            })
-            if(response.ok){
-                Swal.fire({
-                    title: 'เปลี่ยนชื่อเล่นสำเร็จ',
-                    text: 'ระบบอาจใช้เวลาในการเปลี่ยนการแสดงผลชื่อเล่นของคุณ',
-                    icon: 'success',
-                    confirmButtonText: 'ปิด'
-                })
-            }else{
-                Swal.fire({
-                    title: 'เปลี่ยนชื่อเล่นไม่สำเร็จ',
-                    text: 'กรุณาลองใหม่อีกครั้งในภายหลัง',
-                    icon: 'error',
-                    confirmButtonText: 'ปิด'
-                })
-            }
-        } catch (error) {
-            Swal.fire({
-                title: 'เปลี่ยนชื่อเล่นไม่สำเร็จ',
-                text: 'กรุณาลองใหม่อีกครั้งในภายหลัง',
-                icon: 'error',
-                confirmButtonText: 'ปิด'
-            })
-        }
-    }
+    
 
 
     const NewPasswordInput = {

@@ -42,6 +42,14 @@ export async function POST(request:Request) {
                 id:session.user.id
             }
         })
+        if (!checkData) {
+            return new Response(JSON.stringify({
+                statusCode:400,
+                message:'User is not found'
+            }) , {
+                status:400
+            })
+        } 
 
         const CheckPassword = await bcrypt.compare(res.oldPassword,checkData.password)
 

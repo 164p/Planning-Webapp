@@ -8,7 +8,7 @@ import { planStatus } from "@prisma/client";
 
 const fetcher = (url: any) => fetch(url).then(res => res.json())
 
-export default function page() {
+export default function Page() {
 
 const { data, error, isLoading } = useSWR('/api/profile/getBookmark', fetcher)
 
@@ -25,10 +25,15 @@ const { data, error, isLoading } = useSWR('/api/profile/getBookmark', fetcher)
                         data?.data.length > 0 ? (
                             <div className="grid grid-cols-1 xl:grid-cols-2 gap-4">
                                 {data?.data.map((bookmarks:any, index: number) => (
-                                <Link href={`/explore/planDetail/${bookmarks.planId}`} className="my-2 shrink-0 basis-80 flex justify-center items-center hover:text-xl h-32 
+                                <div key={index}>
+                                    <Link href={`/explore/planDetail/${bookmarks.planId}`} className="my-2 shrink-0 basis-80 flex justify-center items-center hover:text-xl h-32 
                                  rounded-lg bg-blue-200 hover:bg-black/50" >
                                     <div className="">{bookmarks.planId}</div>
-                                </Link>))}
+                                </Link>
+                                </div>
+
+                                ))}
+
                             </div>
                         ):(
                             <p className="text-center">ไม่พบข้อมูลแพลนของคุณ</p>
