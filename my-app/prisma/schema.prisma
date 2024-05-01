@@ -52,22 +52,24 @@ enum planStatus {
 }
 
 model place {
-  id               String  @id @default(auto()) @map("_id") @db.ObjectId
-  order            Int 
-  name             String?
-  googlePlaceId    String?
-  plan             plan       @relation(fields: [planId], references: [id])
-  planId           String     @db.ObjectId
-  subPlace         subPlace[]
+  id            String     @id @default(auto()) @map("_id") @db.ObjectId
+  order         Int
+  name          String?
+  googlePlaceId String?
+  date          DateTime
+  plan          plan       @relation(fields: [planId], references: [id])
+  planId        String     @db.ObjectId
+  subPlace      subPlace[]
 }
 
 model subPlace {
-  id               String   @id @default(auto()) @map("_id") @db.ObjectId
-  time             DateTime
-  name             String?
-  googlePlaceId    String?
-  place            place    @relation(fields: [placeId], references: [id])
-  placeId          String   @db.ObjectId
+  id            String   @id @default(auto()) @map("_id") @db.ObjectId
+  order         Int?
+  name          String?
+  googlePlaceId String?
+  date          DateTime
+  place         place    @relation(fields: [placeId], references: [id])
+  placeId       String   @db.ObjectId
 }
 
 model location {

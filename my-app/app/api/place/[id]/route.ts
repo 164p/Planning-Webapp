@@ -50,7 +50,7 @@ export async function GET(
         const placeData = await prisma.place.findMany({
             where: {
                 planId: planId,
-                time: {
+                date: {
                     gte: new Date(`${selectedYear}-${selectedMonth+1}-${selectedDay} 00:00:00`),
                     lte: new Date(`${selectedYear}-${selectedMonth+1}-${selectedDay} 23:59:59`)
                 }
