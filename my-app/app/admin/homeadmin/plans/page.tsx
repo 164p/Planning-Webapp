@@ -151,40 +151,40 @@ export default function Page(){
                     {filterData?.map((planData: planDatas, index:any) => {
                         const userData = dataUser?.data.find((user: any) => user.id === planData.ownerId);
                         return (
-                            <div>
+                            <div key={index}>
                                 <table className="text-xl w-full mb-3">
-                    <thead className="font-bold">
-                        <tr>
-                            <td>Name</td>
-                            <td>Create By</td>
-                            <td>Created At</td>
-                            <td>Action</td>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td className="flex items-center gap-4">
-                                <img className="" src={planData.images}
-                                alt=""
-                                width={40}
-                                height={40}/>
-                                {planData.name}
-                            </td>
-                            <td>{userData?.username}</td>
-                            <td>{planData.createdAt}</td>
-                            <td className="font-bold gap-2 ">
-                                <Link href={`/plan/${planData.id}`}>
-                                    <button className="p-1 rounded-md mr-2 bg-[#35C132] text-white">View</button>
-                                </Link>
-                                
-                                    <button className="p-1 rounded-md bg-[#C1323B] text-white" onClick={() => onDelete(planData)}>
-                                        Delete
-                                    </button>
-                                
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+                                    <thead className="font-bold">
+                                        <tr>
+                                            <td>Name</td>
+                                            <td>Create By</td>
+                                            <td>Created At</td>
+                                            <td>Action</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td className="flex items-center gap-4">
+                                                <img className="" src={planData.images}
+                                                alt=""
+                                                width={40}
+                                                height={40}/>
+                                                {planData.name}
+                                            </td>
+                                            <td>{userData?.username}</td>
+                                            <td>{planData.createdAt}</td>
+                                            <td className="font-bold gap-2 ">
+                                                <Link href={`/plan/${planData.id}`}>
+                                                    <button className="p-1 rounded-md mr-2 bg-[#35C132] text-white">View</button>
+                                                </Link>
+                                                
+                                                    <button className="p-1 rounded-md bg-[#C1323B] text-white" onClick={() => onDelete(planData)}>
+                                                        Delete
+                                                    </button>
+                                                
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
 
                 {/*<Pagenavi/>*/}
                             </div>
