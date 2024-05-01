@@ -27,8 +27,7 @@ export default function page({ params }: { params: { id: string } }) {
     const [inputData, setInputData] = useState(FormDataInputs)
     const [showDate, setShowDate] = useState<Date | null>(null)
     const [value, setValue] = useState<[Date | null, Date | null]>([null, null]);
-
-
+    
     const nextIndexPage = () => {
         setIndexPage(indexPage + 1)
         setCurrentDate(1)

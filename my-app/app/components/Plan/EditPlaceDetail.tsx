@@ -105,14 +105,39 @@ export default function EditPlaceDetail(props: any) {
     }
   }
 
-  async function addPlace(placeId: string) {
+  async function addPlace(e: any, placeId: string) {
     setShowCard(false);
     setSearcPlace("");
+    setLocation(e);
+    const resLocation = await fetch(
+      `/api/explore/locationDetails?place_id=${encodeURIComponent(
+        placeID as string
+      )}`
+    );
+    if (resLocation.ok) {
+      const resLocationData = await resLocation.json();
+      setPhotos((prevPhotos) => [
+        ...prevPhotos,
+        resLocationData.data?.result.photos[0].photo_reference,
+      ]);
+      setPlaceDetails((prevPlaceDetails) => [
+        ...prevPlaceDetails,
+        {
+          placeName: resLocationData.data?.result.name,
+          placeAddress: resLocationData.data?.result.formatted_address,
+        },
+      ]);
+      const newData = { id: placeID };
+
+      // Update state with the new data and increment box count
+      setBoxes([...boxes, newData]);
+      setBoxCount(boxCount + 1);
+    }
   }
 
   const photoUrls = photos.map(
     (photo) =>
-      `https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${photo}&key=${process.env.NEXT_PUBLIC_MAPS_API_KEY}`
+      `https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${photo}&key=AIzaSyD9YrY4EzXon6_8L-AdvEhYcV2uh_GdFxs`
   );
 
   if (!props.date || !props.planId) {
@@ -240,7 +265,9 @@ export default function EditPlaceDetail(props: any) {
                     datas &&
                     datas.map((place, index) => (
                       <button
-                        onClick={() => addPlace(place)}
+                        onClick={() =>
+                          addPlace(place.structured_formatting.main_text, place)
+                        }
                         key={index}
                         className="block w-full px-5 py-3 mb-2 rounded-md border border-[#876A0F] last:mb-0 text-start"
                       >
@@ -255,20 +282,6 @@ export default function EditPlaceDetail(props: any) {
                   className="card 
             rounded-md bg-[#E4D7C1] p-5 my-8"
                 >
-                  <div className="relative max-w-[640px] w-1/3 px-4 mb-10 mt-12">
-                    {placeDetails.map((place, index) => (
-                      <div key={index} className="box">
-                        {photos[index] && (
-                          <img
-                            src={photoUrls[index]}
-                            alt={`Photo of ${place.placeName}`}
-                          />
-                        )}
-                        <p>{place.placeName}</p>
-                        <p>{place.placeAddress}</p>
-                      </div>
-                    ))}
-                  </div>
                 </div>
               </div>
             </div>
