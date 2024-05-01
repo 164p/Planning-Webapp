@@ -146,21 +146,21 @@ export default function Page(){
                     ) : (
                         data?.data && data?.data.length > 0 ? (
                             <div>
-                                <div className="flex text-xl">
+                                <div className="grid grid-cols-3 text-xl">
                                     <p className="w-2/5">Name</p>
                                     <p className="w-3/5">Email</p>
                                 </div>
                                 {filterData?.map((userData: userData,index:any) => {
                                     return(
                                         <div key={index} className="m-2">
-                                            <div className="flex justify-between">
-                                                <div className="w-2/5">
+                                            <div className="grid grid-cols-3">
+                                                <div className="">
                                                     <p>{userData.username}</p>
                                                 </div>
-                                                <div className="w-2/5">
+                                                <div className="">
                                                     <p>{userData.email}</p>
                                                 </div>
-                                                <div>
+                                                <div className="text-right">
                                                     <button className="p-1 rounded-md mr-2 bg-[#35C132] text-white">
                                                         View
                                                     </button>
