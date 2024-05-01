@@ -26,6 +26,12 @@ export async function GET(request: NextRequest) {
 
     } catch (error) {
         console.log(error)
+        return new Response( JSON.stringify({
+            statusCode: 500,
+            message: 'เกิดข้อผิดพลาด โปรดลองใหม่อีกครั้ง'
+        }) , {
+            status: 500
+        })
     }
     
     
