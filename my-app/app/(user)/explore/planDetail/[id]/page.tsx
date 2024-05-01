@@ -108,7 +108,7 @@ export default function Home({ params }: { params: { id: string } }) {
   return (
     <div className="flex flex-col min-h-screen mx-5">
       <div className="bg-[#D3BD9A] w-full h-24 mt-20 text-white rounded-2xl">
-        <div className="m-5 mt-7">
+        <div className="m-5">
           <div className="flex justify-between align-center items-center">
             <Link
               href={`/explore/trip`}
@@ -127,10 +127,15 @@ export default function Home({ params }: { params: { id: string } }) {
                 ></path>
               </svg>
             </Link>
-            <div className="text-[#674F04] ml-20 font-bold md:text-4xl text-2xl">
-              {data?.data.name}
+            <div className="flex-col text-center">
+              <div className="text-[#674F04] font-bold md:text-4xl text-2xl">
+                {data?.data.name}
+              </div>
+              <div className="text-[#674F04]">
+                  Create by: {data?.data.owner.username}
+              </div>
             </div>
-            <div onClick={() => onBookmark(data?.data.id)}>
+            <div onClick={() => onBookmark(data?.data.id)} className="flex justify-center">
               <svg
                 width="24px"
                 height="24px"
@@ -145,11 +150,12 @@ export default function Home({ params }: { params: { id: string } }) {
                   fill="#674F04"
                 />
               </svg>
+              <div className="pl-2 text-[#674F04] font-bold">{dataBookmark?.data.length}</div>
             </div>
           </div>
         </div>
       </div>
-      <div className="container py-28">
+      <div className="container pb-28 pt-20">
         <div className="header-section mb-8">
           <h1 className="text-center font-bold text-2xl">Plan Details</h1>
           {isLoading ? (
@@ -369,8 +375,8 @@ export default function Home({ params }: { params: { id: string } }) {
       <div className="flex justify-center items-center">
         <div className="flex w-full p-0.5 mt-5 mb-10 lg:w-2/3 bg-[#9D864F] "></div>
       </div>
-      <div className="flex-none max-w-6xl mx-auto w-full mb-10">
-        <div className="bg-[#D3BD9A] h-28 pt-5 text-white rounded-2xl">
+      {/* <div className="flex-none max-w-6xl mx-auto w-full mb-10">
+       
           <div className="flex justify-between px-10">
             <div className="flex justify-center items-center ">
               <div className="bg-[#9B8651] rounded-full w-20 h-20">
@@ -384,26 +390,9 @@ export default function Home({ params }: { params: { id: string } }) {
                 {data?.data.owner.username}
               </div>
             </div>
-            <div className="flex justify-center items-center">
-              <div>{dataBookmark?.data.length}</div>
-              <svg
-                width="24px"
-                height="24px"
-                viewBox="0 0 24 24"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  fill-rule="evenodd"
-                  clip-rule="evenodd"
-                  d="M7 3H17C18.1 3 19 3.9 19 5V21L12 18L5 21V5C5 3.9 5.9 3 7 3ZM12 15.82L17 18V5H7V18L12 15.82Z"
-                  fill="#674F04"
-                />
-              </svg>
-            </div>
-          </div>
+        
         </div>
-      </div>
+      </div> */}
     </div>
   );
 }
