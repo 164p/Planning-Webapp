@@ -32,12 +32,26 @@ export async function POST(request: Request){
             })
         }
 
+        const placeDataDetail = await PlaceDetailData(placeData.place_id)
+        const placeImage = placeDataDetail.result.photos[1].photo_reference
+
+        const photos: any[] = []
+        photos.push(placeImage)
+        const resp = await fetch(`https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${placeImage}&key=${process.env.NEXT_PUBLIC_MAPS_API_KEY}`)
+        const blobFile = await resp.blob()
+        const buffer = Buffer.from(await blobFile.arrayBuffer());
+        const encoded = buffer.toString('base64')
+        console.log(encoded)
+        const photoUrls = photos.map(photo => `https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${photo}&key=${process.env.NEXT_PUBLIC_MAPS_API_KEY}`);
+
         const createPlace = await prisma.place.create({
             data: {
                 name: placeData.structured_formatting.main_text,
                 googlePlaceId: placeData.place_id,
                 planId: planId,
-                time: time
+                time: time,
+                images: placeImage,
+                detail: placeData.structured_formatting.secondary_text
             }
         })
 
@@ -58,6 +72,7 @@ export async function POST(request: Request){
         })
 
     } catch (error) {
+        console.log(error)
         return new Response( JSON.stringify({
             statusCode: 500,
             message: 'Unknown error occurred.'
@@ -66,4 +81,10 @@ export async function POST(request: Request){
         })
     }
     
+}
+
+async function PlaceDetailData(placeId: string){
+    const res = await fetch(`https://maps.googleapis.com/maps/api/place/details/json?place_id=${placeId}&key=${process.env.NEXT_MAPS_API_KEY}`)
+    const data = await res.json()
+    return data
 }

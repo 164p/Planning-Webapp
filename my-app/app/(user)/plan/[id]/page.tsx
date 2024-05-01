@@ -24,7 +24,6 @@ export default function page({ params }: { params: { id: string } }) {
 
     const [indexPage, setIndexPage] = useState(0)
     const [maxDate, setMaxDate] = useState(0)
-    const [inputData, setInputData] = useState(FormDataInputs)
     const [showDate, setShowDate] = useState<Date | null>(null)
     const [value, setValue] = useState<[Date | null, Date | null]>([null, null]);
 
@@ -56,13 +55,12 @@ export default function page({ params }: { params: { id: string } }) {
     useEffect(() => {
         if(data?.data){
             const newDate = {
-                startDate: data?.data.startDate ?? '',
-                endDate: data?.data.endDate ?? ''
+                startDate: data?.data.planData.startDate ?? '',
+                endDate: data?.data.planData.endDate ?? ''
             }
             setUpArrayDataSet([new Date(newDate.startDate), new Date(newDate.endDate)])
             setValue([new Date(newDate.startDate), new Date(newDate.endDate)])
             setShowDate(new Date(newDate.startDate))
-            setInputData(data.data)
         }
     },[data])
 
@@ -74,7 +72,7 @@ export default function page({ params }: { params: { id: string } }) {
                     (isLoading ? 
                         <div className='bg-gray-400 px-16 py-4 mx-auto mt-1 rounded-md  max-w-40 animate-pulse'>
                         </div>
-                        : (data?.data && data.data.status === 'draft') && (
+                        : (data?.data && data.data.planData.status === 'draft') && (
                         <div className="bg-gray-500 text-white font-bold text-sm px-3 py-1.5 text-center mx-auto max-w-40 mt-1 rounded-md">
                             DRAFT PLAN
                         </div>
@@ -101,9 +99,9 @@ export default function page({ params }: { params: { id: string } }) {
                         <div className='card rounded-md bg-[#E4D7C1] overflow-hidden'>
                             <div className='card-header relative'>
                                 {
-                                    (!isLoading && inputData.images) && (
+                                    (!isLoading && data?.data.planData.images) && (
                                         <>
-                                            <Image src={inputData.images} alt="Preview Images" width={0} height={0} sizes="120vw" priority={true}
+                                            <Image src={data?.data.planData.images} alt="Preview Images" width={0} height={0} sizes="120vw" priority={true}
                                                 style={{ width: '100%', height: 'auto' }} className=''/>
                                             
                                         </>
@@ -125,15 +123,15 @@ export default function page({ params }: { params: { id: string } }) {
                                             </div>
                                             <div className='mb-3'>
                                                 <p className='font-semibold'>Plan name</p>
-                                                <p>{inputData.name}</p>
+                                                <p>{data?.data.planData.name}</p>
                                             </div>
                                             <div className='mb-3'>
                                                 <p className='font-semibold'>Plan budget</p>
-                                                <p>{inputData.budget.toLocaleString()} THB</p>
+                                                <p>{(data?.data.planData.budget || 0).toLocaleString()} THB</p>
                                             </div>
                                             <div className='mb-2'>
                                                 <p className='font-semibold'>Plan detail</p>
-                                                <p>{inputData.detail}</p>
+                                                <p>{data?.data.planData.detail}</p>
                                             </div>
                                         </>
                                     )

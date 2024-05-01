@@ -50,6 +50,7 @@ model place {
   id               String  @id @default(auto()) @map("_id") @db.ObjectId
   time             DateTime? 
   name             String?
+  detail           String?
   images           String?
   googleCoodinates Json?
   googlePlaceId    String?

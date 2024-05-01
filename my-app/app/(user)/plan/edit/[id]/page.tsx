@@ -9,6 +9,7 @@ import '@mantine/dates/styles.css';
 import Swal from 'sweetalert2'
 import { uploadImages } from '@/app/lib/uploadImages';
 import EditPlaceDetail from '@/app/components/Plan/EditPlaceDetail';
+import { mutate } from "swr"
 
 const fetcher = (url: any) => fetch(url).then(res => res.json())
 
@@ -36,15 +37,57 @@ export default function page({ params }: { params: { id: string } }) {
     const [menuOpen, setMenuOpen] = useState(false)
     const [value, setValue] = useState<[Date | null, Date | null]>([null, null]);
     const [loading, setLoading] = useState(false)
+    const [isHavePlace, setIsHavePlace] = useState(false)
 
 
     const handleChange = (val: [Date | null, Date | null]) => {
-        setValue(val)
-        setUpArrayDataSet(val)
-        setShowDate(val[0])
-        inputData['startDate'] = val[0]
-        inputData['endDate'] = val[1]
-        setIndexPage(0)
+        if(isHavePlace){
+            Swal.fire({
+                title: "Warning",
+                text: "If you change the date The location information you added will be deleted. Want to delete it?",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+            }).then((result) => {
+                if (result.isConfirmed) {
+
+                    fetch(`/api/place/delete/all/${params.id}`, {
+                        method: 'delete'
+                    }).then((response) => {
+                        return response.json();
+                    }).then((data: any) => {
+                        if(data.statusCode == 200){
+                            mutate(`/api/plan/${params.id}`)
+                        }else{
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Failed to delete data.', 
+                                text: data.message, 
+                                confirmButtonText: 'ปิด',
+                            });
+                        }
+                    }).catch((error) => {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Failed to delete data.', 
+                            text: 'Unknown error occurred.', 
+                            confirmButtonText: 'ปิด',
+                        });
+                    });
+                }
+            })
+            return
+        }else{
+            setValue(val)
+            setUpArrayDataSet(val)
+            setShowDate(val[0])
+            inputData['startDate'] = val[0]
+            inputData['endDate'] = val[1]
+            setIndexPage(0)
+
+            return
+        }
     };
 
     const nextIndexPage = () => {
@@ -104,13 +147,16 @@ export default function page({ params }: { params: { id: string } }) {
     useEffect(() => {
         if(data?.data){
             const newDate = {
-                startDate: data?.data.startDate ?? '',
-                endDate: data?.data.endDate ?? ''
+                startDate: data?.data.planData.startDate ?? '',
+                endDate: data?.data.planData.endDate ?? ''
             }
             setUpArrayDataSet([new Date(newDate.startDate), new Date(newDate.endDate)])
             setValue([new Date(newDate.startDate), new Date(newDate.endDate)])
             setShowDate(new Date(newDate.startDate))
-            setInputData(data.data)
+            setInputData(data.data.planData)
+            if(data?.data.isHavePlace > 0){
+                setIsHavePlace(true)
+            }
         }
     },[data])
 
@@ -163,7 +209,7 @@ export default function page({ params }: { params: { id: string } }) {
                     (isLoading ? 
                         <div className='bg-gray-400 px-16 py-4 mx-auto mt-1 rounded-md  max-w-40 animate-pulse'>
                         </div>
-                        : (data?.data && data.data.status === 'draft') && (
+                        : (data?.data && data.data.planData.status === 'draft') && (
                         <div className="bg-gray-500 text-white font-bold text-sm px-3 py-1.5 text-center mx-auto max-w-40 mt-1 rounded-md">
                             DRAFT PLAN
                         </div>
@@ -208,7 +254,7 @@ export default function page({ params }: { params: { id: string } }) {
                                                     <input type="text" id='startDate'
                                                     className='w-full py-1.5 px-3 text-sm rounded-md focus:outline-none forcus:border-slate-400 focus:ring-1 focus:ring-slate-400' 
                                                     placeholder="DD/MM/YYYY" autoComplete="off" onClick={() => setMenuOpen((prevDisplay) => !prevDisplay)} 
-                                                    defaultValue={value[0] ? new Date(value[0]).toLocaleDateString('en-GB') : ''}/>
+                                                    value={value[0] ? new Date(value[0]).toLocaleDateString('en-GB') : ''}/>
                                                 </div>
                                                 <div className='col mx-2'>
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><path fill="currentColor" d="M12.7 17.925q-.35.2-.625-.063T12 17.25L14.425 13H3q-.425 0-.713-.288T2 12q0-.425.288-.713T3 11h11.425L12 6.75q-.2-.35.075-.613t.625-.062l7.975 5.075q.475.3.475.85t-.475.85L12.7 17.925Z"></path></svg>
@@ -217,7 +263,7 @@ export default function page({ params }: { params: { id: string } }) {
                                                     <input type="text" id='endDate'
                                                     className='w-full py-1.5 px-3 text-sm rounded-md focus:outline-none forcus:border-slate-400 focus:ring-1 focus:ring-slate-400' 
                                                     placeholder="DD/MM/YYYY" autoComplete="off" onClick={() => setMenuOpen((prevDisplay) => !prevDisplay)} 
-                                                    defaultValue={value[1] ? new Date(value[1]).toLocaleDateString('en-GB') : ''}/>
+                                                    value={value[1] ? new Date(value[1]).toLocaleDateString('en-GB') : ''}/>
                                                 </div>
                                                 <div className={'datepicker absolute left-0 top-full z-10 w-full ' + (menuOpen ? 'flex' : 'hidden')}>
                                                     <div className='card bg-white shadow-md rounded-md p-2 mx-auto' ref={wrapperRef}>

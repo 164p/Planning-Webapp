@@ -3,7 +3,6 @@
 import DatePickers from "@/app/components/DatePickers"
 import useSWR from 'swr'
 import Link from "next/link";
-import { planStatus } from "@prisma/client";
 
 const fetcher = (url: any) => fetch(url).then(res => res.json())
 
@@ -18,7 +17,7 @@ export default function page(){
         startDate: string,
         endDate: string,
         ownerId: String,
-        status: planStatus
+        status: String
     }
     const { data, error, isLoading } = useSWR('/api/plan', fetcher, 
     { 
