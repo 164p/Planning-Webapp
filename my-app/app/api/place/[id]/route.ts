@@ -15,7 +15,7 @@ export async function GET(
         if(!session){
             return new Response( JSON.stringify({
                 statusCode: 401,
-                message: "กรุณาเข้าสู่ระบบก่อนดำเนินการ"
+                message: "Access denied. Please log in to proceed."
             }) , {
                 status: 401
             })
@@ -24,7 +24,7 @@ export async function GET(
         if(!planId || planId.length < 24){
             return new Response( JSON.stringify({
                 statusCode: 400,
-                message: "ไม่พบรายการที่ต้องการ"
+                message: "Data it not found"
             }) , {
                 status: 400
             })
@@ -37,7 +37,7 @@ export async function GET(
         if(!date){
             return new Response( JSON.stringify({
                 statusCode: 400,
-                message: "ไม่พบรายการที่ต้องการ"
+                message: "Data it not found"
             }) , {
                 status: 400
             })      
@@ -57,6 +57,9 @@ export async function GET(
             },
             include: {
                 subPlace: true
+            },
+            orderBy: {
+                time: 'asc'
             }
         }) 
         return new Response( JSON.stringify({
@@ -71,7 +74,7 @@ export async function GET(
         console.log(error)
         return new Response( JSON.stringify({
             statusCode: 500,
-            message: 'เกิดข้อผิดพลาด โปรดลองใหม่อีกครั้ง'
+            message: 'Unknown error occurred.'
         }) , {
             status: 500
         })
