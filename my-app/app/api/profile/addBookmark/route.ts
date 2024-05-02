@@ -48,7 +48,7 @@ export async function POST(request: Request) {
         console.log(error)
         return new Response( JSON.stringify({
             statusCode: 500,
-            message: 'เกิดข้อผิดพลาด โปรดลองใหม่อีกครั้ง'
+            message: error
         }) , {
             status: 500
         })
