@@ -2,7 +2,7 @@
 import useSWR from 'swr'
 import Image from 'next/image';
 import Link from 'next/link';
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, FormEvent } from 'react';
 import { mutate } from "swr"
 import { ActionIcon, rem } from '@mantine/core';
 import { TimeInput } from '@mantine/dates';
@@ -49,9 +49,47 @@ export default function EditPlaceDetail(props: any){
         }
     }
 
-    const renderFile = (file: string) => {
-
-    }
+    async function onDelete(event: FormEvent<HTMLFormElement>) {
+        event.preventDefault;
+        try {
+          Swal.fire({
+            title: "กำลังลบข้อมูล",
+            icon: "warning",
+            confirmButtonText: "ปิด",
+            allowOutsideClick: false,
+          });
+          const response = await fetch("/api/explore/delete", {
+            method: "DELETE",
+            body: JSON.stringify(event),
+          });
+          if (response.ok) {
+            Swal.fire({
+              icon: "success",
+              title: "ลบข้อมูลสำเร็จ",
+              confirmButtonText: "ปิด",
+              timer: 1500,
+              timerProgressBar: true,
+            });
+          } else {
+            const responseData = await response.json();
+    
+            Swal.fire({
+              icon: "error",
+              title: "ลบข้อมูลไม่สำเร็จ",
+              text: responseData.message,
+              confirmButtonText: "ปิด",
+            });
+          }
+        } catch (error) {
+          Swal.fire({
+            icon: "error",
+            title: "ลบข้อมูลไม่สำเร็จ",
+            text: "เกิดข้อผิดพลาด โปรดลองใหม่อีกครั้งในภายหลัง",
+            confirmButtonText: "ปิด",
+          });
+        }
+        await mutate(`/api/place/${props.planId}?date=${encodeURIComponent((props.date || '') as string)}`);
+      }
     
     async function addPlace(placeData: any) {
 
@@ -155,9 +193,22 @@ export default function EditPlaceDetail(props: any){
                                         <p className='font-bold'>{placeData.name}</p>
                                         <p className='text-sm'>{placeData.detail}</p>
                                     </div>
-                                    
+                                  <button
+                                      onClick={() => onDelete(placeData.id)}
+                                    >
+                                      <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        viewBox="0 0 20 20"
+                                        className="text-[#674F04] w-5 h-5 mt-2"
+                                        fill="currentcolor"
+                                      >
+                                        <path d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" />
+                                      </svg>
+                                    </button>
                                 </div>
+                                
                             </div>
+                            
                         </div>
                     ))
                 }
