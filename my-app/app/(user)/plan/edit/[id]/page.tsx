@@ -37,11 +37,9 @@ export default function page({ params }: { params: { id: string } }) {
     const [menuOpen, setMenuOpen] = useState(false)
     const [value, setValue] = useState<[Date | null, Date | null]>([null, null]);
     const [loading, setLoading] = useState(false)
-    const [isHavePlace, setIsHavePlace] = useState(false)
-
 
     const handleChange = (val: [Date | null, Date | null]) => {
-        if(isHavePlace){
+        if(data?.data.isHavePlace > 0){
             Swal.fire({
                 title: "Warning",
                 text: "If you change the date The location information you added will be deleted. Want to delete it?",
@@ -51,13 +49,18 @@ export default function page({ params }: { params: { id: string } }) {
                 cancelButtonColor: '#d33',
             }).then((result) => {
                 if (result.isConfirmed) {
-
                     fetch(`/api/place/delete/all/${params.id}`, {
                         method: 'delete'
                     }).then((response) => {
                         return response.json();
                     }).then((data: any) => {
                         if(data.statusCode == 200){
+                            setValue(val)
+                            setUpArrayDataSet(val)
+                            setShowDate(val[0])
+                            inputData['startDate'] = val[0]
+                            inputData['endDate'] = val[1]
+                            setIndexPage(0)
                             mutate(`/api/plan/${params.id}`)
                         }else{
                             Swal.fire({
@@ -154,9 +157,6 @@ export default function page({ params }: { params: { id: string } }) {
             setValue([new Date(newDate.startDate), new Date(newDate.endDate)])
             setShowDate(new Date(newDate.startDate))
             setInputData(data.data.planData)
-            if(data?.data.isHavePlace > 0){
-                setIsHavePlace(true)
-            }
         }
     },[data])
 

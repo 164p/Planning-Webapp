@@ -35,14 +35,10 @@ export async function POST(request: Request){
         const placeDataDetail = await PlaceDetailData(placeData.place_id)
         const placeImage = placeDataDetail.result.photos[1].photo_reference
 
-        const photos: any[] = []
-        photos.push(placeImage)
         const resp = await fetch(`https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${placeImage}&key=${process.env.NEXT_PUBLIC_MAPS_API_KEY}`)
         const blobFile = await resp.blob()
-        const buffer = Buffer.from(await blobFile.arrayBuffer());
-        const encoded = buffer.toString('base64')
-        console.log(encoded)
-        const photoUrls = photos.map(photo => `https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${photo}&key=${process.env.NEXT_PUBLIC_MAPS_API_KEY}`);
+        URL.createObjectURL(blobFile)
+        console.log(await blobFile.text())
 
         const createPlace = await prisma.place.create({
             data: {
@@ -50,7 +46,7 @@ export async function POST(request: Request){
                 googlePlaceId: placeData.place_id,
                 planId: planId,
                 time: time,
-                images: placeImage,
+                images: blobFile,
                 detail: placeData.structured_formatting.secondary_text
             }
         })

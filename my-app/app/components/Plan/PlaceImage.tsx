@@ -1,15 +1,20 @@
-function blobToBase64(blob: Blob) {
-    return new Promise((resolve, _) => {
-        const reader = new FileReader();
-        reader.onloadend = () => resolve(reader.result);
-        reader.readAsDataURL(blob);
-    });
-}
+'use client';
+import React, { useState, useEffect, useRef } from 'react';
+import Image from 'next/image';
 
-export default async function PlaceImages(props: any) {
-    await fetch(`https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${props.Id}&key=${process.env.NEXT_PUBLIC_MAPS_API_KEY}`)
+export default function PlaceImage( props: any){
+
+    // const [src, setSrc] = useState(''); 
+    // useEffect(() => {
+    //     const img = URL.createObjectURL(props.blobText);
+
+    //     setSrc(img); // after component is mount, src will change
+    // }, [src]);
+
     return (
-        <>
-        </>
+        <Image src={props.blobText} 
+            alt="Preview Images" width={0} height={0} sizes="120vw" priority={true}
+            style={{ width: '100%', height: 'auto' }} className=''
+        />
     )
 }

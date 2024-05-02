@@ -30,7 +30,7 @@ model plan {
   id        String     @id @default(auto()) @map("_id") @db.ObjectId
   name      String?    @default("My plan")
   budget    Int?       @default(0)
-  images    String?
+  images    Bytes
   detail    String?
   startDate DateTime
   endDate   DateTime

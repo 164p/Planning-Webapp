@@ -7,6 +7,7 @@ import { mutate } from "swr"
 import { ActionIcon, rem } from '@mantine/core';
 import { TimeInput } from '@mantine/dates';
 import Swal from 'sweetalert2'
+import PlaceImage from './PlaceImage';
 
 const fetcher = (url: any) => fetch(url).then(res => res.json())
 
@@ -47,10 +48,6 @@ export default function EditPlaceDetail(props: any){
             const resData: resDataType = await resAutocomplete.json();
             setDatas(resData.data?.predictions);
         }
-    }
-
-    const renderFile = (file: string) => {
-
     }
     
     async function addPlace(placeData: any) {
@@ -126,12 +123,18 @@ export default function EditPlaceDetail(props: any){
                                     {
                                         placeData.images ? (
                                             <div className='card-header min-w-32 min-h-full' 
-                                                style={{
-                                                    backgroundImage: `url(${placeData.images})`,
-                                                    backgroundPosition: 'left center',
-                                                    backgroundSize: 'cover',
-                                                    backgroundRepeat: 'no-repeat'
-                                                }}>
+                                                // style={{
+                                                //     backgroundImage: `url(${blobToBase64(placeData.images)})`,
+                                                //     backgroundPosition: 'left center',
+                                                //     backgroundSize: 'cover',
+                                                //     backgroundRepeat: 'no-repeat'
+                                                // }}
+                                                >
+                                                <PlaceImage blobText={placeData.images} />
+                                                {/* <Image src={blobToBase64(placeData.images)} 
+                                                alt="Preview Images" width={0} height={0} sizes="120vw" priority={true}
+                                                style={{ width: '100%', height: 'auto' }} className=''
+                                                /> */}
                                             </div>
                                         ):(
                                             <div className='card-header min-w-32 min-h-full' 
