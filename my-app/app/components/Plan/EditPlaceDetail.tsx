@@ -108,6 +108,11 @@ export default function EditPlaceDetail(props: any){
         )
     }
     
+    const photoUrls = data?.data.map(
+        (photo:any) =>
+        `https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${photo.images}&key=AIzaSyD9YrY4EzXon6_8L-AdvEhYcV2uh_GdFxs`
+        )
+
     return (
         <>
             <div className='plan-detail-main'>
@@ -125,14 +130,15 @@ export default function EditPlaceDetail(props: any){
                                 <div className='card bg-[#E4D7C1] rounded-md mb-5 flex overflow-hidden'>
                                     {
                                         placeData.images ? (
-                                            <div className='card-header min-w-32 min-h-full' 
-                                                style={{
-                                                    backgroundImage: `url(${placeData.images})`,
-                                                    backgroundPosition: 'left center',
-                                                    backgroundSize: 'cover',
-                                                    backgroundRepeat: 'no-repeat'
-                                                }}>
-                                            </div>
+                                               
+                                               <div className='card-header min-w-32 min-h-full' 
+                                               style={{
+                                                   backgroundImage: `url(${photoUrls[index]})`,
+                                                   backgroundPosition: 'center center',
+                                                   backgroundSize: 'cover',
+                                                   backgroundRepeat: 'no-repeat'
+                                               }}>
+                                           </div>
                                         ):(
                                             <div className='card-header min-w-32 min-h-full' 
                                                 style={{
