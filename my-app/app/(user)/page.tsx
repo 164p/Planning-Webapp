@@ -27,7 +27,7 @@ export default function page(){
             <hr className="bg-[#EB8F00] mx-10 py-1 border-5 my-3 rounded-full" />
             <div className="container">
                 <div className="max-w-6xl mx-auto">
-                    <div className="section mb-10 mt-20">
+                    {/* <div className="section mb-10 mt-20">
                         <div className="section-header">
                             <h2 className="text-2xl	font-semibold">Recommand Trip</h2>
                         </div>
@@ -144,9 +144,9 @@ export default function page(){
                                 <Link href={"/explore/trip"}>
                                     <button className="border-[#674F04] border-solid border-2 hover:bg-[#674F04] hover:text-white text-black font-bold py-2 px-4 rounded-full">See all</button>
                                 </Link>
-    </div>*/}
+    </div>
                         </div>
-                    </div>
+                    </div> */}
                     <div className="section my-20">
                         <div className="grid grid-cols-1 sm:grid-cols-2">
                             <div className="col bg-[#D3BD9A] content-center">

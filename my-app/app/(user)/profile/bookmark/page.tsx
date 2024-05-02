@@ -77,9 +77,9 @@ async function onDelete(event:FormEvent<HTMLFormElement>) {
                                 {data?.data.map((bookmarks:any, index: number) => {
                                     return (
                                         <div key={index} className='my-2 '>
-                                            <Link href={`/plan/${bookmarks.plan.id}`}>
+                                            
                                                 <div className="card rounded-md bg-[#E4D7C1] flex overflow-hidden items-center relative">
-                                                    {
+                                                <Link href={`/plan/${bookmarks.plan.id}`}>{
                                                         bookmarks.plan.images ? (
                                                             <div className="card-col relative overflow-fidden w-40 h-28 " 
                                                                 style={{
@@ -103,7 +103,8 @@ async function onDelete(event:FormEvent<HTMLFormElement>) {
                                                                 </div>
                                                             </div>
                                                         )
-                                                    }
+                                                    }                                                        </Link>
+
                                                     <div className="card-col grow p-5">
                                                         <p className="text-xl font-bold">{bookmarks.plan.name}</p>
                                                         <p className="">Budget : {bookmarks.plan.budget}</p>
@@ -116,13 +117,19 @@ async function onDelete(event:FormEvent<HTMLFormElement>) {
                                                             </span>
                                                         )
                                                     }
+                                                    <button
+                                      onClick={() => onDelete(bookmarks.id)}
+                                    >
+                                      <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        viewBox="0 0 20 20"
+                                        className="text-[#674F04] w-5 h-5 mt-2"
+                                        fill="currentcolor"
+                                      >
+                                        <path d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" />
+                                      </svg>
+                                    </button>
                                                 </div>
-                                            </Link>
-                                            <div className='text-end'>
-                                                <button className="p-1 rounded-md bg-[#C1323B] text-white" onClick={() => onDelete(bookmarks.id)}>
-                                                        Delete Bookmark
-                                                </button>
-                                            </div>
                                         </div>
                                     )
                                 })}

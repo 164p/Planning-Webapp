@@ -14,6 +14,9 @@ export async function DELETE(request: Request) {
         const deleteUser = await prisma.user.delete({
             where: {
                 id: res.id
+            },
+            include:{
+                plan:true
             }
         });
 

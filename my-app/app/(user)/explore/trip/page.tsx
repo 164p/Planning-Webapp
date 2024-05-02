@@ -120,23 +120,14 @@ export default function Page() {
               <option value="default">All</option>
               <option value="nameasc" onClick={() => setSortDirection('asc')}>Name A-Z</option>
               <option value="namedesc" onClick={() => setSortDirection('desc')}>Name Z-A</option>
-              <option value="ratingasc" onClick={() => setSortDirection('asc')}>Bookmark : Low-High</option>
-              <option value="ratingdesc" onClick={() => setSortDirection('desc')}>Bookmark : High-Low</option>
+              {/* <option value="ratingasc" onClick={() => setSortDirection('asc')}>Bookmark : Low-High</option>
+              <option value="ratingdesc" onClick={() => setSortDirection('desc')}>Bookmark : High-Low</option> */}
               <option value="costasc" onClick={() => setSortDirection('asc')}>Cost : Low-High</option>
               <option value="costdesc" onClick={() => setSortDirection('desc')}>Cost : High-Low</option>
             </select>
         </div>
         <div className='filter grid grid-cols-1 mx-auto max-w-screen-lg lg:px-0 gap-5'>
           <div className='max-w-[600px] mx-auto w-full px-4'>
-          <div className='text-center font-bold'>Province Tag</div>
-          <MultiSelect 
-              className=''
-              placeholder="Pick value"
-              data={['กทม', 'กระบี่', 'ชลบุรี', 'ปทุมธานี']}
-              hidePickedOptions
-              searchable
-              clearable
-              onChange={setTag}/>
           <div className='flex justify-center items-center'>
             <div className='flex w-full p-0.5 mt-10 mb-20 lg:w-2/3 bg-[#674F04] '></div>
           </div>
