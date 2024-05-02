@@ -64,7 +64,7 @@ export default function Page(){
                 Swal.fire({
                     icon: 'error',
                     title: 'เข้าสู่ระบบไม่สำเร็จ', 
-                    text: 'เกิดข้อผิดพลาด โปรดลองใหม่อีกครั้งในภายหลัง', 
+                    text: 'Unknown error occurred.', 
                     confirmButtonText: 'ปิด',
                 });
             }

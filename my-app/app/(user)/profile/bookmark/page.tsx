@@ -1,10 +1,11 @@
 'use client'
-import React from 'react'
+import React, { FormEvent } from 'react'
 import DatePickers from "@/app/components/DatePickers"
 import Image from "next/image"
-import useSWR from 'swr'
+import useSWR, { mutate } from 'swr'
 import Link from "next/link";
 import { planStatus } from "@prisma/client";
+import Swal from "sweetalert2";
 
 const fetcher = (url: any) => fetch(url).then(res => res.json())
 
@@ -12,8 +13,57 @@ export default function Page() {
 
 const { data, error, isLoading } = useSWR('/api/profile/getBookmark', fetcher)
 
+async function onDelete(event:FormEvent<HTMLFormElement>) {
+    event.preventDefault;
+    try {
+        Swal.fire({
+            title: "กำลังลบข้อมูล",
+            icon: "warning",
+            confirmButtonText: "ปิด",
+            allowOutsideClick: false,
+          });
+
+          const response = await fetch("/api/profile/deleteBookmark", {
+            method: "DELETE",
+            body: JSON.stringify(event),
+          });
+
+          if (response.ok) {
+            Swal.fire({
+              icon: "success",
+              title: "ลบข้อมูลสำเร็จ",
+              confirmButtonText: "ปิด",
+              timer: 1500,
+              timerProgressBar: true,
+            });
+          } else {
+            const responseData = await response.json();
+    
+            Swal.fire({
+              icon: "error",
+              title: "ลบข้อมูลไม่สำเร็จ",
+              text: responseData.message,
+              confirmButtonText: "ปิด",
+            });
+          }
+
+    } catch (error) {
+        Swal.fire({
+            icon: "error",
+            title: "ลบข้อมูลไม่สำเร็จ",
+            text: "เกิดข้อผิดพลาด โปรดลองใหม่อีกครั้งในภายหลัง",
+            confirmButtonText: "ปิด",
+          });
+    }
+    await mutate('/api/profile/getBookmark')
+}
+    console.log(data?.data)
+    
   return (
     <>
+        <div>
+           
+        </div>
       <div className="section">
                 {
                     isLoading ? (
@@ -24,19 +74,63 @@ const { data, error, isLoading } = useSWR('/api/profile/getBookmark', fetcher)
                     ): data?.data && (
                         data?.data.length > 0 ? (
                             <div className="grid grid-cols-1 xl:grid-cols-2 gap-4">
-                                {data?.data.map((bookmarks:any, index: number) => (
-                                <div key={index}>
-                                    <Link href={`/explore/planDetail/${bookmarks.planId}`} className="my-2 shrink-0 basis-80 flex justify-center items-center hover:text-xl h-32 
-                                 rounded-lg bg-blue-200 hover:bg-black/50" >
-                                    <div className="">{bookmarks.planId}</div>
-                                </Link>
-                                </div>
+                                {data?.data.map((bookmarks:any, index: number) => {
+                                    return (
+                                        <div key={index} className='my-2 '>
+                                            <Link href={`/plan/${bookmarks.plan.id}`}>
+                                                <div className="card rounded-md bg-[#E4D7C1] flex overflow-hidden items-center relative">
+                                                    {
+                                                        bookmarks.plan.images ? (
+                                                            <div className="card-col relative overflow-fidden w-40 h-28 " 
+                                                                style={{
+                                                                    backgroundImage: `url(${bookmarks.plan.images})`,
+                                                                    backgroundPosition: 'left center',
+                                                                    backgroundSize: 'cover',
+                                                                    backgroundRepeat: 'no-repeat'
+                                                                }}>
+                                                                <div className="line h-full w-4 absolute bg-gradient-to-l from-[#E4D7C1] bottom-0 right-0 ">
+                                                                </div>
+                                                            </div>
+                                                        ):(
+                                                            <div className="card-col relative overflow-fidden w-40 h-28 " 
+                                                                style={{
+                                                                    backgroundImage: `url(/ImageTemplate.png)`,
+                                                                    backgroundPosition: 'left center',
+                                                                    backgroundSize: 'cover',
+                                                                    backgroundRepeat: 'no-repeat'
+                                                                }}>
+                                                                <div className="line h-full w-5 absolute bg-gradient-to-l from-[#E4D7C1] bottom-0 right-0 ">
+                                                                </div>
+                                                            </div>
+                                                        )
+                                                    }
+                                                    <div className="card-col grow p-5">
+                                                        <p className="text-xl font-bold">{bookmarks.plan.name}</p>
+                                                        <p className="">Budget : {bookmarks.plan.budget}</p>
+                                                    </div>
+                                                    
+                                                    {
+                                                        bookmarks.plan.status === 'draft' && (
+                                                            <span className="absolute">
 
-                                ))}
-
+                                                            </span>
+                                                        )
+                                                    }
+                                                </div>
+                                            </Link>
+                                            <div className='text-end'>
+                                                <button className="p-1 rounded-md bg-[#C1323B] text-white" onClick={() => onDelete(bookmarks.id)}>
+                                                        Delete Bookmark
+                                                </button>
+                                            </div>
+                                        </div>
+                                    )
+                                })}
+                                
                             </div>
+                            
                         ):(
-                            <p className="text-center">ไม่พบข้อมูลแพลนของคุณ</p>
+                            <p className="text-center">ไม่พบข้อมูลบุ๊คมาร์คของคุณ</p>
                         )
                     )
                 }

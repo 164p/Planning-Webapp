@@ -9,7 +9,12 @@ export async function GET(request: Request){
     try {
         const bookmarkData = await prisma.bookmark.findMany(
             {
-                where: { ownerId: session.user.id }
+                where: { ownerId: session.user.id },
+                select:{
+                    id:true,
+                    plan:true,
+                    
+                }
             }
         )
 
@@ -25,7 +30,7 @@ export async function GET(request: Request){
         console.log(error)
         return new Response( JSON.stringify({
             statusCode: 500,
-            message: 'เกิดข้อผิดพลาด โปรดลองใหม่อีกครั้ง'
+            message: error
         }) , {
             status: 500
         })

@@ -3,10 +3,10 @@ import DashboardSearch from "@/app/components/DashboardSearch";
 import Pagenavi from "@/app/components/Pagenavi";
 import { planStatus } from "@prisma/client";
 import Link from "next/link";
-import { FormEvent } from "react";
+import { FormEvent, useState } from "react";
 import Swal from "sweetalert2";
 import useSWR, { mutate } from "swr";
-
+import { MdSearch } from "react-icons/md";
 const fetcher = (url: string) => fetch(url).then((r) => r.json());
 
 export default function Page(){
@@ -40,6 +40,23 @@ export default function Page(){
     
         return filteredData;
       };
+
+      const [query, setQuery] = useState('')
+      const handleChange = (e: any) => {
+        setQuery(e.target.value);
+      };
+
+      
+
+      const filterData = 
+      query === ''
+      ? data?.data
+      : data?.data.filter(
+        (place:any) =>
+          place.username.toLowerCase().includes(query.toLowerCase()),
+
+        );
+        
 
     async function onDelete(event:any) {
         event.preventDefault;
@@ -85,8 +102,10 @@ export default function Page(){
         }
         await mutate("/api/admin/user");
     }
+
     const dataForThisWeek = filterDataForCurrentWeek();
-    console.log(data)
+    
+
     return(
         <div className="p-10 mt-16 ml-80">
             <div>
@@ -100,7 +119,7 @@ export default function Page(){
                     <p className="text-3xl my-1">{data?.data.length}</p>
                     <span className="text-xs">
                         <span className="text-lime-700">{dataForThisWeek?.length}</span>{" "}
-                        more than previous week
+                        More than previous week
                     </span>
                 </div>
             </div>
@@ -108,7 +127,15 @@ export default function Page(){
             <div className="bg-[#D3BD9A] p-5 rounded-xl  text-black">
                 <p className="text-2xl mb-5  font-bold">All Users</p>
                 <div className="mb-5">
-                    <DashboardSearch placeholder="Search for a name" />
+                    <div className="flex items-center gap-1 rounded-xl p-1 bg-gray-300 w-max">
+                        <MdSearch/>
+                        <input 
+                            type="search" 
+                            placeholder='Search for username' 
+                            className=" bg-transparent outline-none"
+                            onChange={handleChange}
+                        />
+                    </div>
                 </div>
 
                 <div>
@@ -119,21 +146,21 @@ export default function Page(){
                     ) : (
                         data?.data && data?.data.length > 0 ? (
                             <div>
-                                <div className="flex text-xl">
+                                <div className="grid grid-cols-3 text-xl">
                                     <p className="w-2/5">Name</p>
                                     <p className="w-3/5">Email</p>
                                 </div>
-                                {data?.data.map((userData: userData,index:any) => {
+                                {filterData?.map((userData: userData,index:any) => {
                                     return(
                                         <div key={index} className="m-2">
-                                            <div className="flex justify-between">
-                                                <div className="w-2/5">
+                                            <div className="grid grid-cols-3">
+                                                <div className="">
                                                     <p>{userData.username}</p>
                                                 </div>
-                                                <div className="w-2/5">
+                                                <div className="">
                                                     <p>{userData.email}</p>
                                                 </div>
-                                                <div>
+                                                <div className="text-right">
                                                     <button className="p-1 rounded-md mr-2 bg-[#35C132] text-white">
                                                         View
                                                     </button>
