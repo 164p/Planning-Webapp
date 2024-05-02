@@ -105,4 +105,5 @@ model bookmark {
   ownerId String @db.ObjectId
   plan    plan   @relation(fields: [planId], references: [id])
   planId  String @db.ObjectId
+  @@unique([ownerId, planId])
 }

@@ -109,6 +109,8 @@ export default function Home({ params }: { params: { id: string } }) {
     }
   }
 
+  console.log('data')
+  console.log(data?.data.planData.id)
   return (
     <div className="flex flex-col min-h-screen mx-5">
       <div className="bg-[#D3BD9A] w-full h-24 mt-20 text-white rounded-2xl">
@@ -137,7 +139,7 @@ export default function Home({ params }: { params: { id: string } }) {
               </div>
             </div>
             <div
-              onClick={() => onBookmark(data?.data.id)}
+              onClick={() => onBookmark(data?.data.planData.id)}
               className="flex justify-center"
             >
               <svg
