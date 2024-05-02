@@ -1,15 +1,21 @@
 "use client";
-
-import useSWR from "swr";
-import Image from "next/image";
+import PlaceDetail from "@/app/components/PlaceDetail";
+import Comment from "@/app/components/Comment";
+import React, { useState, useEffect, FormEvent } from "react";
+import Page from "@/app/(user)/plan/[id]/page";
 import Link from "next/link";
-import React, { useState, useEffect } from "react";
+import useSWR from "swr";
 import ViewPlaceDetail from "@/app/components/Plan/ViewPlaceDetail";
+import Swal from "sweetalert2";
 
 const fetcher = (url: any) => fetch(url).then((res) => res.json());
-
-export default function page({ params }: { params: { id: string } }) {
+export default function Home({ params }: { params: { id: string } }) {
   const { data, error, isLoading } = useSWR(`/api/plan/${params.id}`, fetcher);
+  const {
+    data: dataBookmark,
+    error: errorBookmark,
+    isLoading: isLoadingBookmark,
+  } = useSWR(`/api/explore/bookmark/${params.id}`, fetcher);
 
   const FormDataInputs = {
     name: "",
@@ -68,8 +74,94 @@ export default function page({ params }: { params: { id: string } }) {
     }
   }, [data]);
 
+  async function onBookmark(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault;
+    try {
+      const response = await fetch("/api/profile/addBookmark", {
+        method: "POST",
+        body: JSON.stringify(event),
+      });
+      if (response.ok) {
+        Swal.fire({
+          icon: "success",
+          title: "บุ๊คมาร์คสำเร็จ",
+          confirmButtonText: "ปิด",
+          timer: 1000,
+          timerProgressBar: true,
+        });
+      } else {
+        const responseData = await response.json();
+
+        Swal.fire({
+          icon: "error",
+          title: "บุ๊คมาร์คไม่สำเร็จ",
+          text: responseData.message,
+          confirmButtonText: "ปิด",
+        });
+      }
+    } catch (error) {
+      Swal.fire({
+        icon: "error",
+        title: "บุ๊คมาร์คไม่สำเร็จ",
+        text: "เกิดข้อผิดพลาด โปรดลองใหม่อีกครั้งในภายหลัง",
+        confirmButtonText: "ปิด",
+      });
+    }
+  }
+
   return (
-    <div className="container py-28">
+    <div className="flex flex-col min-h-screen mx-5">
+      <div className="bg-[#D3BD9A] w-full h-24 mt-20 text-white rounded-2xl">
+        <div className="m-5">
+          <div className="flex justify-between align-center items-center">
+            <Link
+              href={`/explore/trip`}
+              className="flex text-[#674F04] duration-100 w-fit items-center"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="mr-1.5"
+                width="1.5em"
+                height="1.5em"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  fill="currentColor"
+                  d="m7.85 13l2.85 2.85q.3.3.288.7t-.288.7q-.3.3-.712.313t-.713-.288L4.7 12.7q-.3-.3-.3-.7t.3-.7l4.575-4.575q.3-.3.713-.287t.712.312q.275.3.288.7t-.288.7L7.85 11H19q.425 0 .713.288T20 12q0 .425-.288.713T19 13z"
+                ></path>
+              </svg>
+            </Link>
+            <div className="flex-col text-center">
+              <div className="text-[#674F04] font-bold md:text-4xl text-2xl">
+                {data?.data.name}
+              </div>
+            </div>
+            <div
+              onClick={() => onBookmark(data?.data.id)}
+              className="flex justify-center"
+            >
+              <svg
+                width="24px"
+                height="24px"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  fill-rule="evenodd"
+                  clip-rule="evenodd"
+                  d="M7 3H17C18.1 3 19 3.9 19 5V21L12 18L5 21V5C5 3.9 5.9 3 7 3ZM12 15.82L17 18V5H7V18L12 15.82Z"
+                  fill="#674F04"
+                />
+              </svg>
+              <div className="pl-2 text-[#674F04] font-bold">
+                {dataBookmark?.data.length}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div className="container py-28">
       <div className="header-section mb-8">
         <h1 className="text-center font-bold text-2xl">Plan Details</h1>
         {isLoading ? (
@@ -116,34 +208,17 @@ export default function page({ params }: { params: { id: string } }) {
               <div className="card-header relative">
                 {!isLoading && data?.data.planData.images && (
                   <>
-                    <Image
+                    <img
                       src={data?.data.planData.images}
                       alt="Preview Images"
                       width={0}
                       height={0}
                       sizes="120vw"
-                      priority={true}
                       style={{ width: "100%", height: "auto" }}
                       className=""
                     />
                   </>
                 )}
-                <Link
-                  href={`/plan/edit/${params.id}`}
-                  className="absolute top-3 right-3 bg-[#674F04] rounded-full p-2 text-white"
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="1.5em"
-                    height="1.5em"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      fill="currentColor"
-                      d="M5 19h1.4l8.625-8.625l-1.4-1.4L5 17.6V19ZM19.3 8.925l-4.25-4.2l1.4-1.4q.575-.575 1.413-.575t1.412.575l1.4 1.4q.575.575.6 1.388t-.55 1.387L19.3 8.925ZM4 21q-.425 0-.713-.288T3 20v-2.825q0-.2.075-.388t.225-.337l10.3-10.3l4.25 4.25l-10.3 10.3q-.15.15-.337.225T6.825 21H4ZM14.325 9.675l-.7-.7l1.4 1.4l-.7-.7Z"
-                    ></path>
-                  </svg>
-                </Link>
               </div>
               <div className="card-body p-5">
                 {isLoading ? (
@@ -324,6 +399,25 @@ export default function page({ params }: { params: { id: string } }) {
           </div>
         </div>
       </div>
+    </div>
+      {/* <div className="flex-none max-w-6xl mx-auto w-full mb-10">
+       
+          <div className="flex justify-between px-10">
+            <div className="flex justify-center items-center ">
+              <div className="bg-[#9B8651] rounded-full w-20 h-20">
+                <img
+                  src={data?.data.owner.profileimage}
+                  alt=""
+                  className="bg-[#9B8651] rounded-full w-20 h-20"
+                />
+              </div>
+              <div className="text-[#674F04] font-bold text-2xl ml-5">
+                {data?.data.owner.username}
+              </div>
+            </div>
+        
+        </div>
+      </div> */}
     </div>
   );
 }
