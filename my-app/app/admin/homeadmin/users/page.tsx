@@ -34,17 +34,17 @@ export default function Page(){
         );
     
         const filteredData = data?.data.filter((item: any) => {
-          const itemDate = new Date(item.createdAt);
-          return itemDate >= startOfWeek && itemDate <= endOfWeek;
+            const itemDate = new Date(item.createdAt);
+            return itemDate >= startOfWeek && itemDate <= endOfWeek;
         });
     
         return filteredData;
-      };
+    };
 
-      const [query, setQuery] = useState('')
-      const handleChange = (e: any) => {
+    const [query, setQuery] = useState('')
+    const handleChange = (e: any) => {
         setQuery(e.target.value);
-      };
+    };
 
       
 

@@ -3,15 +3,16 @@ import { getServerSession } from "next-auth/next"
 import authOptions from "@/app/lib/AuthProvider"
 
 export async function GET(request: Request) {
+    
     try {
         const userData = await prisma.user.findMany({
             select:{
-                id:true,
-                username:true,
-                email:true,
-                createdAt:true
+                id: true,
+                username: true,
+                email: true,
+                createdAt: true
             }
-    })
+        })
 
         return new Response(JSON.stringify({
             statusCode:200,
