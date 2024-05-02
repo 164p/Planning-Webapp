@@ -74,6 +74,7 @@ export default function Home({ params }: { params: { id: string } }) {
     }
   }, [data]);
 
+
   async function onBookmark(event: FormEvent<HTMLFormElement>) {
     event.preventDefault;
     try {
@@ -133,8 +134,9 @@ export default function Home({ params }: { params: { id: string } }) {
             </Link>
             <div className="flex-col text-center">
               <div className="text-[#674F04] font-bold md:text-4xl text-2xl">
-                {data?.data.name}
+                {data?.data.planData.name}
               </div>
+              {`Created by: ${data?.data.planData.owner.username}`}
             </div>
             <div
               onClick={() => onBookmark(data?.data.id)}

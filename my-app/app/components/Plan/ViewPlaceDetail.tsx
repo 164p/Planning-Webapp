@@ -37,59 +37,6 @@ export default function EditPlaceDetail(props: any){
         </ActionIcon>
     );
 
-    async function searchPlace(e: any){
-        setSearcPlace(e.target.value)
-
-        const resAutocomplete = await fetch(
-            `/api/autocomplete/detail?query=${encodeURIComponent(e.target.value as string)}`
-        );
-        if (resAutocomplete.ok) {
-            const resData: resDataType = await resAutocomplete.json();
-            setDatas(resData.data?.predictions);
-        }
-    }
-
-    const renderFile = (file: string) => {
-
-    }
-    
-    async function addPlace(placeData: any) {
-
-        setShowCard(false)
-        setSearcPlace('')
-
-        if(placeData && props.planId && ref.current?.value){
-
-            const targetDate = new Date(props.date)
-            const time = ref.current?.value
-            const spritTime = time.split(":")
-
-            targetDate.setHours(Number(spritTime[0]), Number(spritTime[1]))
-
-            const json = {
-                placeData: placeData,
-                planId: props.planId,
-                time: targetDate
-            }
-
-            const response = await fetch(`/api/place/add`, {
-                method: 'POST',
-                body: JSON.stringify(json)
-            })
-
-            if(response.ok){
-                mutate(`/api/place/${props.planId}?date=${encodeURIComponent((props.date || '') as string)}`)
-            }else{
-                const resp = await response.json()
-                await Swal.fire({
-                    title: 'Save failed',
-                    text: resp.message,
-                    icon: 'error',
-                }) 
-            }
-        }
-    }
-
     if(!props.date || !props.planId){
         return (
             <>
@@ -112,6 +59,8 @@ export default function EditPlaceDetail(props: any){
         (photo:any) =>
         `https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${photo.images}&key=AIzaSyD9YrY4EzXon6_8L-AdvEhYcV2uh_GdFxs`
         )
+
+    const googlemapsearch = data?.data.map((e:any) => `https://www.google.com/maps/search/?api=1&query=${e.name}`)
 
     return (
         <>
@@ -150,11 +99,13 @@ export default function EditPlaceDetail(props: any){
                                             </div>
                                         )
                                     }
-                                    
+                                    <a href={googlemapsearch[index]} target="_blank">
                                     <div className='card-body p-5'>
                                         <p className='font-bold'>{placeData.name}</p>
                                         <p className='text-sm'>{placeData.detail}</p>
                                     </div>
+                                    </a>
+                                    
                                     
                                 </div>
                             </div>
@@ -166,9 +117,7 @@ export default function EditPlaceDetail(props: any){
                         <div className='line bg-[#674F04] w-0.5 h-full absolute right-5 top-0'>
                         </div>
                     </div>
-                    
                 </div>
-                
             </div>
             
         </>
