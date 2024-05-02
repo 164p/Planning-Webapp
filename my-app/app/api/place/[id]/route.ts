@@ -50,13 +50,10 @@ export async function GET(
         const placeData = await prisma.place.findMany({
             where: {
                 planId: planId,
-                date: {
+                time: {
                     gte: new Date(`${selectedYear}-${selectedMonth+1}-${selectedDay} 00:00:00`),
                     lte: new Date(`${selectedYear}-${selectedMonth+1}-${selectedDay} 23:59:59`)
                 }
-            },
-            include: {
-                subPlace: true
             },
             orderBy: {
                 time: 'asc'
@@ -74,7 +71,7 @@ export async function GET(
         console.log(error)
         return new Response( JSON.stringify({
             statusCode: 500,
-            message: 'Unknown error occurred.'
+            message: error
         }) , {
             status: 500
         })
