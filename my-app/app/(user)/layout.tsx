@@ -9,13 +9,13 @@ export default async function UserLayout({
     return (
         <div className='flex flex-col min-h-screen'>
             <div className='flex-none z-50'>
-                <Navbar />
+                {/* <Navbar /> */}
             </div>
             <div className='main grow bg-first-color text-[#674F04] z-20 relative'>
                 {children}
             </div>
             <div className='flex-none'>
-                <Footer />
+                {/* <Footer /> */}
             </div>
         </div>
     )

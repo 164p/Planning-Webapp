@@ -148,7 +148,7 @@ export default function EditPlaceDetail(props: any){
     
     const photoUrls = data?.data.map(
         (photo:any) =>
-        `https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${photo.images}&key=AIzaSyD9YrY4EzXon6_8L-AdvEhYcV2uh_GdFxs`
+        `https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${photo.images}&key=AIzaSyB5kjqj-I8H1VN5FsJXRBco_84TGWSLspM`
         )
 
     return (
