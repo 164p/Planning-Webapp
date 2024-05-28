@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import React, { useState, useEffect } from "react";
 import ViewPlaceDetail from "@/app/components/Plan/ViewPlaceDetail";
+import Map from "@/app/components/Map/Map"
 
 const fetcher = (url: any) => fetch(url).then((res) => res.json());
 
@@ -71,7 +72,25 @@ export default function page({ params }: { params: { id: string } }) {
   return (
     <div className="container py-28">
       <div className="header-section mb-8">
-        <h1 className="text-center font-bold text-2xl">Plan Details</h1>
+        <h1 className="text-center font-bold text-2xl">Plan Details  
+        <Link
+                  href={`/plan/edit/${params.id}`}
+                  className="absolute bg-[#674F04] rounded-full p-1 text-white ml-2"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="1em"
+                    height="1em"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      fill="currentColor"
+                      d="M5 19h1.4l8.625-8.625l-1.4-1.4L5 17.6V19ZM19.3 8.925l-4.25-4.2l1.4-1.4q.575-.575 1.413-.575t1.412.575l1.4 1.4q.575.575.6 1.388t-.55 1.387L19.3 8.925ZM4 21q-.425 0-.713-.288T3 20v-2.825q0-.2.075-.388t.225-.337l10.3-10.3l4.25 4.25l-10.3 10.3q-.15.15-.337.225T6.825 21H4ZM14.325 9.675l-.7-.7l1.4 1.4l-.7-.7Z"
+                    ></path>
+                  </svg>
+                </Link>
+                </h1>
+        
         {isLoading ? (
           <div className="bg-gray-400 px-16 py-4 mx-auto mt-1 rounded-md  max-w-40 animate-pulse"></div>
         ) : (
@@ -90,7 +109,7 @@ export default function page({ params }: { params: { id: string } }) {
         )}
       </div>
       <div className="section">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div className="col">
             <div className="col-section mb-3">
               <Link
@@ -111,7 +130,9 @@ export default function page({ params }: { params: { id: string } }) {
                 </svg>
                 View all plan
               </Link>
+              <Map/>
             </div>
+           
             <div className="card rounded-md bg-[#E4D7C1] overflow-hidden">
               <div className="card-header relative">
                 {!isLoading && data?.data.planData.images && (
@@ -128,22 +149,7 @@ export default function page({ params }: { params: { id: string } }) {
                     />
                   </>
                 )}
-                <Link
-                  href={`/plan/edit/${params.id}`}
-                  className="absolute top-3 right-3 bg-[#674F04] rounded-full p-2 text-white"
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="1.5em"
-                    height="1.5em"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      fill="currentColor"
-                      d="M5 19h1.4l8.625-8.625l-1.4-1.4L5 17.6V19ZM19.3 8.925l-4.25-4.2l1.4-1.4q.575-.575 1.413-.575t1.412.575l1.4 1.4q.575.575.6 1.388t-.55 1.387L19.3 8.925ZM4 21q-.425 0-.713-.288T3 20v-2.825q0-.2.075-.388t.225-.337l10.3-10.3l4.25 4.25l-10.3 10.3q-.15.15-.337.225T6.825 21H4ZM14.325 9.675l-.7-.7l1.4 1.4l-.7-.7Z"
-                    ></path>
-                  </svg>
-                </Link>
+                
               </div>
               <div className="card-body p-5">
                 {isLoading ? (
@@ -205,7 +211,7 @@ export default function page({ params }: { params: { id: string } }) {
               </div>
             </div>
           </div>
-          <div className="col md:col-span-2">
+          <div className="col">
             <div className="card rounded-md bg-[#674F04] p-3 text-slate-100 flex mb-5">
               <div className="col">
                 {indexPage > 0 ? (

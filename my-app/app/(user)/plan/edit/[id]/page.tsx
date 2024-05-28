@@ -10,6 +10,7 @@ import Swal from 'sweetalert2'
 import { uploadImages } from '@/app/lib/uploadImages';
 import EditPlaceDetail from '@/app/components/Plan/EditPlaceDetail';
 import { mutate } from "swr"
+import Map from "@/app/components/Map/Map"
 
 const fetcher = (url: any) => fetch(url).then(res => res.json())
 
@@ -225,13 +226,14 @@ export default function Page({ params }: { params: { id: string } }) {
                 }
             </div>
             <div className='section'>
-                <div className='grid grid-cols-1 md:grid-cols-3 gap-4'>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div className='col'>
                         <div className='col-section mb-3'>
                             <Link href={`/plan/${params.id}`} className='flex hover:text-[#9B8651] duration-100 w-fit items-center'>
                                 <svg xmlns="http://www.w3.org/2000/svg" className='mr-1.5' width="1.5em" height="1.5em" viewBox="0 0 24 24"><path fill="currentColor" d="m7.85 13l2.85 2.85q.3.3.288.7t-.288.7q-.3.3-.712.313t-.713-.288L4.7 12.7q-.3-.3-.3-.7t.3-.7l4.575-4.575q.3-.3.713-.287t.712.312q.275.3.288.7t-.288.7L7.85 11H19q.425 0 .713.288T20 12q0 .425-.288.713T19 13z"></path></svg>
                                 Return to your plan 
                             </Link>
+                            <Map/>
                         </div>
                         <div className='card rounded-md bg-[#E4D7C1] overflow-hidden'>
                             <div className='card-header'>
@@ -317,7 +319,7 @@ export default function Page({ params }: { params: { id: string } }) {
                             </div>
                         </div>
                     </div>
-                    <div className='col md:col-span-2'>
+                    <div className='col '>
                         <div className='card rounded-md bg-[#674F04] p-3 text-slate-100 flex mb-5'>
                             <div className='col'>
                                 {
