@@ -65,8 +65,8 @@ const { data, error, isLoading } = useSWR('/api/plan', fetcher)
                                                     )
                                                 }
                                                 <div className="card-col grow p-5">
-                                                    <p className="text-xl font-bold">Trip Name</p>
-                                                    <p className="">Budget: 10,000 THB</p>
+                                                <p className="text-xl font-bold">{planData.name}</p>
+                                                    <p className="">Budget: {planData.budget}</p>
                                                 </div>
                                                 {
                                                     planData.status === 'draft' && (
